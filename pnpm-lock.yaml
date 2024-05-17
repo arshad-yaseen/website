@@ -26,6 +26,9 @@ dependencies:
   geist:
     specifier: 1.2.2
     version: 1.2.2(next@14.2.0-canary.62)
+  highlight.js:
+    specifier: ^11.9.0
+    version: 11.9.0
   next:
     specifier: canary
     version: 14.2.0-canary.62(react-dom@18.2.0)(react@18.2.0)
@@ -41,9 +44,6 @@ dependencies:
   react-dom:
     specifier: 18.2.0
     version: 18.2.0(react@18.2.0)
-  sugar-high:
-    specifier: ^0.6.0
-    version: 0.6.0
   tailwindcss:
     specifier: 4.0.0-alpha.13
     version: 4.0.0-alpha.13
@@ -606,6 +606,11 @@ packages:
 
   /hast-util-whitespace@2.0.1:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
+    dev: false
+
+  /highlight.js@11.9.0:
+    resolution: {integrity: sha512-fJ7cW7fQGCYAkgv4CPfwFHrfd/cLS4Hau96JuJ+ZTOWhjnhoeN1ub1tFmALm/+lW5z4WCAuAV9bm05AP0mS6Gw==}
+    engines: {node: '>=12.0.0'}
     dev: false
 
   /inline-style-parser@0.1.1:
@@ -1436,10 +1441,6 @@ packages:
     dependencies:
       client-only: 0.0.1
       react: 18.2.0
-    dev: false
-
-  /sugar-high@0.6.0:
-    resolution: {integrity: sha512-SBE1FI2NTVgLDo9E9yLO2rBT56HZAi3ONGeoTqJsHIN9cEAATrrKjZfIrSc5H5AoZ/mQd8OI7j27rvVXT9IxoA==}
     dev: false
 
   /supports-preserve-symlinks-flag@1.0.0:

@@ -1,0 +1,311 @@
+---
+title: PDF Text Extraction with OCR in Next.js 13
+summary: This guide explains how to use Optical Character Recognition (OCR) to extract text from PDF files in a Next.js 13.
+publishedAt: 2023-09-18
+---
+
+In this comprehensive tutorial, we will guide you through the process of extracting text from a PDF using Optical Character Recognition (OCR) in a Next.js 13 application. We'll utilize PDF.js for rendering PDF pages and AWS Textract for OCR.
+
+[Demo](https://next-ocr.vercel.app/).
+
+## Setting up the Next.js 13 app
+
+Let's start by creating a new Next.js 13 app using the following command:
+
+```bash
+npx create-next-app@latest next-ocr
+cd next-ocr
+```
+
+Next, install the required packages:
+
+```bash
+npm install @aws-sdk/client-textract pdfjs-dist
+```
+
+And you need to add something to next.config.js. otherwise, you will get
+Error: Cannot find module '../build/Release/canvas.node'
+
+```jsx
+/** @type {import('next').NextConfig} */
+const nextConfig = {
+  webpack: (config, {}) => {
+    config.resolve.alias.canvas = false;
+    return config;
+  },
+};
+
+module.exports = nextConfig;
+```
+
+## Setting up PDF.js for PDF Rendering
+
+We'll use PDF.js, a powerful JavaScript library for rendering PDFs in the browser.
+
+Create a file lib/pdf-to-img.ts and add the following code to set up PDF.js and define functions to load the PDF and render each page as an image.
+
+```jsx lineNumbers
+// @ts-ignore
+import * as pdfjsLib from "pdfjs-dist/build/pdf";
+import { PDFPageProxy } from "pdfjs-dist/types/src/display/api";
+pdfjsLib.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjsLib.version}/pdf.worker.min.js`;
+
+const loadPdf = async (file: File): Promise<PDFPageProxy[]> => {
+  const uri = URL.createObjectURL(file);
+  const pdf = await pdfjsLib.getDocument({ url: uri }).promise;
+
+  const pages: PDFPageProxy[] = [];
+  for (let i = 1; i <= pdf.numPages; i++) {
+    const page = await pdf.getPage(i);
+    pages.push(page);
+  }
+  return pages;
+};
+
+const renderPageToImage = async (
+  page: PDFPageProxy,
+  scale: number = 3
+): Promise<string> => {
+  // Rendering logic explained later
+};
+
+export const pdfToImg = async (file: File): Promise<string[]> => {
+  try {
+    const pages = await loadPdf(file);
+    const images: string[] = [];
+
+    for (const page of pages) {
+      const image = await renderPageToImage(page);
+      images.push(image);
+    }
+
+    return images;
+  } catch (error) {
+    console.error("PDF error:", error);
+    return [];
+  }
+};
+```
+
+In the above code, we first set the pdfjsLib.GlobalWorkerOptions.workerSrc to the URL of the PDF.js worker script. This is required for PDF.js to work properly.
+
+## Rendering PDF Pages as Images
+
+We'll now implement therenderPageToImage function to render PDF pages to images. We'll use the HTML5 Canvas API to render the PDF page to a canvas and then convert the canvas to a data URL.
+
+```jsx
+// pdf-to-img.ts
+const renderPageToImage = async (
+  page: pdfjsLib.PDFPageProxy,
+  scale: number = 3
+): Promise<string> => {
+  const viewport = page.getViewport({ scale });
+  const canvas = document.createElement("canvas");
+  const context = canvas.getContext("2d");
+
+  if (!canvas || !context) {
+    throw new Error("Canvas or context is null.");
+  }
+
+  const pixelRatio = window.devicePixelRatio || 1;
+  canvas.width = viewport.width * pixelRatio;
+  canvas.height = viewport.height * pixelRatio;
+  context.scale(pixelRatio, pixelRatio);
+
+  context.imageSmoothingEnabled = true;
+  context.imageSmoothingQuality = "high";
+
+  const renderContext = {
+    canvasContext: context,
+    viewport: viewport,
+    enableWebGL: false,
+  };
+
+  const renderTask = page.render(renderContext);
+
+  await renderTask.promise;
+
+  return canvas.toDataURL();
+};
+```
+
+In the above code, we first create a canvas and a context. Then we set the canvas width and height to the viewport width and height. We also set the canvas scale to the device pixel ratio. This ensures that the canvas is rendered at the correct size on high-resolution displays.
+
+## Implementing OCR using AWS Textract
+
+Let's create a instance of the Textract client and export it from lib/textract.ts.
+
+```jsx
+import { TextractClient } from "@aws-sdk/client-textract";
+
+export const textract = new TextractClient({
+  region: process.env.AWS_REGION || "us-east-1",
+  credentials: {
+    accessKeyId: process.env.AWS_ACCESS_KEY_ID!,
+    secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY!,
+  },
+});
+```
+
+You need to set the following environment variables in .env.local:
+
+```bash
+AWS_REGION=us-east-1
+AWS_ACCESS_KEY_ID=your-access-key-id
+AWS_SECRET_ACCESS_KEY=your-secret-access-key
+```
+
+Then create a api route app/api/textract/route.tsx and add the following code to implement OCR using AWS Textract.
+
+```jsx
+import { textract } from "@/lib/textract";
+import { DetectDocumentTextCommand } from "@aws-sdk/client-textract";
+import { NextResponse } from "next/server";
+
+export async function POST(req: Request) {
+  const { dataUrl } = await req.json();
+
+  // Convert dataUrl to byte Uint8Array base 64
+  const blob = Buffer.from(dataUrl.split(",")[1], "base64");
+
+  const params = {
+    Document: {
+      Bytes: blob,
+    },
+    FeatureTypes: ["TABLES", "FORMS"],
+  };
+
+  try {
+    const data = await textract.send(new DetectDocumentTextCommand(params));
+    return NextResponse.json(data, { status: 200 });
+  } catch (error) {
+    console.error("Error calling Textract:", error);
+    return NextResponse.json(
+      { error: "Failed to process the document" },
+      { status: 500 }
+    );
+  }
+}
+```
+
+In the above code, we first convert the data URL to a byte Uint8Array base 64. Then we call the DetectDocumentTextCommand to perform OCR on the image.
+
+We'll now implement the ocr function to extract text from an image using that Textract API.
+
+```jsx
+// app/page.tsx
+"use client";
+
+import { pdfToImg } from "@/lib/pdf-to-img";
+
+const Home = () => {
+  // Handle extraction of text from the uploaded PDF.
+  const handleExtractPdf = async (file: File) => {
+    if (!file) return;
+    try {
+      // Convert each PDF page to image for OCR.
+      const images = await pdfToImg(file);
+      const totalPages = images.length; // Total number of pages in the PDF.
+      const pages = [];
+      for (let i = 0; i < images.length; i++) {
+        const image = images[i];
+        const text = await runOCR(image); // runOCR function explained later
+        const textArray = text?.map((item: { Text: string }) => item.Text);
+        pages.push(textArray?.join(" "));
+      }
+      return pages;
+    } catch (error) {
+      console.error("Error extracting PDF:", error);
+    }
+  };
+};
+
+// Other codes explained later
+
+export default Home;
+```
+
+In the above code, we first convert each PDF page to an image using the pdfToImg function. Then we run OCR on each image using the runOCR function. Finally, we join the text from each page and return it.
+
+## runOCR function
+
+```jsx
+const runOCR = async (imageUrl: string) => {
+  try {
+    // Call to API endpoint to perform OCR.
+    const response = await fetch("/api/textract", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ dataUrl: imageUrl }),
+    });
+
+    const data = await response.json();
+    return data?.Blocks.filter(
+      (item: { BlockType: string }) => item.BlockType === "LINE"
+    );
+  } catch (error) {
+    console.log("err", error);
+  }
+};
+```
+
+In the above code, we first make a POST request to the /api/textract endpoint with the image URL. Then we filter the response to get only the text blocks.
+
+## Finally, Trigger PDF Extraction on User Input
+
+```jsx
+// app/page.tsx
+"use client"
+
+import { pdfToImg } from "@/lib/pdf-to-img";
+
+const Home = () => {
+
+  // handleExtractPdf function explained earlier
+
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+    if (!files) return;
+    const file = files[0];
+    setStatus(Status.UPLOADING);
+    const pdfContent = await handleExtractPdf(file);
+    const formattedPdfContent = pdfContent?.map(
+      (item: string, index: number) => `Page ${index + 1}:\n${item}\n\n`
+    );
+    setTimeout(() => {
+      setStatus(Status.SUCCESS);
+      setPdfContent(formattedPdfContent!);
+    }, 1000);
+  };
+
+  return (
+    <div>
+      <input type="file" accept=".pdf" onChange={handleFileChange} />
+    </div>
+  );
+};
+
+export default Home;
+```
+
+We first create a handleFileChange function to handle the file input change event. Then we call the handleExtractPdf function to extract text from the uploaded PDF. Finally, we set the extracted text to the pdfContent state variable.
+The formattedPdfContent is an array of strings, where each string contains the text from a single page of the PDF.
+
+In this final step, we create a file input element to allow users to upload a PDF file and trigger the PDF extraction process.
+
+## Conclusion
+
+In this tutorial, we learned how to extract text from a PDF using Optical Character Recognition (OCR) in a Next.js 13 application. We used PDF.js for rendering PDF pages and AWS Textract for OCR.
+
+## Resources
+
+- [AWS Textract](https://docs.aws.amazon.com/textract/latest/dg/what-is.html) - The OCR service from AWS.
+- [PDF.js](https://mozilla.github.io/pdf.js/) - A JavaScript library that renders PDF files using the HTML5 Canvas API.
+
+## Source Code
+
+The complete source code for this tutorial is available on [GitHub](https://github.com/arshad-yaseen/next-ocr)
