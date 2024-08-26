@@ -6,7 +6,6 @@ import { useEffect, useState } from "react";
 import { createHighlighter } from "shiki";
 import { shikiToMonaco } from "@shikijs/monaco";
 import Link from "next/link";
-import { GithubIcon } from "lucide-react";
 
 const Monacopilot = () => {
   const [editor, setEditor] = useState<StandaloneCodeEditor | null>(null);
