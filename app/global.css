@@ -126,3 +126,8 @@ table {
 .title {
   text-wrap: balance;
 }
+
+.monaco-editor .line-numbers,
+.margin-view-overlays {
+  width: 30px !important;
+}
