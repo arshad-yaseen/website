@@ -1,106 +1,86 @@
-/**
- * B = Backgrounds (layers)
- * E = Edges (borders, separators, focus rings)
- * S = Solids (strong surfaces, filled elements)
- * T = Text (foreground)
- *
- * B1 — App background
- * B2 — Subtle background
- * B3 — UI element background
- * B4 — Hovered UI element background
- * B5 — Active/Selected UI element background
- * E1 — Subtle borders and separators
- * E2 — UI element border and focus rings
- * E3 — Hovered UI element border
- * S1 — Solid backgrounds
- * S2 — Hovered solid backgrounds
- * T1 — Low-contrast text
- * T2 — High-contrast text
- */
-
 @theme inline {
-  --color-background: var(--neutral-1);
-  --color-foreground: var(--neutral-12);
+  --color-background: var(--neutral-100);
+  --color-foreground: var(--neutral-1200);
 
-  --color-neutral-b1: var(--neutral-1);
-  --color-neutral-b2: var(--neutral-2);
-  --color-neutral-b3: var(--neutral-3);
-  --color-neutral-b4: var(--neutral-4);
-  --color-neutral-b5: var(--neutral-5);
-  --color-neutral-e1: var(--neutral-6);
-  --color-neutral-e2: var(--neutral-7);
-  --color-neutral-e3: var(--neutral-8);
-  --color-neutral-s1: var(--neutral-9);
-  --color-neutral-s2: var(--neutral-10);
-  --color-neutral-t1: var(--neutral-11);
-  --color-neutral-t2: var(--neutral-12);
+  --color-neutral-100: var(--neutral-100);
+  --color-neutral-200: var(--neutral-200);
+  --color-neutral-300: var(--neutral-300);
+  --color-neutral-400: var(--neutral-400);
+  --color-neutral-500: var(--neutral-500);
+  --color-neutral-600: var(--neutral-600);
+  --color-neutral-700: var(--neutral-700);
+  --color-neutral-800: var(--neutral-800);
+  --color-neutral-900: var(--neutral-900);
+  --color-neutral-1000: var(--neutral-1000);
+  --color-neutral-1100: var(--neutral-1100);
+  --color-neutral-1200: var(--neutral-1200);
 
-  --color-accent-b1: var(--accent-1);
-  --color-accent-b2: var(--accent-2);
-  --color-accent-b3: var(--accent-3);
-  --color-accent-b4: var(--accent-4);
-  --color-accent-b5: var(--accent-5);
-  --color-accent-e1: var(--accent-6);
-  --color-accent-e2: var(--accent-7);
-  --color-accent-e3: var(--accent-8);
-  --color-accent-s1: var(--accent-9);
-  --color-accent-s2: var(--accent-10);
-  --color-accent-t1: var(--accent-11);
-  --color-accent-t2: var(--accent-12);
+  --color-accent-100: var(--accent-100);
+  --color-accent-200: var(--accent-200);
+  --color-accent-300: var(--accent-300);
+  --color-accent-400: var(--accent-400);
+  --color-accent-500: var(--accent-500);
+  --color-accent-600: var(--accent-600);
+  --color-accent-700: var(--accent-700);
+  --color-accent-800: var(--accent-800);
+  --color-accent-900: var(--accent-900);
+  --color-accent-1000: var(--accent-1000);
+  --color-accent-1100: var(--accent-1100);
+  --color-accent-1200: var(--accent-1200);
 }
 
 :root {
-  --neutral-1: hsl(240, 20%, 99%);
-  --neutral-2: hsl(240, 20%, 98%);
-  --neutral-3: hsl(240, 11%, 95%);
-  --neutral-4: hsl(240, 10%, 92%);
-  --neutral-5: hsl(230, 11%, 89%);
-  --neutral-6: hsl(240, 10%, 86%);
-  --neutral-7: hsl(233, 10%, 82%);
-  --neutral-8: hsl(231, 10%, 75%);
-  --neutral-9: hsl(231, 6%, 57%);
-  --neutral-10: hsl(226, 5%, 53%);
-  --neutral-11: hsl(220, 6%, 40%);
-  --neutral-12: hsl(210, 13%, 13%);
+  --neutral-100: hsl(240, 20%, 99%);
+  --neutral-200: hsl(240, 20%, 98%);
+  --neutral-300: hsl(240, 11%, 95%);
+  --neutral-400: hsl(240, 10%, 92%);
+  --neutral-500: hsl(230, 11%, 89%);
+  --neutral-600: hsl(240, 10%, 86%);
+  --neutral-700: hsl(233, 10%, 82%);
+  --neutral-800: hsl(231, 10%, 75%);
+  --neutral-900: hsl(231, 6%, 57%);
+  --neutral-1000: hsl(226, 5%, 53%);
+  --neutral-1100: hsl(220, 6%, 40%);
+  --neutral-1200: hsl(210, 13%, 13%);
 
-  --accent-1: hsl(210, 100%, 99%);
-  --accent-2: hsl(207, 100%, 98%);
-  --accent-3: hsl(205, 92%, 95%);
-  --accent-4: hsl(203, 100%, 92%);
-  --accent-5: hsl(206, 100%, 88%);
-  --accent-6: hsl(207, 93%, 83%);
-  --accent-7: hsl(207, 85%, 76%);
-  --accent-8: hsl(206, 82%, 65%);
-  --accent-9: hsl(206, 100%, 50%);
-  --accent-10: hsl(207, 96%, 48%);
-  --accent-11: hsl(208, 88%, 43%);
-  --accent-12: hsl(216, 71%, 23%);
+  --accent-100: hsl(210, 100%, 99%);
+  --accent-200: hsl(207, 100%, 98%);
+  --accent-300: hsl(205, 92%, 95%);
+  --accent-400: hsl(203, 100%, 92%);
+  --accent-500: hsl(206, 100%, 88%);
+  --accent-600: hsl(207, 93%, 83%);
+  --accent-700: hsl(207, 85%, 76%);
+  --accent-800: hsl(206, 82%, 65%);
+  --accent-900: hsl(206, 100%, 50%);
+  --accent-1000: hsl(207, 96%, 48%);
+  --accent-1100: hsl(208, 88%, 43%);
+  --accent-1200: hsl(216, 71%, 23%);
 }
 
 .dark {
-  --neutral-1: hsl(240, 6%, 7%);
-  --neutral-2: hsl(220, 6%, 10%);
-  --neutral-3: hsl(225, 6%, 14%);
-  --neutral-4: hsl(210, 7%, 16%);
-  --neutral-5: hsl(214, 7%, 19%);
-  --neutral-6: hsl(213, 8%, 23%);
-  --neutral-7: hsl(213, 8%, 28%);
-  --neutral-8: hsl(212, 8%, 38%);
-  --neutral-9: hsl(219, 6%, 44%);
-  --neutral-10: hsl(222, 5%, 49%);
-  --neutral-11: hsl(216, 7%, 71%);
-  --neutral-12: hsl(220, 9%, 94%);
+  --neutral-100: hsl(240, 6%, 7%);
+  --neutral-200: hsl(220, 6%, 10%);
+  --neutral-300: hsl(225, 6%, 14%);
+  --neutral-400: hsl(210, 7%, 16%);
+  --neutral-500: hsl(214, 7%, 19%);
+  --neutral-600: hsl(213, 8%, 23%);
+  --neutral-700: hsl(213, 8%, 28%);
+  --neutral-800: hsl(212, 8%, 38%);
+  --neutral-900: hsl(219, 6%, 44%);
+  --neutral-1000: hsl(222, 5%, 49%);
+  --neutral-1100: hsl(216, 7%, 71%);
+  --neutral-1200: hsl(220, 9%, 94%);
 
-  --accent-1: hsl(215, 42%, 9%);
-  --accent-2: hsl(218, 39%, 11%);
-  --accent-3: hsl(212, 69%, 16%);
-  --accent-4: hsl(209, 100%, 19%);
-  --accent-5: hsl(207, 100%, 23%);
-  --accent-6: hsl(209, 79%, 30%);
-  --accent-7: hsl(211, 66%, 37%);
-  --accent-8: hsl(211, 65%, 45%);
-  --accent-9: hsl(206, 100%, 50%);
-  --accent-10: hsl(210, 100%, 62%);
-  --accent-11: hsl(210, 100%, 72%);
-  --accent-12: hsl(205, 100%, 88%);
+  --accent-100: hsl(215, 42%, 9%);
+  --accent-200: hsl(218, 39%, 11%);
+  --accent-300: hsl(212, 69%, 16%);
+  --accent-400: hsl(209, 100%, 19%);
+  --accent-500: hsl(207, 100%, 23%);
+  --accent-600: hsl(209, 79%, 30%);
+  --accent-700: hsl(211, 66%, 37%);
+  --accent-800: hsl(211, 65%, 45%);
+  --accent-900: hsl(206, 100%, 50%);
+  --accent-1000: hsl(210, 100%, 62%);
+  --accent-1100: hsl(210, 100%, 72%);
+  --accent-1200: hsl(205, 100%, 88%);
 }
