@@ -1,8 +1,10 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
+import { Geist_Mono, Inter } from "next/font/google";
+import localFont from "next/font/local";
 import Providers from "@/components/providers/providers";
 
 import "@/styles/globals.css";
+
 import Layout from "@/components/layout/root-layout";
 
 const fontSans = Inter({
@@ -17,11 +19,26 @@ const fontMono = Geist_Mono({
   display: "swap",
 });
 
-const fontSerif = Libre_Baskerville({
+const fontSerif = localFont({
+  src: [
+    {
+      path: "../../public/Redaction-Regular.woff2",
+      weight: "400",
+      style: "normal",
+    },
+    {
+      path: "../../public/Redaction-Italic.woff2",
+      weight: "400",
+      style: "italic",
+    },
+    {
+      path: "../../public/Redaction-Bold.woff2",
+      weight: "700",
+      style: "normal",
+    },
+  ],
   variable: "--font-serif",
-  subsets: ["latin"],
   display: "swap",
-  weight: ["400", "700"],
 });
 
 export const metadata: Metadata = {

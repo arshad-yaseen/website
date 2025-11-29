@@ -30,18 +30,18 @@
 }
 
 :root {
-  --neutral-100: hsl(240, 20%, 99%);
-  --neutral-200: hsl(240, 20%, 98%);
-  --neutral-300: hsl(240, 11%, 95%);
-  --neutral-400: hsl(240, 10%, 92%);
-  --neutral-500: hsl(230, 11%, 89%);
-  --neutral-600: hsl(240, 10%, 86%);
-  --neutral-700: hsl(233, 10%, 82%);
-  --neutral-800: hsl(231, 10%, 75%);
-  --neutral-900: hsl(231, 6%, 57%);
-  --neutral-1000: hsl(226, 5%, 53%);
-  --neutral-1100: hsl(220, 6%, 40%);
-  --neutral-1200: hsl(210, 13%, 13%);
+  --neutral-100: hsl(120, 20%, 99%);
+  --neutral-200: hsl(120, 17%, 98%);
+  --neutral-300: hsl(120, 7%, 94%);
+  --neutral-400: hsl(120, 4%, 91%);
+  --neutral-500: hsl(120, 5%, 88%);
+  --neutral-600: hsl(120, 4%, 85%);
+  --neutral-700: hsl(120, 3%, 81%);
+  --neutral-800: hsl(105, 3%, 73%);
+  --neutral-900: hsl(103, 3%, 54%);
+  --neutral-1000: hsl(103, 3%, 50%);
+  --neutral-1100: hsl(110, 3%, 38%);
+  --neutral-1200: hsl(108, 8%, 12%);
 
   --accent-100: hsl(210, 100%, 99%);
   --accent-200: hsl(207, 100%, 98%);
@@ -58,18 +58,18 @@
 }
 
 .dark {
-  --neutral-100: hsl(240, 6%, 7%);
-  --neutral-200: hsl(220, 6%, 10%);
-  --neutral-300: hsl(225, 6%, 14%);
-  --neutral-400: hsl(210, 7%, 16%);
-  --neutral-500: hsl(214, 7%, 19%);
-  --neutral-600: hsl(213, 8%, 23%);
-  --neutral-700: hsl(213, 8%, 28%);
-  --neutral-800: hsl(212, 8%, 38%);
-  --neutral-900: hsl(219, 6%, 44%);
-  --neutral-1000: hsl(222, 5%, 49%);
-  --neutral-1100: hsl(216, 7%, 71%);
-  --neutral-1200: hsl(220, 9%, 94%);
+  --neutral-100: hsl(90, 6%, 7%);
+  --neutral-200: hsl(90, 4%, 9%);
+  --neutral-300: hsl(90, 3%, 13%);
+  --neutral-400: hsl(100, 4%, 16%);
+  --neutral-500: hsl(100, 3%, 19%);
+  --neutral-600: hsl(90, 4%, 22%);
+  --neutral-700: hsl(96, 4%, 27%);
+  --neutral-800: hsl(111, 4%, 37%);
+  --neutral-900: hsl(108, 5%, 42%);
+  --neutral-1000: hsl(107, 4%, 47%);
+  --neutral-1100: hsl(105, 5%, 69%);
+  --neutral-1200: hsl(120, 6%, 93%);
 
   --accent-100: hsl(215, 42%, 9%);
   --accent-200: hsl(218, 39%, 11%);
