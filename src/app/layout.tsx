@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter } from "next/font/google";
-import localFont from "next/font/local";
+import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
 import Providers from "@/components/providers/providers";
 
 import "@/styles/globals.css";
@@ -19,24 +18,8 @@ const fontMono = Geist_Mono({
   display: "swap",
 });
 
-const fontSerif = localFont({
-  src: [
-    {
-      path: "../../public/Redaction-Regular.woff2",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/Redaction-Italic.woff2",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/Redaction-Bold.woff2",
-      weight: "700",
-      style: "normal",
-    },
-  ],
+const fontSerif = Libre_Baskerville({
+  weight: ["400", "700"],
   variable: "--font-serif",
   display: "swap",
 });
@@ -55,7 +38,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased`}
+        className={`${fontSans.variable} ${fontMono.variable} ${fontSerif.variable} font-sans antialiased grayscale`}
       >
         <Providers>
           <Layout>{children}</Layout>

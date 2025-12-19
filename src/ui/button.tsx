@@ -3,18 +3,35 @@ import { cn } from "@/utils/cn";
 
 const buttonVariants = cva(
   [
-    "disabled:cursor-not-allowed relative isolate border-transparent inline-flex items-center justify-center gap-x-2 border font-medium",
+    "disabled:cursor-not-allowed rounded-md relative isolate border-transparent inline-flex items-center justify-center gap-x-2 border font-medium",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
     "disabled:opacity-50",
-    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:text-(--btn-icon) *:data-[slot=icon]:my-1 *:data-[slot=icon]:size-4 forced-colors:[--btn-icon:ButtonText] forced-colors:hover:[--btn-icon:ButtonText]",
+    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
   ],
   {
     variants: {
-      variant: {},
-      color: {},
-      size: {},
+      variant: {
+        plain: [
+          "bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
+        ],
+      },
+      color: {
+        olive: [
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-olive-200)] dark:hover:[--plain-bg:var(--color-olive-800)] [--plain-icon:var(--color-olive-900)] dark:[--plain-icon:var(--color-olive-200)]",
+        ],
+      },
+      size: {
+        md: [
+          "px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-sm/6",
+          "*:data-[slot=icon]:size-4",
+        ],
+      },
     },
-    defaultVariants: {},
+    defaultVariants: {
+      variant: "plain",
+      color: "olive",
+      size: "md",
+    },
   },
 );
 
