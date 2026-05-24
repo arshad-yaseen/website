@@ -3,17 +3,29 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme {
-  --color-olive-50: oklch(98.8% 0.003 106.5);
-  --color-olive-100: oklch(96.6% 0.005 106.5);
-  --color-olive-200: oklch(93% 0.007 106.5);
-  --color-olive-300: oklch(88% 0.011 106.6);
-  --color-olive-400: oklch(73.7% 0.021 106.9);
-  --color-olive-500: oklch(58% 0.031 107.3);
-  --color-olive-600: oklch(46.6% 0.025 107.3);
-  --color-olive-700: oklch(39.4% 0.023 107.4);
-  --color-olive-800: oklch(28.6% 0.016 107.4);
-  --color-olive-900: oklch(22.8% 0.013 107.4);
-  --color-olive-950: oklch(15.3% 0.006 107.1);
+  --color-neutral-50: var(--color-olive-50);
+  --color-neutral-100: var(--color-olive-100);
+  --color-neutral-200: var(--color-olive-200);
+  --color-neutral-300: var(--color-olive-300);
+  --color-neutral-400: var(--color-olive-400);
+  --color-neutral-500: var(--color-olive-500);
+  --color-neutral-600: var(--color-olive-600);
+  --color-neutral-700: var(--color-olive-700);
+  --color-neutral-800: var(--color-olive-800);
+  --color-neutral-900: var(--color-olive-900);
+  --color-neutral-950: var(--color-olive-950);
+
+  --color-accent-50: var(--color-sky-50);
+  --color-accent-100: var(--color-sky-100);
+  --color-accent-200: var(--color-sky-200);
+  --color-accent-300: var(--color-sky-300);
+  --color-accent-400: var(--color-sky-400);
+  --color-accent-500: var(--color-sky-500);
+  --color-accent-600: var(--color-sky-600);
+  --color-accent-700: var(--color-sky-700);
+  --color-accent-800: var(--color-sky-800);
+  --color-accent-900: var(--color-sky-900);
+  --color-accent-950: var(--color-sky-950);
 }
 
 @theme inline {
@@ -23,5 +35,5 @@
 }
 
 body {
-  @apply bg-olive-100 dark:bg-olive-950 text-olive-900 dark:text-olive-100;
+  @apply bg-neutral-100 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100;
 }

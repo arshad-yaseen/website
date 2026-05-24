@@ -4,7 +4,7 @@ import { cn } from "@/utils/cn";
 const buttonVariants = cva(
   [
     "disabled:cursor-not-allowed rounded-md relative isolate border-transparent inline-flex items-center justify-center gap-x-2 border font-medium",
-    "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary-500",
+    "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500",
     "disabled:opacity-50",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
   ],
@@ -14,8 +14,8 @@ const buttonVariants = cva(
         plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
       },
       color: {
-        olive: [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-olive-200)] dark:hover:[--plain-bg:var(--color-olive-800)] [--plain-icon:var(--color-olive-900)] dark:[--plain-icon:var(--color-olive-200)]",
+        neutral: [
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-200)] dark:hover:[--plain-bg:var(--color-neutral-800)] [--plain-icon:var(--color-neutral-900)] dark:[--plain-icon:var(--color-neutral-200)]",
         ],
       },
       size: {
@@ -27,7 +27,7 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "plain",
-      color: "olive",
+      color: "neutral",
       size: "md",
     },
   },
