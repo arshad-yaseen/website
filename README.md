@@ -1,3 +1,3 @@
 🚧 WORK IN PROGRESS
 
-Building for myself on top of [Base UI](https://base-ui.com).
+This is where I share precision-crafted UI components, small experiments, UI blocks, and design notes. Built for design engineers who care about the details.
