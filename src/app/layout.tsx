@@ -25,9 +25,9 @@ const fontSerif = Libre_Baskerville({
 });
 
 export const metadata: Metadata = {
-  title: "ui",
+  title: "arshad/ui",
   description:
-    "Precision-crafted UI components I use, highly customizable and built for the future",
+    "UI components, experiments, and design notes for design engineers, from Arshad Yaseen.",
 };
 
 export default function RootLayout({

@@ -1,9 +1,6 @@
 "use client";
 
-import {
-  ThemeProvider as NextThemeProvider,
-  useTheme as useNextTheme,
-} from "next-themes";
+import { ThemeProvider as NextThemeProvider, useTheme as useNextTheme } from "next-themes";
 import type { PropsWithChildren } from "react";
 
 export default function ThemeProvider({ children }: PropsWithChildren) {

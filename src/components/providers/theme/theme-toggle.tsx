@@ -13,8 +13,8 @@ export default function ThemeToggle() {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
       }}
     >
-      <Icon.Moon className="size-4 dark:hidden" />
-      <Icon.Sun className="size-4 hidden dark:block" />
+      <Icon name="Moon02" className="dark:hidden" />
+      <Icon name="Sun02" className="hidden dark:block" />
     </Button>
   );
 }

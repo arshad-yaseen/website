@@ -11,9 +11,7 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
-        plain: [
-          "bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
-        ],
+        plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
       },
       color: {
         olive: [
@@ -35,17 +33,9 @@ const buttonVariants = cva(
   },
 );
 
-export type ButtonProps = React.ComponentProps<"button"> &
-  VariantProps<typeof buttonVariants>;
+export type ButtonProps = React.ComponentProps<"button"> & VariantProps<typeof buttonVariants>;
 
-export function Button({
-  children,
-  size,
-  variant,
-  color,
-  className,
-  ...props
-}: ButtonProps) {
+export function Button({ children, size, variant, color, className, ...props }: ButtonProps) {
   return (
     <button
       type="button"
