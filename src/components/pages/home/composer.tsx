@@ -1,5 +1,5 @@
 import { Button } from "@/ui/button";
-import { Icon } from "@/ui/icon";
+// import { Icon } from "@/ui/icon";
 
 export function HomeComposer() {
   return (
