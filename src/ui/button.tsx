@@ -44,15 +44,24 @@ const buttonVariants = cva(
     },
     defaultVariants: {
       variant: "solid",
-      color: "dark/white",
       size: "md",
     },
   },
 );
 
+const DEFAULT_VARIANT = "solid";
+
+const DEFAULT_COLOR_BY_VARIANT = {
+  solid: "dark/white",
+  plain: "neutral",
+} as const;
+
 export type ButtonProps = BaseUIButton.Props & VariantProps<typeof buttonVariants>;
 
 export function Button({ children, size, variant, color, className, ...props }: ButtonProps) {
+  const resolvedVariant = variant ?? DEFAULT_VARIANT;
+  const resolvedColor = color ?? DEFAULT_COLOR_BY_VARIANT[resolvedVariant];
+
   return (
     <BaseUIButton
       type="button"
@@ -60,8 +69,8 @@ export function Button({ children, size, variant, color, className, ...props }: 
       className={cn(
         buttonVariants({
           size,
-          color,
-          variant,
+          color: resolvedColor,
+          variant: resolvedVariant,
         }),
         className,
       )}
