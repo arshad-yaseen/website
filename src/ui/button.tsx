@@ -12,20 +12,28 @@ const buttonVariants = cva(
   {
     variants: {
       variant: {
+        solid: ["bg-(--solid-bg) text-(--solid-fg) *:data-[slot=icon]:text-(--solid-icon)"],
         plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
       },
       color: {
         neutral: [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-200)] dark:hover:[--plain-bg:var(--color-neutral-800)] [--plain-icon:var(--color-neutral-900)] dark:[--plain-icon:var(--color-neutral-200)]",
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-950)]/5 dark:hover:[--plain-bg:var(--color-white)]/10 [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
+
+          "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover:[--solid-bg:var(--color-neutral-300)]/60 dark:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-200)]",
+        ],
+        "dark/white": [
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-900)] dark:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] hover:[--plain-fg:var(--color-white)] dark:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] hover:[--plain-icon:var(--color-neutral-400)] dark:hover:[--plain-icon:var(--color-neutral-500)]",
+
+          "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] hover:[--solid-bg:var(--color-neutral-800)] dark:hover:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
         ],
       },
       size: {
         sm: [
           "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(0.5)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-4",
+          "*:data-[slot=icon]:size-3.5",
         ],
         md: [
-          "px-[calc(--spacing(2.25)-1px)] py-[calc(--spacing(0.75)-1px)] text-sm/6",
+          "px-[calc(--spacing(2.5)-1px)] py-[calc(--spacing(1)-1px)] text-sm/6",
           "*:data-[slot=icon]:size-4",
         ],
         lg: [
@@ -35,8 +43,8 @@ const buttonVariants = cva(
       },
     },
     defaultVariants: {
-      variant: "plain",
-      color: "neutral",
+      variant: "solid",
+      color: "dark/white",
       size: "md",
     },
   },

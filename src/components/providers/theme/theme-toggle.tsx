@@ -9,6 +9,8 @@ export default function ThemeToggle() {
 
   return (
     <Button
+      variant="plain"
+      color="neutral"
       onClick={() => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
       }}

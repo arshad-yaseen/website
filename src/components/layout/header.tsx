@@ -7,7 +7,7 @@ export default function Header() {
     <header className="flex items-center sticky top-0 justify-between pr-3 sm:pl-8 pl-6 h-(--header-height)">
       <h1 className="text-xl font-serif">arshad/ui</h1>
       <div className="flex items-center space-x-1">
-        <Button>
+        <Button variant="plain" color="neutral">
           <Icon name="Github" />
         </Button>
         <ThemeToggle />
