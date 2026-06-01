@@ -4,10 +4,10 @@ export default function Hero() {
   return (
     <section className="flex max-w-2xl flex-col items-center gap-8 text-center">
       <h1 className="tracking-tight text-4xl/12 text-balance sm:text-6xl/18">
-        Build high-quality motion videos using AI
+        UI components, crafted with intent.
       </h1>
 
-      <p className="max-w-xl text-base text-pretty text-neutral-600 dark:text-neutral-400 sm:text-lg">
+      <p className="max-w-xl text-base/7 text-pretty text-neutral-600 dark:text-neutral-400 sm:text-lg/8">
         A living collection of components, experiments, and design notes for design engineers, from
         Arshad Yaseen.
       </p>
