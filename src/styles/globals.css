@@ -34,6 +34,10 @@
   --font-serif: var(--font-serif);
 }
 
+::selection {
+  @apply bg-accent-500 text-white;
+}
+
 body {
   @apply bg-neutral-50 dark:bg-neutral-950 text-neutral-900 dark:text-neutral-100;
 }
