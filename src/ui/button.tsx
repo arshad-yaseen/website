@@ -26,6 +26,11 @@ const buttonVariants = cva(
 
           "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] hover:[--solid-bg:var(--color-neutral-800)] dark:hover:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
         ],
+        accent: [
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
+
+          "[--solid-bg:var(--color-accent-500)] hover:[--solid-bg:var(--color-accent-600)] dark:hover:[--solid-bg:var(--color-accent-500)]/80 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
+        ],
       },
       size: {
         sm: [
@@ -38,7 +43,7 @@ const buttonVariants = cva(
         ],
         lg: [
           "px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-4",
+          "*:data-[slot=icon]:size-5",
         ],
       },
     },
