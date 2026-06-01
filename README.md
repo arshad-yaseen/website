@@ -2,4 +2,4 @@
 
 🚧 WORK IN PROGRESS
 
-This is where I share precision-crafted UI components, small experiments, UI blocks, and design notes. Built for design engineers who care about the details.
+A living collection of components, experiments, and design notes for design engineers, from me.
