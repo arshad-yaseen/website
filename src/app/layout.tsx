@@ -1,28 +1,10 @@
 import type { Metadata } from "next";
-import { Geist_Mono, Inter, Libre_Baskerville } from "next/font/google";
 import Providers from "@/components/providers/providers";
+import { fontMono, fontSans, fontSerif } from "@/lib/fonts";
 
 import "@/styles/globals.css";
 
 import Layout from "@/components/layout/root-layout";
-
-const fontSans = Inter({
-  variable: "--font-sans",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const fontMono = Geist_Mono({
-  variable: "--font-mono",
-  subsets: ["latin"],
-  display: "swap",
-});
-
-const fontSerif = Libre_Baskerville({
-  weight: ["400", "700"],
-  variable: "--font-serif",
-  display: "swap",
-});
 
 export const metadata: Metadata = {
   title: "arshad/ui",
