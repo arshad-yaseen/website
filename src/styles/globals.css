@@ -39,7 +39,7 @@
 .dark {
   --background: var(--color-neutral-950);
   --foreground: var(--color-neutral-100);
-  --ring: var(--color-neutral-100);
+  --ring: var(--color-neutral-300);
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {

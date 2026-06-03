@@ -19,7 +19,7 @@ const buttonVariants = cva(
       },
       color: {
         neutral: [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-950)]/5 dark:hover:[--plain-bg:var(--color-white)]/10 [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
+          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-200)] dark:hover:[--plain-bg:var(--color-neutral-800)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
 
           "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover:[--solid-bg:var(--color-neutral-300)]/60 dark:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:hover:[--solid-icon:var(--color-neutral-300)]",
         ],
@@ -31,21 +31,21 @@ const buttonVariants = cva(
         accent: [
           "[--plain-bg:transparent] hover:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
 
-          "[--solid-bg:var(--color-accent-500)] hover:[--solid-bg:var(--color-accent-600)] dark:hover:[--solid-bg:var(--color-accent-500)]/80 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
+          "[--solid-bg:var(--color-accent-500)] hover:[--solid-bg:var(--color-accent-600)]/90 dark:hover:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
         ],
       },
       size: {
         sm: [
-          "px-[calc(--spacing(2)-1px)] py-[calc(--spacing(0.5)-1px)] text-sm/6",
+          "min-h-7 px-[calc(--spacing(2)-1px)] py-[calc(--spacing(0.5)-1px)] text-sm/6",
           "*:data-[slot=icon]:size-3.5",
         ],
         md: [
-          "px-[calc(--spacing(2.5)-1px)] py-[calc(--spacing(1)-1px)] text-sm/6",
+          "min-h-8 px-[calc(--spacing(2.5)-1px)] py-[calc(--spacing(1)-1px)] text-sm/6",
           "*:data-[slot=icon]:size-4",
         ],
         lg: [
-          "px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-5",
+          "min-h-9 px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-sm/6",
+          "*:data-[slot=icon]:size-4.5",
         ],
       },
     },

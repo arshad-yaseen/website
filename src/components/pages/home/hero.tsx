@@ -17,7 +17,7 @@ export default function Hero() {
         <Button size="lg" className="rounded-full">
           Explore components
         </Button>
-        <Button size="lg" variant="solid" color="neutral" className="rounded-full">
+        <Button size="lg" color="neutral" className="rounded-full">
           Github
           <Icon name="ArrowUpRight" />
         </Button>
