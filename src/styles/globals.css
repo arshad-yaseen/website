@@ -32,12 +32,20 @@
   --background: var(--color-neutral-50);
   --foreground: var(--color-neutral-900);
   --ring: var(--color-neutral-900);
+
+  --border-hairline: 1px;
 }
 
 .dark {
   --background: var(--color-neutral-950);
   --foreground: var(--color-neutral-100);
   --ring: var(--color-neutral-100);
+}
+
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  :root {
+    --border-hairline: 0.5px;
+  }
 }
 
 @theme inline {
@@ -59,6 +67,22 @@
   label {
     touch-action: manipulation;
   }
+}
+
+@utility hairline {
+  border-width: var(--border-hairline);
+}
+@utility hairline-t {
+  border-top-width: var(--border-hairline);
+}
+@utility hairline-b {
+  border-bottom-width: var(--border-hairline);
+}
+@utility hairline-x {
+  border-inline-width: var(--border-hairline);
+}
+@utility hairline-y {
+  border-block-width: var(--border-hairline);
 }
 
 ::selection {

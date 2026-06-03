@@ -8,7 +8,7 @@ const buttonVariants = cva(
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
-    "transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100",
+    "transition-[background-color,color] duration-150 ease-out motion-reduce:transition-none",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
   ],
   {
@@ -65,13 +65,21 @@ const DEFAULT_COLOR_BY_VARIANT = {
 
 export type ButtonProps = BaseUIButton.Props & VariantProps<typeof buttonVariants>;
 
-export function Button({ children, size, variant, color, className, ...props }: ButtonProps) {
+export function Button({
+  children,
+  size,
+  variant,
+  color,
+  className,
+  type = "button",
+  ...props
+}: ButtonProps) {
   const resolvedVariant = variant ?? DEFAULT_VARIANT;
   const resolvedColor = color ?? DEFAULT_COLOR_BY_VARIANT[resolvedVariant];
 
   return (
     <BaseUIButton
-      type="button"
+      type={type}
       {...props}
       className={cn(
         buttonVariants({
@@ -79,6 +87,8 @@ export function Button({ children, size, variant, color, className, ...props }: 
           color: resolvedColor,
           variant: resolvedVariant,
         }),
+        type === "submit" &&
+          "transition-[background-color,color,transform] active:scale-[0.97] motion-reduce:active:scale-100",
         className,
       )}
     >
