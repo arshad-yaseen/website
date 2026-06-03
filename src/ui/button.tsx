@@ -5,8 +5,10 @@ import { Button as BaseUIButton } from "@base-ui/react";
 const buttonVariants = cva(
   [
     "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate border-transparent inline-flex items-center justify-center gap-x-1 border font-medium",
-    "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-accent-500",
+    "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:opacity-50",
+    "touch-manipulation pointer-coarse:min-h-11",
+    "transition-[transform,background-color,color] duration-150 ease-out active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
   ],
   {
