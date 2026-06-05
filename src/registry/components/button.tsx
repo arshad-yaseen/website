@@ -39,7 +39,7 @@ export default {
       <H2>API</H2>
       <PropsTable
         rows={[
-          { name: "variant", type: '"solid" | "plain"', default: '"solid"' },
+          { name: "variant", type: '"solid" | "outline" | "plain"', default: '"solid"' },
           { name: "color", type: '"neutral" | "dark/white" | "accent"', default: '"dark/white"' },
           { name: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
           { name: "elevated", type: "boolean", default: "false" },

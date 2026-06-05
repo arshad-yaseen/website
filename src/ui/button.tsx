@@ -15,6 +15,10 @@ const buttonVariants = cva(
     variants: {
       variant: {
         solid: ["bg-(--solid-bg) text-(--solid-fg) *:data-[slot=icon]:text-(--solid-icon)"],
+        outline: [
+          "bg-(--plain-bg)/60 text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
+          "ring ring-(--outline-ring) shadow",
+        ],
         plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
       },
       color: {
@@ -22,16 +26,22 @@ const buttonVariants = cva(
           "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-200)] dark:hover:[--plain-bg:var(--color-neutral-800)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
 
           "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover:[--solid-bg:var(--color-neutral-300)]/60 dark:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:hover:[--solid-icon:var(--color-neutral-300)]",
+
+          "[--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/15",
         ],
         "dark/white": [
           "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-900)] dark:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] hover:[--plain-fg:var(--color-white)] dark:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] hover:[--plain-icon:var(--color-neutral-400)] dark:hover:[--plain-icon:var(--color-neutral-500)]",
 
           "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] hover:[--solid-bg:var(--color-neutral-800)] dark:hover:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
+
+          "[--outline-ring:var(--color-black)]/60 dark:[--outline-ring:var(--color-white)]/60",
         ],
         accent: [
           "[--plain-bg:transparent] hover:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
 
           "[--solid-bg:var(--color-accent-500)] hover:[--solid-bg:var(--color-accent-600)]/90 dark:hover:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
+
+          "[--outline-ring:var(--color-accent-500)]/40",
         ],
       },
       size: {
@@ -54,6 +64,7 @@ const DEFAULT_VARIANT = "solid";
 
 const DEFAULT_COLOR_BY_VARIANT = {
   solid: "dark/white",
+  outline: "neutral",
   plain: "neutral",
 } as const;
 
