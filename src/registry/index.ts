@@ -4,6 +4,7 @@ import type { Doc, Note, Section } from "./types";
 import button from "./components/button";
 import buttonDemo from "./demos/button";
 import buttonColorsDemo from "./demos/button-colors";
+import buttonElevatedDemo from "./demos/button-elevated";
 import buttonLinkDemo from "./demos/button-link";
 import buttonSizesDemo from "./demos/button-sizes";
 import introduction from "./pages/introduction";
@@ -11,6 +12,7 @@ import introduction from "./pages/introduction";
 export const demos = {
   button: buttonDemo,
   "button-colors": buttonColorsDemo,
+  "button-elevated": buttonElevatedDemo,
   "button-link": buttonLinkDemo,
   "button-sizes": buttonSizesDemo,
 } satisfies Record<string, ComponentType>;

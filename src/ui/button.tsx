@@ -39,15 +39,10 @@ const buttonVariants = cva(
         md: ["min-h-8 px-2.5 py-1 text-sm/6", "*:data-[slot=icon]:size-4"],
         lg: ["min-h-9 px-3 py-1.5 text-sm/6", "*:data-[slot=icon]:size-4.5"],
       },
-    },
-    compoundVariants: [
-      {
-        variant: "solid",
-        color: "neutral",
-        className:
-          "inset-ring inset-ring-white/3 inset-shadow-2xs inset-shadow-white/4 ring ring-black/15 dark:ring-black/60",
+      elevated: {
+        true: "inset-ring inset-ring-white/3 inset-shadow-2xs inset-shadow-white/4 ring ring-black/15 dark:ring-black/60",
       },
-    ],
+    },
     defaultVariants: {
       variant: "solid",
       size: "md",
@@ -69,6 +64,7 @@ export function Button({
   size,
   variant,
   color,
+  elevated,
   className,
   type,
   nativeButton,
@@ -90,6 +86,7 @@ export function Button({
           size,
           color: resolvedColor,
           variant: resolvedVariant,
+          elevated,
         }),
         type === "submit" &&
           "transition-[background-color,color,transform] active:scale-[0.97] motion-reduce:active:scale-100",

@@ -22,6 +22,13 @@ export default {
       <H2>Colors</H2>
       <Demo name="button-colors" />
 
+      <H2>Elevated</H2>
+      <P>
+        Opt in to <InlineCode>elevated</InlineCode> for an inset highlight and border ring on solid
+        buttons.
+      </P>
+      <Demo name="button-elevated" />
+
       <H2>Link</H2>
       <P>
         Pass an element to <InlineCode>render</InlineCode> to render the button as something else,
@@ -35,6 +42,7 @@ export default {
           { name: "variant", type: '"solid" | "plain"', default: '"solid"' },
           { name: "color", type: '"neutral" | "dark/white" | "accent"', default: '"dark/white"' },
           { name: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
+          { name: "elevated", type: "boolean", default: "false" },
         ]}
       />
       <P>
