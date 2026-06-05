@@ -1,11 +1,18 @@
 import { HugeiconsIcon, type HugeiconsIconProps } from "@hugeicons/react";
-import { ArrowUpRightIcon, GithubIcon, Moon02Icon, Sun02Icon } from "@hugeicons/core-free-icons";
+import {
+  ArrowUpRightIcon,
+  GithubIcon,
+  Moon02Icon,
+  PlusSignIcon,
+  Sun02Icon,
+} from "@hugeicons/core-free-icons";
 
 const Icons = {
   Moon: Moon02Icon,
   Sun: Sun02Icon,
   ArrowUpRight: ArrowUpRightIcon,
   Github: GithubIcon,
+  Plus: PlusSignIcon,
 };
 
 type IconName = keyof typeof Icons;
