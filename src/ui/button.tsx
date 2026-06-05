@@ -4,7 +4,7 @@ import { Button as BaseUIButton } from "@base-ui/react";
 
 const buttonVariants = cva(
   [
-    "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-1 font-medium",
+    "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
@@ -16,7 +16,7 @@ const buttonVariants = cva(
       variant: {
         solid: ["bg-(--solid-bg) text-(--solid-fg) *:data-[slot=icon]:text-(--solid-icon)"],
         outline: [
-          "bg-(--plain-bg)/60 text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
+          "bg-(--plain-bg)/50 text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
           "ring ring-(--outline-ring) shadow",
         ],
         plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
@@ -27,7 +27,7 @@ const buttonVariants = cva(
 
           "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover:[--solid-bg:var(--color-neutral-300)]/60 dark:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:hover:[--solid-icon:var(--color-neutral-300)]",
 
-          "[--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/15",
+          "[--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/10",
         ],
         "dark/white": [
           "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-900)] dark:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] hover:[--plain-fg:var(--color-white)] dark:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] hover:[--plain-icon:var(--color-neutral-400)] dark:hover:[--plain-icon:var(--color-neutral-500)]",

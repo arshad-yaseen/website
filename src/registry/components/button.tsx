@@ -22,6 +22,13 @@ export default {
       <H2>Colors</H2>
       <Demo name="button-colors" />
 
+      <H2>Icons</H2>
+      <P>
+        Place an <InlineCode>Icon</InlineCode> on either side of the label. Icon-only buttons need
+        an <InlineCode>aria-label</InlineCode>.
+      </P>
+      <Demo name="button-icons" />
+
       <H2>Elevated</H2>
       <P>
         Opt in to <InlineCode>elevated</InlineCode> for an inset highlight and border ring on solid
