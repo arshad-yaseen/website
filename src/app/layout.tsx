@@ -8,7 +8,7 @@ import "@/styles/globals.css";
 export const metadata: Metadata = {
   title: {
     default: "arshad/ui",
-    template: "%s — arshad/ui",
+    template: "%s - arshad/ui",
   },
   description:
     "UI components, experiments, and design notes for design engineers, from Arshad Yaseen.",

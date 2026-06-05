@@ -1,7 +1,6 @@
 import type { Doc, Note, Section } from "./types";
 
 import button from "./components/button";
-import helloWorld from "./notes/hello-world";
 import introduction from "./pages/introduction";
 
 export const pages: Doc[] = [introduction];
@@ -11,7 +10,7 @@ export const sections: Section[] = [
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 
-export const notes: Note[] = [helloWorld];
+export const notes: Note[] = [];
 
 export function getPage(slug: string) {
   return pages.find((page) => page.slug === slug);

@@ -16,10 +16,6 @@ export function Strong({ children }: PropsWithChildren) {
   return <strong className="font-medium text-neutral-900 dark:text-white">{children}</strong>;
 }
 
-export function Em({ children }: PropsWithChildren) {
-  return <em className="font-serif">{children}</em>;
-}
-
 export function InlineCode({ children }: PropsWithChildren) {
   return (
     <code className="rounded-sm bg-neutral-200/60 px-1 py-0.5 text-[0.8125rem] text-neutral-900 dark:bg-neutral-800/60 dark:text-white">

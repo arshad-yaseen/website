@@ -23,7 +23,7 @@ export function PropsTable({ rows }: { rows: PropDef[] }) {
                 {row.type}
               </td>
               <td className="px-4 py-2.5 font-mono text-[0.8125rem] text-neutral-600 dark:text-neutral-400">
-                {row.default ?? "—"}
+                {row.default ?? "-"}
               </td>
             </tr>
           ))}
