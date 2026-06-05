@@ -40,7 +40,7 @@ const buttonVariants = cva(
         lg: ["min-h-9 px-3 py-1.5 text-sm/6", "*:data-[slot=icon]:size-4.5"],
       },
       elevated: {
-        true: "inset-ring inset-ring-white/3 inset-shadow-2xs inset-shadow-white/4 ring ring-black/15 dark:ring-black/60",
+        true: "inset-ring dark:inset-ring-white/3 inset-ring-black/3 inset-shadow-2xs dark:inset-shadow-white/4 inset-shadow-black/4",
       },
     },
     defaultVariants: {
