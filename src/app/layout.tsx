@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
 import Header from "@/components/layout/header";
+import ScrollToHash from "@/components/layout/scroll-to-hash";
 import ThemeProvider from "@/components/theme/theme-provider";
 import { fontMono, fontSans, fontSerif } from "@/lib/fonts";
 
@@ -26,6 +27,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
         <ThemeProvider>
           <Header />
           {children}
+          <ScrollToHash />
         </ThemeProvider>
       </body>
     </html>

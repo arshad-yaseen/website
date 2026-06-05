@@ -1,11 +1,53 @@
 import type { PropsWithChildren } from "react";
 
+function slugify(text: string) {
+  return text
+    .toLowerCase()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
+
+type HeadingProps = PropsWithChildren<{
+  as: "h2" | "h3";
+  className: string;
+}>;
+
+function Heading({ as: Tag, className, children }: HeadingProps) {
+  if (typeof children !== "string") {
+    return <Tag className={className}>{children}</Tag>;
+  }
+
+  const id = slugify(children);
+
+  return (
+    <Tag id={id} className={`group ${className}`}>
+      <a href={`#${id}`}>
+        <span
+          aria-hidden
+          className="-ml-5 mr-2 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
+        >
+          #
+        </span>
+        {children}
+      </a>
+    </Tag>
+  );
+}
+
 export function H2({ children }: PropsWithChildren) {
-  return <h2 className="mt-10 text-lg font-medium tracking-tight">{children}</h2>;
+  return (
+    <Heading as="h2" className="mt-10 text-lg font-medium tracking-tight">
+      {children}
+    </Heading>
+  );
 }
 
 export function H3({ children }: PropsWithChildren) {
-  return <h3 className="mt-8 text-base font-medium tracking-tight">{children}</h3>;
+  return (
+    <Heading as="h3" className="mt-8 text-base font-medium tracking-tight">
+      {children}
+    </Heading>
+  );
 }
 
 export function P({ children }: PropsWithChildren) {
