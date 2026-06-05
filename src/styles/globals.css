@@ -34,6 +34,10 @@
   --ring: var(--color-neutral-900);
 
   --border-hairline: 1px;
+
+  --header-height: calc(var(--spacing) * 16);
+  --layout-width: var(--container-5xl);
+  --sidebar-width: calc(var(--spacing) * 56);
 }
 
 .dark {
@@ -83,6 +87,17 @@
 }
 @utility hairline-y {
   border-block-width: var(--border-hairline);
+}
+
+.shiki,
+.shiki span {
+  color: var(--shiki-light);
+  background-color: transparent;
+}
+
+.dark .shiki,
+.dark .shiki span {
+  color: var(--shiki-dark);
 }
 
 ::selection {

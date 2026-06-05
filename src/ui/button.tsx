@@ -71,15 +71,20 @@ export function Button({
   variant,
   color,
   className,
-  type = "button",
+  type,
+  nativeButton,
+  render,
   ...props
 }: ButtonProps) {
   const resolvedVariant = variant ?? DEFAULT_VARIANT;
   const resolvedColor = color ?? DEFAULT_COLOR_BY_VARIANT[resolvedVariant];
+  const isNativeButton = nativeButton ?? !render;
 
   return (
     <BaseUIButton
-      type={type}
+      type={isNativeButton ? (type ?? "button") : type}
+      nativeButton={isNativeButton}
+      render={render}
       {...props}
       className={cn(
         buttonVariants({
