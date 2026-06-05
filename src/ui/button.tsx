@@ -8,7 +8,7 @@ const buttonVariants = cva(
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
-    "transition-[background-color,color] duration-150 ease-out motion-reduce:transition-none",
+    "transition-[background-color,color] *:data-[slot=icon]:transition-[color] duration-150 ease-out motion-reduce:transition-none",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
   ],
   {
