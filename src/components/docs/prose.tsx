@@ -32,7 +32,7 @@ export function A({ href, children }: AProps) {
   return (
     <a
       href={href}
-      className="text-neutral-900 underline underline-offset-3 decoration-neutral-400 hover:decoration-current dark:text-white dark:decoration-neutral-600"
+      className="text-neutral-900 underline transition-colors underline-offset-2 hover:decoration-neutral-500 decoration-neutral-400 dark:hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600"
     >
       {children}
     </a>

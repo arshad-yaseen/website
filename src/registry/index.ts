@@ -3,10 +3,16 @@ import type { Doc, Note, Section } from "./types";
 
 import button from "./components/button";
 import buttonDemo from "./demos/button";
+import buttonColorsDemo from "./demos/button-colors";
+import buttonLinkDemo from "./demos/button-link";
+import buttonSizesDemo from "./demos/button-sizes";
 import introduction from "./pages/introduction";
 
 export const demos = {
   button: buttonDemo,
+  "button-colors": buttonColorsDemo,
+  "button-link": buttonLinkDemo,
+  "button-sizes": buttonSizesDemo,
 } satisfies Record<string, ComponentType>;
 
 export type DemoName = keyof typeof demos;
