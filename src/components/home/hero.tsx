@@ -1,6 +1,5 @@
 import Link from "next/link";
 import { Button } from "@/ui/button";
-import { Icon } from "@/ui/icon";
 
 export default function Hero() {
   return (
@@ -15,12 +14,16 @@ export default function Hero() {
       </p>
 
       <div className="flex flex-wrap items-center gap-3 mt-2">
-        <Button size="lg" className="rounded-full" render={<Link href="/components" />}>
-          Explore components
+        <Button size="lg" className="rounded-full" render={<Link href="/introduction" />}>
+          Get Started
         </Button>
-        <Button size="lg" color="neutral" className="rounded-full">
-          Github
-          <Icon name="ArrowUpRight" />
+        <Button
+          size="lg"
+          variant="outline"
+          className="rounded-full"
+          render={<Link href="/components" />}
+        >
+          Explore components
         </Button>
       </div>
     </section>
