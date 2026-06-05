@@ -4,7 +4,7 @@ import { Button as BaseUIButton } from "@base-ui/react";
 
 const buttonVariants = cva(
   [
-    "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate border-transparent inline-flex items-center justify-center gap-x-1 border font-medium",
+    "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-1 font-medium",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
@@ -35,20 +35,19 @@ const buttonVariants = cva(
         ],
       },
       size: {
-        sm: [
-          "min-h-7 px-[calc(--spacing(2)-1px)] py-[calc(--spacing(0.5)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-3.5",
-        ],
-        md: [
-          "min-h-8 px-[calc(--spacing(2.5)-1px)] py-[calc(--spacing(1)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-4",
-        ],
-        lg: [
-          "min-h-9 px-[calc(--spacing(3)-1px)] py-[calc(--spacing(1.5)-1px)] text-sm/6",
-          "*:data-[slot=icon]:size-4.5",
-        ],
+        sm: ["min-h-7 px-2 py-0.5 text-sm/6", "*:data-[slot=icon]:size-3.5"],
+        md: ["min-h-8 px-2.5 py-1 text-sm/6", "*:data-[slot=icon]:size-4"],
+        lg: ["min-h-9 px-3 py-1.5 text-sm/6", "*:data-[slot=icon]:size-4.5"],
       },
     },
+    compoundVariants: [
+      {
+        variant: "solid",
+        color: "neutral",
+        className:
+          "inset-ring inset-ring-white/3 inset-shadow-2xs inset-shadow-white/4 ring ring-black/15 dark:ring-black/60",
+      },
+    ],
     defaultVariants: {
       variant: "solid",
       size: "md",
