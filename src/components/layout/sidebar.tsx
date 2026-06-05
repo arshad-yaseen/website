@@ -3,7 +3,7 @@ import NavLink from "./nav-link";
 
 export default function Sidebar() {
   return (
-    <aside className="sticky top-(--header-height) hidden h-[calc(100dvh-var(--header-height))] w-(--sidebar-width) shrink-0 self-start overflow-y-auto py-8 pr-6 md:block">
+    <aside className="sticky top-(--header-height) hidden h-[calc(100dvh-var(--header-height))] w-(--sidebar-width) shrink-0 self-start py-8 pr-6 md:block">
       <nav className="flex flex-col gap-8">
         <ul className="flex flex-col gap-1">
           {pages.map((page) => (
