@@ -1,15 +1,18 @@
 import fs from "node:fs/promises";
 import path from "node:path";
+import { type DemoName, demos } from "@/registry";
 import { CodeBlock } from "./code-block";
 import { Preview } from "./preview";
 
 const DEMOS_DIR = path.join(process.cwd(), "src/registry/demos");
 
-export async function Demo({ name }: { name: string }) {
-  const [{ default: Component }, code] = await Promise.all([
-    import(`@/registry/demos/${name}`),
-    fs.readFile(path.join(DEMOS_DIR, `${name}.tsx`), "utf-8"),
-  ]);
+type DemoProps = {
+  name: DemoName;
+};
+
+export async function Demo({ name }: DemoProps) {
+  const Component = demos[name];
+  const code = await fs.readFile(path.join(DEMOS_DIR, `${name}.tsx`), "utf-8");
 
   return (
     <div className="flex flex-col gap-3">

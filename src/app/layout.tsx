@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import type { PropsWithChildren } from "react";
 import Header from "@/components/layout/header";
 import ThemeProvider from "@/components/theme/theme-provider";
 import { fontMono, fontSans, fontSerif } from "@/lib/fonts";
@@ -14,11 +15,7 @@ export const metadata: Metadata = {
     "UI components, experiments, and design notes for design engineers, from Arshad Yaseen.",
 };
 
-export default function RootLayout({
-  children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+export default function RootLayout({ children }: PropsWithChildren) {
   return (
     <html
       lang="en"

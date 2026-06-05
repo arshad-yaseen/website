@@ -1,10 +1,15 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 
-export default function NavLink({ href, children }: PropsWithChildren<{ href: string }>) {
+type NavLinkProps<T extends string> = PropsWithChildren<{
+  href: Route<T>;
+}>;
+
+export default function NavLink<T extends string>({ href, children }: NavLinkProps<T>) {
   const pathname = usePathname();
   const isActive = pathname === href;
 

@@ -4,7 +4,11 @@ export type PropDef = {
   default?: string;
 };
 
-export function PropsTable({ rows }: { rows: PropDef[] }) {
+type PropsTableProps = {
+  rows: PropDef[];
+};
+
+export function PropsTable({ rows }: PropsTableProps) {
   return (
     <div className="overflow-x-auto rounded-lg hairline border-current/10">
       <table className="w-full text-left text-sm">

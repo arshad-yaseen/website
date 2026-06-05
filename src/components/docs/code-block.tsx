@@ -1,6 +1,11 @@
-import { codeToHtml } from "shiki";
+import { type BundledLanguage, codeToHtml } from "shiki";
 
-export async function CodeBlock({ code, lang = "tsx" }: { code: string; lang?: string }) {
+type CodeBlockProps = {
+  code: string;
+  lang?: BundledLanguage;
+};
+
+export async function CodeBlock({ code, lang = "tsx" }: CodeBlockProps) {
   const html = await codeToHtml(code.trim(), {
     lang,
     themes: { light: "github-light-default", dark: "github-dark-default" },

@@ -13,18 +13,22 @@ export function P({ children }: PropsWithChildren) {
 }
 
 export function Strong({ children }: PropsWithChildren) {
-  return <strong className="font-medium text-neutral-900 dark:text-white">{children}</strong>;
+  return <strong className="font-medium text-neutral-800 dark:text-neutral-300">{children}</strong>;
 }
 
 export function InlineCode({ children }: PropsWithChildren) {
   return (
-    <code className="rounded-sm bg-neutral-200/60 px-1 py-0.5 text-[0.8125rem] text-neutral-900 dark:bg-neutral-800/60 dark:text-white">
+    <code className="rounded-sm bg-neutral-200/60 px-1 py-0.5 text-sm text-neutral-900 dark:bg-neutral-800/60 dark:text-white">
       {children}
     </code>
   );
 }
 
-export function A({ href, children }: PropsWithChildren<{ href: string }>) {
+type AProps = PropsWithChildren<{
+  href: string;
+}>;
+
+export function A({ href, children }: AProps) {
   return (
     <a
       href={href}

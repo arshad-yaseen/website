@@ -1,4 +1,4 @@
-import { HugeiconsIcon, HugeiconsIconProps } from "@hugeicons/react";
+import { HugeiconsIcon, type HugeiconsIconProps } from "@hugeicons/react";
 import { ArrowUpRightIcon, GithubIcon, Moon02Icon, Sun02Icon } from "@hugeicons/core-free-icons";
 
 const Icons = {

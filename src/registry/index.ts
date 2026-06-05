@@ -1,7 +1,15 @@
+import type { ComponentType } from "react";
 import type { Doc, Note, Section } from "./types";
 
 import button from "./components/button";
+import buttonDemo from "./demos/button";
 import introduction from "./pages/introduction";
+
+export const demos = {
+  button: buttonDemo,
+} satisfies Record<string, ComponentType>;
+
+export type DemoName = keyof typeof demos;
 
 export const pages: Doc[] = [introduction];
 

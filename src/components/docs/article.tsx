@@ -1,6 +1,10 @@
 import type { Doc } from "@/registry/types";
 
-export function Article({ doc }: { doc: Doc }) {
+type ArticleProps = {
+  doc: Doc;
+};
+
+export function Article({ doc }: ArticleProps) {
   return (
     <article className="flex flex-col gap-6">
       <header className="flex flex-col gap-2">
