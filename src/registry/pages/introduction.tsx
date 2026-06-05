@@ -1,4 +1,3 @@
-import { P } from "@/components/docs/prose";
 import type { Doc } from "../types";
 
 export default {
