@@ -48,7 +48,7 @@ function Pill({ className, label }: PillProps) {
 
 function ImageComparison() {
   return (
-    <div className="flex min-h-64 flex-wrap items-center justify-center gap-4 rounded-lg bg-[url(/notes/rings-over-borders.avif)] bg-cover bg-center p-8">
+    <div className="flex min-h-64 flex-wrap items-center justify-center gap-4 rounded-lg bg-[url(/notes/rings-over-borders.webp)] bg-cover bg-center p-8">
       <Pill className="border border-neutral-300" label="Border" />
       <Pill className="ring ring-black/10" label="Ring" />
     </div>
