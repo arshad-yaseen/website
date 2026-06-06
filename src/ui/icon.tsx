@@ -1,5 +1,7 @@
 import { HugeiconsIcon, type HugeiconsIconProps } from "@hugeicons/react";
 import {
+  ArrowLeft01Icon,
+  ArrowRight01Icon,
   ArrowUpRightIcon,
   GithubIcon,
   Moon02Icon,
@@ -11,6 +13,8 @@ const Icons = {
   Moon: Moon02Icon,
   Sun: Sun02Icon,
   ArrowUpRight: ArrowUpRightIcon,
+  ChevronLeft: ArrowLeft01Icon,
+  ChevronRight: ArrowRight01Icon,
   Github: GithubIcon,
   Plus: PlusSignIcon,
 };
