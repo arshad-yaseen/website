@@ -31,8 +31,7 @@ export default {
 
       <H2>Elevated</H2>
       <P>
-        Opt in to <InlineCode>elevated</InlineCode> for an inset highlight and border ring on solid
-        buttons.
+        Opt in to <InlineCode>elevated</InlineCode> for an inset highlight and border ring.
       </P>
       <Demo name="button-elevated" />
 
