@@ -34,10 +34,6 @@
   --ring: var(--color-neutral-900);
 
   --border-hairline: 1px;
-
-  --header-height: calc(var(--spacing) * 16);
-  --layout-width: var(--container-5xl);
-  --sidebar-width: calc(var(--spacing) * 56);
 }
 
 .dark {
