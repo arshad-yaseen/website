@@ -11,7 +11,7 @@ type SquareProps = {
 function Square({ className, label }: SquareProps) {
   return (
     <figure className="flex flex-col items-center gap-4">
-      <div className={cn("size-32 rounded-2xl shadow-lg", className)} />
+      <div className={cn("size-32 rounded-2xl shadow-md", className)} />
       <figcaption className="font-mono text-xs text-neutral-400 dark:text-neutral-600">
         {label}
       </figcaption>
