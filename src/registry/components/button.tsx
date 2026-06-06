@@ -6,7 +6,7 @@ import type { Doc } from "../types";
 export default {
   slug: "button",
   title: "Button",
-  description: "Triggers an action. Built on Base UI with solid and plain variants.",
+  description: "Triggers an action.",
   body: (
     <>
       <Demo name="button" />

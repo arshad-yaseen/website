@@ -13,6 +13,24 @@ type HeadingProps = PropsWithChildren<{
   className: string;
 }>;
 
+type AnchorLinkProps = PropsWithChildren<{
+  href: string;
+}>;
+
+export function AnchorLink({ href, children }: AnchorLinkProps) {
+  return (
+    <a href={href}>
+      <span
+        aria-hidden
+        className="-ml-5 mr-2 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
+      >
+        #
+      </span>
+      {children}
+    </a>
+  );
+}
+
 function Heading({ as: Tag, className, children }: HeadingProps) {
   if (typeof children !== "string") {
     return <Tag className={className}>{children}</Tag>;
@@ -22,15 +40,7 @@ function Heading({ as: Tag, className, children }: HeadingProps) {
 
   return (
     <Tag id={id} className={`group ${className}`}>
-      <a href={`#${id}`}>
-        <span
-          aria-hidden
-          className="-ml-5 mr-2 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
-        >
-          #
-        </span>
-        {children}
-      </a>
+      <AnchorLink href={`#${id}`}>{children}</AnchorLink>
     </Tag>
   );
 }

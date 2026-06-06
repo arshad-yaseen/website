@@ -32,7 +32,7 @@ export default {
   slug: "rings-over-borders",
   title: "Rings over borders",
   description: "Rings stay crisp over drop shadows. Borders melt into them.",
-  date: "2026-06-06",
+  date: "2025-10-23",
   body: (
     <>
       <P>

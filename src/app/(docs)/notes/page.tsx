@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { AnchorLink } from "@/components/docs/prose";
 import { notes } from "@/registry";
 
 export const metadata: Metadata = {
@@ -12,7 +13,9 @@ export default function NotesPage() {
       {notes.map((note) => (
         <article key={note.slug} id={note.slug} className="flex flex-col gap-4">
           <header className="flex items-baseline justify-between gap-4">
-            <h2 className="text-lg font-medium tracking-tight">{note.title}</h2>
+            <h2 className="group text-lg font-medium tracking-tight">
+              <AnchorLink href={`#${note.slug}`}>{note.title}</AnchorLink>
+            </h2>
             <time
               dateTime={note.date}
               className="shrink-0 font-mono text-sm text-neutral-600 dark:text-neutral-400"
