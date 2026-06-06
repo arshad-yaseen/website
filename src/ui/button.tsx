@@ -4,9 +4,9 @@ import { Button as BaseUIButton } from "@base-ui/react";
 
 const buttonVariants = cva(
   [
-    "disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
+    "data-disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
-    "disabled:opacity-50",
+    "data-disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
     "transition-[background-color,color] *:data-[slot=icon]:transition-[color] duration-150 ease-out motion-reduce:transition-none",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
@@ -23,23 +23,23 @@ const buttonVariants = cva(
       },
       color: {
         neutral: [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-200)] dark:hover:[--plain-bg:var(--color-neutral-800)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
+          "[--plain-bg:transparent] not-data-disabled:hover:[--plain-bg:var(--color-neutral-200)] dark:not-data-disabled:hover:[--plain-bg:var(--color-neutral-800)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
 
-          "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover:[--solid-bg:var(--color-neutral-300)]/60 dark:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:hover:[--solid-icon:var(--color-neutral-300)]",
+          "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] not-data-disabled:hover:[--solid-bg:var(--color-neutral-300)]/60 dark:not-data-disabled:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:not-data-disabled:hover:[--solid-icon:var(--color-neutral-300)]",
 
           "[--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/12",
         ],
         "dark/white": [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-neutral-900)] dark:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] hover:[--plain-fg:var(--color-white)] dark:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] hover:[--plain-icon:var(--color-neutral-400)] dark:hover:[--plain-icon:var(--color-neutral-500)]",
+          "[--plain-bg:transparent] not-data-disabled:hover:[--plain-bg:var(--color-neutral-900)] dark:not-data-disabled:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] not-data-disabled:hover:[--plain-fg:var(--color-white)] dark:not-data-disabled:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] not-data-disabled:hover:[--plain-icon:var(--color-neutral-400)] dark:not-data-disabled:hover:[--plain-icon:var(--color-neutral-500)]",
 
-          "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] hover:[--solid-bg:var(--color-neutral-800)] dark:hover:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
+          "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] not-data-disabled:hover:[--solid-bg:var(--color-neutral-800)] dark:not-data-disabled:hover:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
 
           "[--outline-ring:var(--color-black)]/60 dark:[--outline-ring:var(--color-white)]/60",
         ],
         accent: [
-          "[--plain-bg:transparent] hover:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
+          "[--plain-bg:transparent] not-data-disabled:hover:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
 
-          "[--solid-bg:var(--color-accent-500)] hover:[--solid-bg:var(--color-accent-600)]/90 dark:hover:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
+          "[--solid-bg:var(--color-accent-500)] not-data-disabled:hover:[--solid-bg:var(--color-accent-600)]/90 dark:not-data-disabled:hover:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
 
           "[--outline-ring:var(--color-accent-500)]/40",
         ],
@@ -100,7 +100,7 @@ export function Button({
           elevated,
         }),
         type === "submit" &&
-          "transition-[background-color,color,transform] active:scale-[0.97] motion-reduce:active:scale-100",
+          "transition-[background-color,color,transform] not-data-disabled:active:scale-[0.97] motion-reduce:active:scale-100",
         className,
       )}
     >
