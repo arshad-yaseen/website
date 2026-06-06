@@ -11,9 +11,9 @@ export default function Sidebar() {
               <NavLink href={`/${page.slug}`}>{page.title}</NavLink>
             </li>
           ))}
-          {/* <li>
+          <li>
             <NavLink href="/notes">Notes</NavLink>
-          </li> */}
+          </li>
         </ul>
         {sections
           .filter((section) => section.docs.length > 0)

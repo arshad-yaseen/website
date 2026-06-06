@@ -1,4 +1,5 @@
 import type { PropsWithChildren } from "react";
+import { cn } from "@/utils/cn";
 
 function slugify(text: string) {
   return text
@@ -52,6 +53,23 @@ export function H3({ children }: PropsWithChildren) {
 
 export function P({ children }: PropsWithChildren) {
   return <p className="text-base/7 text-neutral-600 dark:text-neutral-400">{children}</p>;
+}
+
+type CalloutProps = PropsWithChildren<{
+  className?: string;
+}>;
+
+export function Callout({ className, children }: CalloutProps) {
+  return (
+    <aside
+      className={cn(
+        "rounded-lg bg-neutral-100/60 px-4 py-3 text-sm/6 text-neutral-600 dark:bg-neutral-900/60 dark:text-neutral-400",
+        className,
+      )}
+    >
+      {children}
+    </aside>
+  );
 }
 
 export function Strong({ children }: PropsWithChildren) {

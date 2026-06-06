@@ -8,6 +8,7 @@ import buttonElevatedDemo from "./demos/button-elevated";
 import buttonIconsDemo from "./demos/button-icons";
 import buttonLinkDemo from "./demos/button-link";
 import buttonSizesDemo from "./demos/button-sizes";
+import ringsOverBorders from "./notes/rings-over-borders";
 import introduction from "./pages/introduction";
 
 export const demos = {
@@ -28,7 +29,7 @@ export const sections: Section[] = [
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 
-export const notes: Note[] = [];
+export const notes: Note[] = [ringsOverBorders];
 
 export function getPage(slug: string) {
   return pages.find((page) => page.slug === slug);
