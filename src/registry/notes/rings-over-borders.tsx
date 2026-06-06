@@ -11,7 +11,7 @@ type SquareProps = {
 function Square({ className, label }: SquareProps) {
   return (
     <figure className="flex flex-col items-center gap-4">
-      <div className={cn("size-32 rounded-2xl shadow-md", className)} />
+      <div className={cn("size-32 rounded-2xl shadow-lg", className)} />
       <figcaption className="font-mono text-xs text-neutral-400 dark:text-neutral-600">
         {label}
       </figcaption>
@@ -62,6 +62,11 @@ export default {
   date: "2025-10-23",
   body: (
     <>
+      <P>
+        Drawing edges with rings instead of borders keeps the line crisp above drop shadows,
+        preserves depth, and adapts to any background.
+      </P>
+
       <P>
         Both squares below draw the same 1px edge in the same color, above the same drop shadow. The
         first uses a border, the second a ring.
