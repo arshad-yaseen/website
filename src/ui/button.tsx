@@ -27,7 +27,7 @@ const buttonVariants = cva(
 
           "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] not-data-disabled:hover:[--solid-bg:var(--color-neutral-300)]/60 dark:not-data-disabled:hover:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:not-data-disabled:hover:[--solid-icon:var(--color-neutral-300)]",
 
-          "[--outline-bg:transparent] not-data-disabled:hover:[--outline-bg:var(--color-neutral-200)]/50 dark:not-data-disabled:hover:[--outline-bg:var(--color-neutral-800)]/50 [--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/12",
+          "[--outline-bg:transparent] not-data-disabled:hover:[--outline-bg:var(--color-neutral-200)]/50 dark:not-data-disabled:hover:[--outline-bg:var(--color-neutral-800)]/50 data-disabled:[--outline-bg:var(--color-neutral-200)]/50 dark:data-disabled:[--outline-bg:var(--color-neutral-800)]/50 [--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/12",
         ],
         "dark/white": [
           "[--plain-bg:transparent] not-data-disabled:hover:[--plain-bg:var(--color-neutral-900)] dark:not-data-disabled:hover:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] not-data-disabled:hover:[--plain-fg:var(--color-white)] dark:not-data-disabled:hover:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] not-data-disabled:hover:[--plain-icon:var(--color-neutral-400)] dark:not-data-disabled:hover:[--plain-icon:var(--color-neutral-500)]",
@@ -41,7 +41,7 @@ const buttonVariants = cva(
 
           "[--solid-bg:var(--color-accent-500)] not-data-disabled:hover:[--solid-bg:var(--color-accent-600)]/90 dark:not-data-disabled:hover:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
 
-          "[--outline-bg:transparent] not-data-disabled:hover:[--outline-bg:var(--color-accent-500)]/10 [--outline-ring:var(--color-accent-500)]/40",
+          "[--outline-bg:transparent] not-data-disabled:hover:[--outline-bg:var(--color-accent-500)]/10 data-disabled:[--outline-bg:var(--color-accent-500)]/10 [--outline-ring:var(--color-accent-500)]/40",
         ],
       },
       size: {
