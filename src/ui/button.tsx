@@ -50,9 +50,24 @@ const buttonVariants = cva(
         lg: ["min-h-9 px-3 py-1.5 text-sm/6", "*:data-[slot=icon]:size-4.5"],
       },
       elevated: {
-        true: "inset-shadow-[0_1px_0_rgb(0_0_0/0.06),0_-6px_12px_rgb(0_0_0/0.055)] dark:inset-shadow-[0_1px_0_rgb(255_255_255/0.08),0_-6px_12px_rgb(255_255_255/0.07)]",
+        true: "",
       },
     },
+    compoundVariants: [
+      {
+        elevated: true,
+        variant: "solid",
+        color: ["neutral", "dark/white"],
+        className:
+          "inset-ring inset-ring-black/4 dark:inset-ring-white/4 inset-shadow-2xs inset-shadow-black/6 dark:inset-shadow-white/6",
+      },
+      {
+        elevated: true,
+        variant: "solid",
+        color: "accent",
+        className: "inset-ring inset-ring-white/15 inset-shadow-2xs inset-shadow-white/25",
+      },
+    ],
     defaultVariants: {
       variant: "solid",
       size: "md",

@@ -6,9 +6,6 @@ export default function ButtonElevatedDemo() {
       <Button elevated color="neutral">
         Settings
       </Button>
-      <Button elevated variant="outline">
-        Settings
-      </Button>
       <Button elevated color="accent">
         Settings
       </Button>
