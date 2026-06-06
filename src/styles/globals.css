@@ -1,8 +1,17 @@
 @import "tailwindcss";
+@import "./site.css";
 
 @custom-variant dark (&:is(.dark *));
 
-@theme {
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+  --font-serif: var(--font-serif);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-ring: var(--ring);
+
   --color-neutral-50: var(--color-olive-50);
   --color-neutral-100: var(--color-olive-100);
   --color-neutral-200: var(--color-olive-200);
@@ -26,6 +35,8 @@
   --color-accent-800: var(--color-blue-800);
   --color-accent-900: var(--color-blue-900);
   --color-accent-950: var(--color-blue-950);
+
+  --border-width-hairline: var(--hairline-width);
 }
 
 :root {
@@ -33,7 +44,7 @@
   --foreground: var(--color-neutral-900);
   --ring: var(--color-neutral-900);
 
-  --border-hairline: 1px;
+  --hairline-width: 1px;
 }
 
 .dark {
@@ -44,18 +55,8 @@
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
   :root {
-    --border-hairline: 0.5px;
+    --hairline-width: 0.5px;
   }
-}
-
-@theme inline {
-  --font-sans: var(--font-sans);
-  --font-mono: var(--font-mono);
-  --font-serif: var(--font-serif);
-
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-ring: var(--ring);
 }
 
 @layer base {
@@ -67,33 +68,6 @@
   label {
     touch-action: manipulation;
   }
-}
-
-@utility hairline {
-  border-width: var(--border-hairline);
-}
-@utility hairline-t {
-  border-top-width: var(--border-hairline);
-}
-@utility hairline-b {
-  border-bottom-width: var(--border-hairline);
-}
-@utility hairline-x {
-  border-inline-width: var(--border-hairline);
-}
-@utility hairline-y {
-  border-block-width: var(--border-hairline);
-}
-
-.shiki,
-.shiki span {
-  color: var(--shiki-light);
-  background-color: transparent;
-}
-
-.dark .shiki,
-.dark .shiki span {
-  color: var(--shiki-dark);
 }
 
 ::selection {
