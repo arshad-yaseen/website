@@ -43,6 +43,20 @@ const buttonVariants = cva(
 
           "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-accent-500)]/10 data-disabled:[--outline-bg:var(--color-accent-500)]/10 [--outline-ring:var(--color-accent-500)]/40",
         ],
+        success: [
+          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-success-500)]/10 [--plain-fg:var(--color-success-600)] dark:[--plain-fg:var(--color-success-400)] [--plain-icon:var(--color-success-500)]",
+
+          "[--solid-bg:var(--color-success-500)] hover-open:[--solid-bg:var(--color-success-600)]/90 dark:hover-open:[--solid-bg:var(--color-success-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-success-100)]",
+
+          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-success-500)]/10 data-disabled:[--outline-bg:var(--color-success-500)]/10 [--outline-ring:var(--color-success-500)]/40",
+        ],
+        danger: [
+          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-danger-500)]/10 [--plain-fg:var(--color-danger-600)] dark:[--plain-fg:var(--color-danger-400)] [--plain-icon:var(--color-danger-500)]",
+
+          "[--solid-bg:var(--color-danger-500)] hover-open:[--solid-bg:var(--color-danger-600)]/90 dark:hover-open:[--solid-bg:var(--color-danger-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-danger-100)]",
+
+          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-danger-500)]/10 data-disabled:[--outline-bg:var(--color-danger-500)]/10 [--outline-ring:var(--color-danger-500)]/40",
+        ],
       },
       size: {
         sm: ["min-h-7 px-2 py-0.5 text-sm/6", "*:data-[slot=icon]:size-3.5"],
@@ -64,7 +78,7 @@ const buttonVariants = cva(
       {
         elevated: true,
         variant: "solid",
-        color: "accent",
+        color: ["accent", "success", "danger"],
         className: "inset-ring inset-ring-white/15 inset-shadow-2xs inset-shadow-white/25",
       },
     ],

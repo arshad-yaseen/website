@@ -9,7 +9,7 @@ export default {
   description: "Triggers an action.",
   body: (
     <>
-      <Demo name="button" />
+      <Demo name="button/basic" />
 
       <P>
         Defaults to <InlineCode>type="button"</InlineCode> so it never submits forms by accident.
@@ -17,36 +17,40 @@ export default {
       </P>
 
       <H2>Sizes</H2>
-      <Demo name="button-sizes" />
+      <Demo name="button/sizes" />
 
       <H2>Colors</H2>
-      <Demo name="button-colors" />
+      <Demo name="button/colors" />
 
       <H2>Icons</H2>
       <P>
         Place an <InlineCode>Icon</InlineCode> on either side of the label. Icon-only buttons need
         an <InlineCode>aria-label</InlineCode>.
       </P>
-      <Demo name="button-icons" />
+      <Demo name="button/icons" />
 
       <H2>Elevated</H2>
       <P>
         Opt in to <InlineCode>elevated</InlineCode> for an inset highlight on solid buttons.
       </P>
-      <Demo name="button-elevated" />
+      <Demo name="button/elevated" />
 
       <H2>Link</H2>
       <P>
         Pass an element to <InlineCode>render</InlineCode> to render the button as something else,
         like a link. Native button semantics are dropped automatically.
       </P>
-      <Demo name="button-link" />
+      <Demo name="button/link" />
 
       <H2>API</H2>
       <PropsTable
         rows={[
           { name: "variant", type: '"solid" | "outline" | "plain"', default: '"solid"' },
-          { name: "color", type: '"neutral" | "dark/white" | "accent"', default: '"dark/white"' },
+          {
+            name: "color",
+            type: '"neutral" | "dark/white" | "accent" | "success" | "danger"',
+            default: '"dark/white"',
+          },
           { name: "size", type: '"sm" | "md" | "lg"', default: '"md"' },
           { name: "elevated", type: "boolean", default: "false" },
         ]}
