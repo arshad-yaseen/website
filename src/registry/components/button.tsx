@@ -35,6 +35,13 @@ export default {
       </P>
       <Demo name="button/elevated" />
 
+      <H2>Loading</H2>
+      <P>
+        Pass <InlineCode>disabled</InlineCode> and drop a dot matrix loader in as the icon for a
+        loading state.
+      </P>
+      <Demo name="button/loading" />
+
       <H2>Link</H2>
       <P>
         Pass an element to <InlineCode>render</InlineCode> to render the button as something else,

@@ -8,6 +8,7 @@ import buttonColorsDemo from "./demos/button/colors";
 import buttonElevatedDemo from "./demos/button/elevated";
 import buttonIconsDemo from "./demos/button/icons";
 import buttonLinkDemo from "./demos/button/link";
+import buttonLoadingDemo from "./demos/button/loading";
 import buttonSizesDemo from "./demos/button/sizes";
 import loadersDemo from "./demos/loaders/basic";
 import loadersColorDemo from "./demos/loaders/color";
@@ -22,6 +23,7 @@ export const demos = {
   "button/elevated": buttonElevatedDemo,
   "button/icons": buttonIconsDemo,
   "button/link": buttonLinkDemo,
+  "button/loading": buttonLoadingDemo,
   "button/sizes": buttonSizesDemo,
   "loaders/basic": loadersDemo,
   "loaders/color": loadersColorDemo,
