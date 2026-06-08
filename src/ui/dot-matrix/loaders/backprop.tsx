@@ -1,7 +1,7 @@
 import type { CSSProperties } from "react";
 import type { LoaderProps } from "../types";
 
-const STYLE = `.backprop-l{opacity:0;animation:backprop-k calc(2800ms / var(--speed, 1)) linear infinite both,backprop-k calc(2800ms / var(--speed, 1)) linear infinite both;animation-composition:add;}
+const STYLE = `.backprop-l{opacity:0.16;animation:backprop-k calc(2800ms / var(--speed, 1)) linear infinite both,backprop-k calc(2800ms / var(--speed, 1)) linear infinite both;animation-composition:add;}
 @keyframes backprop-k{0%,100%{opacity:0}10%{opacity:0.84}22%{opacity:0}}
 @media (prefers-reduced-motion:reduce){.backprop-l{animation:none;opacity:0.5}}
 .backprop-d00{animation-delay:calc(0ms / var(--speed, 1)),calc(2360ms / var(--speed, 1))}

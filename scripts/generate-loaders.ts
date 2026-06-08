@@ -462,7 +462,7 @@ const buildStyle = (spec: Spec): string => {
 
   if (composite) {
     const anim = `${id}-k ${duration} ${easing} infinite both`;
-    lines.push(`.${id}-l{opacity:0;animation:${anim},${anim};animation-composition:add;}`);
+    lines.push(`.${id}-l{opacity:0.16;animation:${anim},${anim};animation-composition:add;}`);
   } else if (multi) {
     lines.push(
       `.${id}-l{opacity:0;animation-duration:${duration};animation-timing-function:${easing};animation-iteration-count:infinite;animation-fill-mode:both;}`,
