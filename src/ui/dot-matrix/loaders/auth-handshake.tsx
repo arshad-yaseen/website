@@ -32,6 +32,7 @@ export function AuthHandshake({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Auth Handshake"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

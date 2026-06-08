@@ -44,6 +44,7 @@ export function Backprop({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Backprop"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

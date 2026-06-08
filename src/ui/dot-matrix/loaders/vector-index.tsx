@@ -43,6 +43,7 @@ export function VectorIndex({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Vector Index"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

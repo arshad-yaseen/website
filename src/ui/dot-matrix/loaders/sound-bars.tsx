@@ -44,6 +44,7 @@ export function SoundBars({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Sound Bars"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

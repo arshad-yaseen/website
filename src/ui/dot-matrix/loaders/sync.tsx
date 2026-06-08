@@ -23,6 +23,7 @@ export function Sync({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Sync"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

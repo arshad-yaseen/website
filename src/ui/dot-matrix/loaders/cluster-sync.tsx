@@ -31,6 +31,7 @@ export function ClusterSync({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Cluster Sync"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

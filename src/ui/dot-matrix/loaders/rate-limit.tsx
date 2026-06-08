@@ -23,6 +23,7 @@ export function RateLimit({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Rate Limit"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

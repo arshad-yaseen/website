@@ -35,6 +35,7 @@ export function Snowflake({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Snowflake"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

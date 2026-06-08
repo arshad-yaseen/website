@@ -39,6 +39,7 @@ export function TokenStream({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Token Stream"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

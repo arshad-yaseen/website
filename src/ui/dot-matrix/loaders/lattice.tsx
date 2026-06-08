@@ -40,6 +40,7 @@ export function Lattice({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Lattice"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

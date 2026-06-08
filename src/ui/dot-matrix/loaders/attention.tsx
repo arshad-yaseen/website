@@ -39,6 +39,7 @@ export function Attention({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Attention"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

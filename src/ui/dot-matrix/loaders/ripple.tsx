@@ -43,6 +43,7 @@ export function Ripple({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Ripple"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

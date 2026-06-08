@@ -39,6 +39,7 @@ export function Deploy({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Deploy"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

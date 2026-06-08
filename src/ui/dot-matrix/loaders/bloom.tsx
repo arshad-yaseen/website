@@ -43,6 +43,7 @@ export function Bloom({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Bloom"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

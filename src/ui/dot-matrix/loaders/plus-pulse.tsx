@@ -27,6 +27,7 @@ export function PlusPulse({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Plus Pulse"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

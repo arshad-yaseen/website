@@ -26,6 +26,7 @@ export function Diffusion({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Diffusion"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

@@ -44,6 +44,7 @@ export function Quantize({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Quantize"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

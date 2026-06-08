@@ -44,6 +44,7 @@ export function Hash({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Hash"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

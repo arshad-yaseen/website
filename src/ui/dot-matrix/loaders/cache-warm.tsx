@@ -40,6 +40,7 @@ export function CacheWarm({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Cache Warm"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}

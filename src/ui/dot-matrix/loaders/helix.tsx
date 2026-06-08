@@ -42,6 +42,7 @@ export function Helix({
       width={size}
       height={size}
       role="img"
+      data-slot="icon"
       aria-label={ariaLabel ?? "Helix"}
       className={className}
       style={{ color, "--speed": speed } as CSSProperties}
