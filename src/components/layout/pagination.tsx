@@ -7,7 +7,7 @@ import { Icon } from "@/ui/icon";
 import { cn } from "@/utils/cn";
 
 const chevronClassName = cn(
-  "mt-0.5 hidden size-4 text-neutral-500 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 motion-reduce:transition-none pointer-fine:block dark:text-neutral-400",
+  "mt-0.5 hidden size-4 text-neutral-500 opacity-0 transition-opacity duration-150 ease-out group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-400 pointer-fine:block",
 );
 
 export type PaginationItem = {

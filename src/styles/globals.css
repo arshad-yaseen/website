@@ -73,7 +73,7 @@
 :root {
   --background: var(--color-neutral-50);
   --foreground: var(--color-neutral-900);
-  --ring: var(--color-neutral-900);
+  --ring: var(--color-accent-500);
 
   --hairline-width: 1px;
 }
@@ -81,7 +81,6 @@
 .dark {
   --background: var(--color-neutral-950);
   --foreground: var(--color-neutral-100);
-  --ring: var(--color-neutral-300);
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {

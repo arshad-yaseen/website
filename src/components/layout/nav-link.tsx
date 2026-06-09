@@ -17,7 +17,7 @@ export default function NavLink<T extends string>({ href, children }: NavLinkPro
     <Link
       href={href}
       aria-current={isActive ? "page" : undefined}
-      className="block text-sm text-neutral-600 aria-[current=page]:text-neutral-900 -mx-2 dark:hover:text-neutral-300 hover:text-neutral-800 transition-colors dark:text-neutral-400 dark:aria-[current=page]:text-white dark:aria-[current=page]:bg-neutral-900/80 aria-[current=page]:bg-neutral-200/60 px-2 py-1 rounded-md"
+      className="-mx-2 block rounded-md px-2 py-1 text-sm text-neutral-600 transition-colors hover:text-neutral-800 aria-[current=page]:bg-neutral-200/60 aria-[current=page]:text-neutral-900 dark:text-neutral-400 dark:hover:text-neutral-300 dark:aria-[current=page]:bg-neutral-900/80 dark:aria-[current=page]:text-white"
     >
       {children}
     </Link>

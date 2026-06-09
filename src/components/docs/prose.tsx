@@ -22,7 +22,7 @@ export function AnchorLink({ href, children }: AnchorLinkProps) {
     <a href={href}>
       <span
         aria-hidden
-        className="-ml-5 mr-2 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
+        className="mr-2 -ml-5 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
       >
         #
       </span>
@@ -102,7 +102,7 @@ export function A({ href, children }: AProps) {
   return (
     <a
       href={href}
-      className="text-neutral-900 underline transition-colors underline-offset-2 hover:decoration-neutral-500 decoration-neutral-400 dark:hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600"
+      className="text-neutral-900 underline decoration-neutral-400 underline-offset-2 transition-colors hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600 dark:hover:decoration-neutral-500"
     >
       {children}
     </a>
