@@ -18,6 +18,7 @@ import loadersSizesDemo from "./demos/loaders/sizes";
 import selectDemo from "./demos/select/basic";
 import selectDisabledDemo from "./demos/select/disabled";
 import selectGroupedDemo from "./demos/select/grouped";
+import selectIconsDemo from "./demos/select/icons";
 import selectMultipleDemo from "./demos/select/multiple";
 import selectSizesDemo from "./demos/select/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
@@ -38,6 +39,7 @@ export const demos = {
   "select/basic": selectDemo,
   "select/disabled": selectDisabledDemo,
   "select/grouped": selectGroupedDemo,
+  "select/icons": selectIconsDemo,
   "select/multiple": selectMultipleDemo,
   "select/sizes": selectSizesDemo,
 } satisfies Record<string, ComponentType>;

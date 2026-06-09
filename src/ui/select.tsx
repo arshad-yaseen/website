@@ -57,11 +57,18 @@ function Trigger({ size, className, ...props }: SelectTriggerProps) {
   );
 }
 
+// Shared styling for a content icon (data-slot=icon) inside the trigger value or an
+// item: identical size, gap, and muted color so the two align when the menu opens over
+// the trigger.
+const CONTENT_ICON =
+  "*:data-[slot=icon]:me-2 *:data-[slot=icon]:inline-block *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400";
+
 function Value({ className, ...props }: SelectPrimitive.Value.Props) {
   return (
     <SelectPrimitive.Value
       className={cn(
         "min-w-0 truncate text-start data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400",
+        CONTENT_ICON,
         className,
       )}
       {...props}
@@ -202,7 +209,14 @@ function ItemIndicator({ className, children, ...props }: SelectPrimitive.ItemIn
 function ItemText({ className, ...props }: SelectPrimitive.ItemText.Props) {
   return (
     <SelectPrimitive.ItemText
-      className={cn("col-start-2 min-w-0 truncate", className)}
+      className={cn(
+        "col-start-2 min-w-0 truncate",
+        CONTENT_ICON,
+        // Invert the icon to white on highlight. The dark-scoped rule is needed to win the
+        // specificity tie against CONTENT_ICON's dark:...neutral-400 in dark mode.
+        "group-data-highlighted/item:*:data-[slot=icon]:text-white dark:group-data-highlighted/item:*:data-[slot=icon]:text-white",
+        className,
+      )}
       {...props}
     />
   );
