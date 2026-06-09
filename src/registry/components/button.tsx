@@ -7,6 +7,7 @@ export default {
   slug: "button",
   title: "Button",
   description: "Triggers an action.",
+  source: "src/ui/button.tsx",
   body: (
     <>
       <Demo name="button/basic" />

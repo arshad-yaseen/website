@@ -5,6 +5,8 @@ export type Doc = {
   title: string;
   description: string;
   body: ReactNode;
+  /** Repo-relative path to the component's source (file or directory). */
+  source?: string;
 };
 
 export type Note = Doc & {

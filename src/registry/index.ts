@@ -33,10 +33,17 @@ export const demos = {
 
 export type DemoName = keyof typeof demos;
 
-export const pages: Doc[] = [introduction];
+const REPO = "https://github.com/arshad-yaseen/ui";
+
+const withSource = <T extends Doc>(doc: T): T =>
+  doc.source
+    ? { ...doc, source: `${REPO}/${doc.source.includes(".") ? "blob" : "tree"}/main/${doc.source}` }
+    : doc;
+
+export const pages: Doc[] = [introduction].map(withSource);
 
 export const sections: Section[] = [
-  { slug: "components", title: "Components", docs: [button, loaders] },
+  { slug: "components", title: "Components", docs: [button, loaders].map(withSource) },
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 

@@ -7,6 +7,7 @@ export default {
   slug: "loaders",
   title: "Loaders",
   description: "A set of 5×5 dot matrix loaders, each a self-contained SVG.",
+  source: "src/ui/dot-matrix",
   body: (
     <>
       <Demo name="loaders/basic" />

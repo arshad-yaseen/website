@@ -14,7 +14,7 @@ export async function CodeBlock({ code, lang = "tsx" }: CodeBlockProps) {
 
   return (
     <div
-      className="max-h-96 overflow-auto rounded-lg border-hairline border-current/10 p-4 text-[0.8125rem]/6 [&_pre]:focus-visible:outline-hidden"
+      className="max-h-120 overflow-auto rounded-lg border-hairline border-current/10 p-4 text-[0.8125rem]/6 [&_pre]:focus-visible:outline-hidden"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
