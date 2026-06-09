@@ -1,4 +1,5 @@
 import { type BundledLanguage, codeToHtml } from "shiki";
+import { CodeBlockScroller } from "./code-block-scroller";
 
 type CodeBlockProps = {
   code: string;
@@ -12,10 +13,5 @@ export async function CodeBlock({ code, lang = "tsx" }: CodeBlockProps) {
     defaultColor: false,
   });
 
-  return (
-    <div
-      className="max-h-120 overflow-auto rounded-lg border-hairline border-current/10 p-4 text-[0.8125rem]/6 [&_pre]:focus-visible:outline-hidden"
-      dangerouslySetInnerHTML={{ __html: html }}
-    />
-  );
+  return <CodeBlockScroller html={html} />;
 }

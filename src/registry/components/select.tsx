@@ -1,6 +1,6 @@
 import { Demo } from "@/components/docs/demo";
 import { PropsTable } from "@/components/docs/props-table";
-import { H2, H3, P } from "@/components/docs/prose";
+import { A, H2, H3, InlineCode, P } from "@/components/docs/prose";
 import type { Doc } from "../types";
 
 export default {
@@ -48,6 +48,13 @@ export default {
           { name: "container", type: "HTMLElement | Ref | null" },
         ]}
       />
+      <P>
+        Plus everything from{" "}
+        <A href="https://base-ui.com/react/components/select">Base UI Select</A>, including{" "}
+        <InlineCode>items</InlineCode>, <InlineCode>value</InlineCode>,{" "}
+        <InlineCode>defaultValue</InlineCode>, and <InlineCode>onValueChange</InlineCode>.{" "}
+        <InlineCode>Select.Popup</InlineCode> forwards the remaining positioner props.
+      </P>
     </>
   ),
 } satisfies Doc;
