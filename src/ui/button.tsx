@@ -17,7 +17,7 @@ const buttonVariants = cva(
         solid: ["bg-(--solid-bg) text-(--solid-fg) *:data-[slot=icon]:text-(--solid-icon)"],
         outline: [
           "bg-(--outline-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)",
-          "ring ring-(--outline-ring) shadow-sm",
+          "ring ring-(--outline-ring) not-data-disabled:shadow-sm",
         ],
         plain: ["bg-(--plain-bg) text-(--plain-fg) *:data-[slot=icon]:text-(--plain-icon)"],
       },
