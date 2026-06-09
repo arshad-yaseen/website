@@ -57,11 +57,9 @@ function Trigger({ size, className, ...props }: SelectTriggerProps) {
   );
 }
 
-// Shared styling for a content icon (data-slot=icon) inside the trigger value or an
-// item: identical size, gap, and muted color so the two align when the menu opens over
-// the trigger.
-const CONTENT_ICON =
-  "*:data-[slot=icon]:me-2 *:data-[slot=icon]:inline-block *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400";
+const CONTENT_ICON = cn(
+  "*:data-[slot=icon]:me-2 *:data-[slot=icon]:inline-block *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400",
+);
 
 function Value({ className, ...props }: SelectPrimitive.Value.Props) {
   return (
@@ -212,8 +210,6 @@ function ItemText({ className, ...props }: SelectPrimitive.ItemText.Props) {
       className={cn(
         "col-start-2 min-w-0 truncate",
         CONTENT_ICON,
-        // Invert the icon to white on highlight. The dark-scoped rule is needed to win the
-        // specificity tie against CONTENT_ICON's dark:...neutral-400 in dark mode.
         "group-data-highlighted/item:*:data-[slot=icon]:text-white dark:group-data-highlighted/item:*:data-[slot=icon]:text-white",
         className,
       )}
@@ -275,7 +271,7 @@ function ScrollDownArrow({ className, children, ...props }: SelectPrimitive.Scro
   );
 }
 
-const SVG_BASE = "block shrink-0";
+const SVG_BASE = cn("block shrink-0");
 
 const STROKE_ICON = {
   viewBox: "0 0 16 16",
