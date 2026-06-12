@@ -21,7 +21,7 @@ export function PropsTable({ rows }: PropsTableProps) {
         </thead>
         <tbody>
           {rows.map((row) => (
-            <tr key={row.name} className="not-last:border-b-hairline border-current/10">
+            <tr key={row.name} className="border-current/10 not-last:border-b-hairline">
               <td className="px-4 py-2.5 font-mono text-[0.8125rem]">{row.name}</td>
               <td className="px-4 py-2.5 font-mono text-[0.8125rem] text-neutral-600 dark:text-neutral-400">
                 {row.type}

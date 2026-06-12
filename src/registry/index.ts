@@ -3,6 +3,7 @@ import type { Doc, Note, Section } from "./types";
 
 import button from "./components/button";
 import loaders from "./components/loaders";
+import select from "./components/select";
 import buttonDemo from "./demos/button/basic";
 import buttonColorsDemo from "./demos/button/colors";
 import buttonElevatedDemo from "./demos/button/elevated";
@@ -14,6 +15,12 @@ import loadersDemo from "./demos/loaders/basic";
 import loadersColorDemo from "./demos/loaders/color";
 import loadersGalleryDemo from "./demos/loaders/gallery";
 import loadersSizesDemo from "./demos/loaders/sizes";
+import selectDemo from "./demos/select/basic";
+import selectDisabledDemo from "./demos/select/disabled";
+import selectGroupedDemo from "./demos/select/grouped";
+import selectIconsDemo from "./demos/select/icons";
+import selectMultipleDemo from "./demos/select/multiple";
+import selectSizesDemo from "./demos/select/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
 import introduction from "./pages/introduction";
 
@@ -29,6 +36,12 @@ export const demos = {
   "loaders/color": loadersColorDemo,
   "loaders/gallery": loadersGalleryDemo,
   "loaders/sizes": loadersSizesDemo,
+  "select/basic": selectDemo,
+  "select/disabled": selectDisabledDemo,
+  "select/grouped": selectGroupedDemo,
+  "select/icons": selectIconsDemo,
+  "select/multiple": selectMultipleDemo,
+  "select/sizes": selectSizesDemo,
 } satisfies Record<string, ComponentType>;
 
 export type DemoName = keyof typeof demos;
@@ -43,7 +56,7 @@ const withSource = <T extends Doc>(doc: T): T =>
 export const pages: Doc[] = [introduction].map(withSource);
 
 export const sections: Section[] = [
-  { slug: "components", title: "Components", docs: [button, loaders].map(withSource) },
+  { slug: "components", title: "Components", docs: [button, select, loaders].map(withSource) },
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 

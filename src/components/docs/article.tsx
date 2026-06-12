@@ -16,13 +16,7 @@ export function Article({ doc }: ArticleProps) {
               variant="plain"
               size="sm"
               className="shrink-0"
-              render={
-                <a
-                  href={doc.source}
-                  target="_blank"
-                  rel="noreferrer"
-                />
-              }
+              render={<a href={doc.source} target="_blank" rel="noreferrer" />}
             >
               Source code
             </Button>

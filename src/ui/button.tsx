@@ -4,12 +4,12 @@ import { Button as BaseUIButton } from "@base-ui/react";
 
 const buttonVariants = cva(
   [
-    "data-disabled:cursor-not-allowed cursor-pointer rounded-md relative isolate inline-flex items-center justify-center gap-x-2 font-medium",
+    "relative isolate inline-flex cursor-pointer items-center justify-center gap-x-2 rounded-md font-medium data-disabled:cursor-not-allowed",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "data-disabled:opacity-50",
     "touch-manipulation pointer-coarse:min-h-11",
-    "transition-[background-color,color] *:data-[slot=icon]:transition-[color] duration-150 ease-out motion-reduce:transition-none",
-    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center *:data-[slot=icon]:my-1",
+    "transition-[background-color,color] duration-150 ease-out *:data-[slot=icon]:transition-[color] motion-reduce:transition-none",
+    "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-1 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center",
   ],
   {
     variants: {
@@ -23,39 +23,39 @@ const buttonVariants = cva(
       },
       color: {
         neutral: [
-          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-neutral-200)] dark:hover-open:[--plain-bg:var(--color-neutral-800)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)]",
+          "[--plain-bg:transparent] [--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-fg:var(--color-white)] dark:[--plain-icon:var(--color-neutral-400)] hover-open:[--plain-bg:var(--color-neutral-200)] dark:hover-open:[--plain-bg:var(--color-neutral-800)]",
 
-          "[--solid-bg:var(--color-neutral-200)] dark:[--solid-bg:var(--color-neutral-800)] hover-open:[--solid-bg:var(--color-neutral-300)]/60 dark:hover-open:[--solid-bg:var(--color-neutral-700)]/60 [--solid-icon:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-400)] dark:hover-open:[--solid-icon:var(--color-neutral-300)]",
+          "[--solid-bg:var(--color-neutral-200)] [--solid-icon:var(--color-neutral-900)] dark:[--solid-bg:var(--color-neutral-800)] dark:[--solid-icon:var(--color-neutral-400)] hover-open:[--solid-bg:var(--color-neutral-300)]/60 dark:hover-open:[--solid-bg:var(--color-neutral-700)]/60 dark:hover-open:[--solid-icon:var(--color-neutral-300)]",
 
-          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-neutral-200)]/50 dark:hover-open:[--outline-bg:var(--color-neutral-800)]/50 data-disabled:[--outline-bg:var(--color-neutral-200)]/50 dark:data-disabled:[--outline-bg:var(--color-neutral-800)]/50 [--outline-ring:var(--color-black)]/15 dark:[--outline-ring:var(--color-white)]/12",
+          "[--outline-bg:transparent] [--outline-ring:var(--color-black)]/15 data-disabled:[--outline-bg:var(--color-neutral-200)]/50 dark:[--outline-ring:var(--color-white)]/12 dark:data-disabled:[--outline-bg:var(--color-neutral-800)]/50 hover-open:[--outline-bg:var(--color-neutral-200)]/50 dark:hover-open:[--outline-bg:var(--color-neutral-800)]/50",
         ],
         "dark/white": [
-          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-neutral-900)] dark:hover-open:[--plain-bg:var(--color-white)] [--plain-fg:var(--color-neutral-900)] dark:[--plain-fg:var(--color-white)] hover-open:[--plain-fg:var(--color-white)] dark:hover-open:[--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-icon:var(--color-neutral-400)] hover-open:[--plain-icon:var(--color-neutral-400)] dark:hover-open:[--plain-icon:var(--color-neutral-500)]",
+          "[--plain-bg:transparent] [--plain-fg:var(--color-neutral-900)] [--plain-icon:var(--color-neutral-500)] dark:[--plain-fg:var(--color-white)] dark:[--plain-icon:var(--color-neutral-400)] hover-open:[--plain-bg:var(--color-neutral-900)] hover-open:[--plain-fg:var(--color-white)] hover-open:[--plain-icon:var(--color-neutral-400)] dark:hover-open:[--plain-bg:var(--color-white)] dark:hover-open:[--plain-fg:var(--color-neutral-900)] dark:hover-open:[--plain-icon:var(--color-neutral-500)]",
 
-          "[--solid-bg:var(--color-neutral-900)] dark:[--solid-bg:var(--color-white)] hover-open:[--solid-bg:var(--color-neutral-800)] dark:hover-open:[--solid-bg:var(--color-neutral-100)] [--solid-fg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-icon:var(--color-neutral-500)]",
+          "[--solid-bg:var(--color-neutral-900)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-neutral-400)] dark:[--solid-bg:var(--color-white)] dark:[--solid-fg:var(--color-neutral-900)] dark:[--solid-icon:var(--color-neutral-500)] hover-open:[--solid-bg:var(--color-neutral-800)] dark:hover-open:[--solid-bg:var(--color-neutral-100)]",
 
-          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-neutral-900)] dark:hover-open:[--outline-bg:var(--color-white)] [--outline-ring:var(--color-black)]/60 dark:[--outline-ring:var(--color-white)]/60 hover-open:[--outline-ring:var(--color-neutral-900)] dark:hover-open:[--outline-ring:var(--color-white)]",
+          "[--outline-bg:transparent] [--outline-ring:var(--color-black)]/60 dark:[--outline-ring:var(--color-white)]/60 hover-open:[--outline-bg:var(--color-neutral-900)] hover-open:[--outline-ring:var(--color-neutral-900)] dark:hover-open:[--outline-bg:var(--color-white)] dark:hover-open:[--outline-ring:var(--color-white)]",
         ],
         accent: [
-          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-accent-500)]/10 [--plain-fg:var(--color-accent-600)] dark:[--plain-fg:var(--color-accent-400)] [--plain-icon:var(--color-accent-500)]",
+          "[--plain-bg:transparent] [--plain-fg:var(--color-accent-600)] [--plain-icon:var(--color-accent-500)] dark:[--plain-fg:var(--color-accent-400)] hover-open:[--plain-bg:var(--color-accent-500)]/10",
 
-          "[--solid-bg:var(--color-accent-500)] hover-open:[--solid-bg:var(--color-accent-600)]/90 dark:hover-open:[--solid-bg:var(--color-accent-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)]",
+          "[--solid-bg:var(--color-accent-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)] hover-open:[--solid-bg:var(--color-accent-600)]/90 dark:hover-open:[--solid-bg:var(--color-accent-500)]/90",
 
-          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-accent-500)]/10 data-disabled:[--outline-bg:var(--color-accent-500)]/10 [--outline-ring:var(--color-accent-500)]/40",
+          "[--outline-bg:transparent] [--outline-ring:var(--color-accent-500)]/40 data-disabled:[--outline-bg:var(--color-accent-500)]/10 hover-open:[--outline-bg:var(--color-accent-500)]/10",
         ],
         success: [
-          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-success-500)]/10 [--plain-fg:var(--color-success-600)] dark:[--plain-fg:var(--color-success-400)] [--plain-icon:var(--color-success-500)]",
+          "[--plain-bg:transparent] [--plain-fg:var(--color-success-600)] [--plain-icon:var(--color-success-500)] dark:[--plain-fg:var(--color-success-400)] hover-open:[--plain-bg:var(--color-success-500)]/10",
 
-          "[--solid-bg:var(--color-success-500)] hover-open:[--solid-bg:var(--color-success-600)]/90 dark:hover-open:[--solid-bg:var(--color-success-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-success-100)]",
+          "[--solid-bg:var(--color-success-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-success-100)] hover-open:[--solid-bg:var(--color-success-600)]/90 dark:hover-open:[--solid-bg:var(--color-success-500)]/90",
 
-          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-success-500)]/10 data-disabled:[--outline-bg:var(--color-success-500)]/10 [--outline-ring:var(--color-success-500)]/40",
+          "[--outline-bg:transparent] [--outline-ring:var(--color-success-500)]/40 data-disabled:[--outline-bg:var(--color-success-500)]/10 hover-open:[--outline-bg:var(--color-success-500)]/10",
         ],
         danger: [
-          "[--plain-bg:transparent] hover-open:[--plain-bg:var(--color-danger-500)]/10 [--plain-fg:var(--color-danger-600)] dark:[--plain-fg:var(--color-danger-400)] [--plain-icon:var(--color-danger-500)]",
+          "[--plain-bg:transparent] [--plain-fg:var(--color-danger-600)] [--plain-icon:var(--color-danger-500)] dark:[--plain-fg:var(--color-danger-400)] hover-open:[--plain-bg:var(--color-danger-500)]/10",
 
-          "[--solid-bg:var(--color-danger-500)] hover-open:[--solid-bg:var(--color-danger-600)]/90 dark:hover-open:[--solid-bg:var(--color-danger-500)]/90 [--solid-fg:var(--color-white)] [--solid-icon:var(--color-danger-100)]",
+          "[--solid-bg:var(--color-danger-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-danger-100)] hover-open:[--solid-bg:var(--color-danger-600)]/90 dark:hover-open:[--solid-bg:var(--color-danger-500)]/90",
 
-          "[--outline-bg:transparent] hover-open:[--outline-bg:var(--color-danger-500)]/10 data-disabled:[--outline-bg:var(--color-danger-500)]/10 [--outline-ring:var(--color-danger-500)]/40",
+          "[--outline-bg:transparent] [--outline-ring:var(--color-danger-500)]/40 data-disabled:[--outline-bg:var(--color-danger-500)]/10 hover-open:[--outline-bg:var(--color-danger-500)]/10",
         ],
       },
       size: {
@@ -73,13 +73,13 @@ const buttonVariants = cva(
         variant: "solid",
         color: ["neutral", "dark/white"],
         className:
-          "inset-ring inset-ring-black/4 dark:inset-ring-white/4 inset-shadow-2xs inset-shadow-black/6 dark:inset-shadow-white/6",
+          "inset-shadow-2xs inset-ring inset-shadow-black/6 inset-ring-black/4 dark:inset-shadow-white/6 dark:inset-ring-white/4",
       },
       {
         elevated: true,
         variant: "solid",
         color: ["accent", "success", "danger"],
-        className: "inset-ring inset-ring-white/15 inset-shadow-2xs inset-shadow-white/25",
+        className: "inset-shadow-2xs inset-ring inset-shadow-white/25 inset-ring-white/15",
       },
     ],
     defaultVariants: {

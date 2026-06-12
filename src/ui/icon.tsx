@@ -3,6 +3,7 @@ import {
   ArrowLeft01Icon,
   ArrowRight01Icon,
   ArrowUpRightIcon,
+  ComputerIcon,
   GithubIcon,
   Moon02Icon,
   PlusSignIcon,
@@ -12,6 +13,7 @@ import {
 const Icons = {
   Moon: Moon02Icon,
   Sun: Sun02Icon,
+  Monitor: ComputerIcon,
   ArrowUpRight: ArrowUpRightIcon,
   ChevronLeft: ArrowLeft01Icon,
   ChevronRight: ArrowRight01Icon,
