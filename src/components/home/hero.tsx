@@ -1,30 +1,39 @@
-import Link from "next/link";
 import { Button } from "@/ui/button";
+import Link from "next/link";
+import { HeroArt } from "./hero-art";
+import { Icon } from "@/ui/icon";
 
 export default function Hero() {
   return (
-    <section className="mx-auto flex w-full max-w-(--layout-width) flex-col items-center gap-6 text-center">
-      <h1 className="max-w-2xl text-4xl/12 tracking-tight text-balance sm:text-6xl/18">
-        UI components, crafted with intent.
-      </h1>
+    <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-(--layout-width) border-x-hairline border-current/6">
+      <div className="absolute w-full mask-b-from-52">
+        <HeroArt />
+      </div>
+      <div className="relative z-20 mx-auto flex size-full max-w-(--layout-width) flex-col justify-end pt-52">
+        <h1 className="mx-(--layout-padding) text-4xl/12 tracking-tight text-balance sm:text-4xl/16">
+          Arshad Yaseen
+        </h1>
 
-      <p className="max-w-xl text-base/7 text-pretty text-neutral-600 sm:text-lg/8 dark:text-neutral-400">
-        A living collection of components, experiments, and design notes for design engineers, from
-        me.
-      </p>
+        <p className="mx-(--layout-padding) text-base/7 text-pretty text-neutral-600 dark:text-neutral-400">
+          Design Engineer
+        </p>
 
-      <div className="mt-2 flex flex-wrap items-center gap-3">
-        <Button size="lg" className="rounded-full" render={<Link href="/introduction" />}>
-          Get Started
-        </Button>
-        <Button
-          size="lg"
-          variant="outline"
-          className="rounded-full"
-          render={<Link href="/components" />}
-        >
-          Explore components
-        </Button>
+        <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/6 bg-background px-(--layout-padding) py-2">
+          <Button size="lg" className="rounded-full" render={<Link href="/introduction" />}>
+            Explore UI
+          </Button>
+          <Button
+            size="lg"
+            variant="outline"
+            className="rounded-full"
+            render={<Link href="/components" />}
+          >
+            Projects
+            <Icon name="ArrowUpRight" />
+          </Button>
+        </div>
+
+        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/6 bg-background"></div>
       </div>
     </section>
   );
