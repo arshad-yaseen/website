@@ -4,7 +4,7 @@ import { Icon } from "@/ui/icon";
 
 export default function ButtonLinkDemo() {
   return (
-    <Button color="neutral" render={<Link href="/introduction" />}>
+    <Button color="neutral" render={<Link href="/ui/introduction" />}>
       Introduction
       <Icon name="ArrowUpRight" />
     </Button>

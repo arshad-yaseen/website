@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import type { PropsWithChildren } from "react";
 import Header from "@/components/layout/header";
-import ScrollToHash from "@/components/layout/scroll-to-hash";
+import ScrollToHash from "@/components/layout/ui/scroll-to-hash";
 import ThemeProvider from "@/components/theme/theme-provider";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import localFont from "next/font/local";

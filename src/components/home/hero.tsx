@@ -18,7 +18,7 @@ export default function Hero() {
         <HeroRole />
 
         <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/6 bg-background px-(--layout-padding) py-2">
-          <Button size="lg" className="rounded-full" render={<Link href="/introduction" />}>
+          <Button size="lg" className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
           <Button

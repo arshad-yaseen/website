@@ -40,5 +40,5 @@ export default async function Page({ params }: Props) {
     notFound();
   }
 
-  redirect(`/${section}/${first.slug}`);
+  redirect(`/ui/${section}/${first.slug}`);
 }
