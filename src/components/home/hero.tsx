@@ -32,7 +32,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/10 bg-background"></div>
+        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/10 bg-background" />
       </div>
     </section>
   );
