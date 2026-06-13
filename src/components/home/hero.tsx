@@ -26,10 +26,10 @@ export default function Hero() {
             size="lg"
             variant="outline"
             className="rounded-full"
-            render={<Link href="/components" />}
+            render={<Link href="https://github.com/arshad-yaseen" target="_blank" />}
           >
+            <Icon name="Github" />
             Projects
-            <Icon name="ArrowUpRight" />
           </Button>
         </div>
 
