@@ -6,7 +6,7 @@ import { Icon } from "@/ui/icon";
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] border-x-hairline border-current/6">
+    <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] border-x-hairline border-current/10">
       <div className="absolute w-full mask-b-from-52">
         <HeroArt />
       </div>
@@ -17,7 +17,7 @@ export default function Hero() {
 
         <HeroRole />
 
-        <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/6 bg-background px-(--layout-padding) py-2">
+        <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
           <Button size="lg" className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
@@ -32,7 +32,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/6 bg-background"></div>
+        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/10 bg-background"></div>
       </div>
     </section>
   );
