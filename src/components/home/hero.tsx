@@ -1,6 +1,7 @@
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { HeroArt } from "./hero-art";
+import { HeroRole } from "./hero-role";
 import { Icon } from "@/ui/icon";
 
 export default function Hero() {
@@ -14,9 +15,7 @@ export default function Hero() {
           Arshad Yaseen
         </h1>
 
-        <p className="mx-(--layout-padding) text-base/7 text-pretty text-neutral-600 dark:text-neutral-400">
-          Design Engineer
-        </p>
+        <HeroRole />
 
         <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/6 bg-background px-(--layout-padding) py-2">
           <Button size="lg" className="rounded-full" render={<Link href="/introduction" />}>
