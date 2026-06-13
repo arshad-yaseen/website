@@ -11,7 +11,7 @@ export default function Hero() {
         <HeroArt />
       </div>
       <div className="relative z-20 mx-auto flex size-full flex-col justify-end pt-52">
-        <h1 className="mx-(--layout-padding) text-4xl/12 tracking-tight text-balance sm:text-4xl/16">
+        <h1 className="mx-(--layout-padding) text-3xl/12 tracking-tight text-balance">
           Arshad Yaseen
         </h1>
 
