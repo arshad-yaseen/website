@@ -5,11 +5,11 @@ import { Icon } from "@/ui/icon";
 
 export default function Hero() {
   return (
-    <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-(--layout-width) border-x-hairline border-current/6">
+    <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] border-x-hairline border-current/6">
       <div className="absolute w-full mask-b-from-52">
         <HeroArt />
       </div>
-      <div className="relative z-20 mx-auto flex size-full max-w-(--layout-width) flex-col justify-end pt-52">
+      <div className="relative z-20 mx-auto flex size-full flex-col justify-end pt-52">
         <h1 className="mx-(--layout-padding) text-4xl/12 tracking-tight text-balance sm:text-4xl/16">
           Arshad Yaseen
         </h1>

@@ -1,11 +1,18 @@
+"use client";
+
 import Link from "next/link";
 import Logo from "./logo";
 import ThemeToggle from "../theme/theme-toggle";
+import { usePathname } from "next/navigation";
 
 export default function Header() {
+  const pathname = usePathname();
+
   return (
     <header className="sticky top-0 z-10 border-b-hairline border-current/10 bg-background">
-      <div className="mx-auto flex h-(--header-height) w-full max-w-(--layout-width) items-center justify-between border-x-hairline border-current/10 px-(--layout-padding)">
+      <div
+        className={`mx-auto flex h-(--header-height) w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] items-center justify-between border-x-hairline px-(--layout-padding) ${pathname === "/" ? "border-current/10" : "border-transparent"}`}
+      >
         <Link href="/" aria-label="Arshad Yaseen" className="shrink-0">
           <Logo className="h-6" />
         </Link>
