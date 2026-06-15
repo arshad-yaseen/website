@@ -28,7 +28,7 @@ export function HeroRole() {
   const role = ROLES[index];
 
   return (
-    <p className="mx-(--layout-padding) text-base/7 text-pretty text-neutral-600 dark:text-neutral-400">
+    <p className="mx-(--layout-padding) text-center text-base/7 text-pretty text-neutral-600 dark:text-neutral-400">
       <span className="relative inline-flex align-bottom">
         <AnimatePresence mode="popLayout" initial={false}>
           <motion.span

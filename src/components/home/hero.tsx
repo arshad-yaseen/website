@@ -11,13 +11,13 @@ export default function Hero() {
         <HeroArt />
       </div>
       <div className="relative z-20 mx-auto flex size-full flex-col justify-end pt-52">
-        <h1 className="mx-(--layout-padding) text-3xl/12 tracking-tight text-balance">
+        <h1 className="mx-(--layout-padding) text-center text-2xl/12 tracking-tight text-balance">
           Arshad Yaseen
         </h1>
 
         <HeroRole />
 
-        <div className="mt-4 flex flex-wrap gap-3 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-3 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
           <Button size="lg" className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
