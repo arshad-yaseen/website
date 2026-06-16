@@ -17,12 +17,11 @@ export default function Hero() {
 
         <HeroRole />
 
-        <div className="mt-4 flex flex-wrap justify-center gap-3 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
-          <Button size="lg" className="rounded-full" render={<Link href="/ui" />}>
+        <div className="mt-4 flex flex-wrap justify-center gap-2 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
+          <Button className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
           <Button
-            size="lg"
             variant="outline"
             className="rounded-full"
             render={<Link href="https://github.com/arshad-yaseen" target="_blank" />}
