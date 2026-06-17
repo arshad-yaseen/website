@@ -184,7 +184,7 @@ function Item({ className, ...props }: SelectPrimitive.Item.Props) {
         "py-[calc((var(--anchor-height,2rem)-1.5rem)/2)]",
         "text-foreground group-data-[side=none]:pe-10",
         "data-highlighted:text-white",
-        "data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-0 data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-accent-500 data-highlighted:before:content-['']",
+        "data-highlighted:before:absolute data-highlighted:before:inset-x-[3.5px] data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-accent-500 data-highlighted:before:content-['']",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
