@@ -22,9 +22,9 @@ const items = people.map((person) => ({
 
 export default function SelectAvatarsDemo() {
   return (
-    <Select.Root items={items}>
+    <Select.Root items={items} defaultValue="lara">
       <Select.Trigger>
-        <Select.Value placeholder="Assign to…" />
+        <Select.Value />
         <Select.Icon />
       </Select.Trigger>
       <Select.Popup>
