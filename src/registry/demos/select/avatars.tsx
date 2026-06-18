@@ -11,7 +11,7 @@ const items = people.map((person) => ({
   value: person.value,
   label: (
     <>
-      <Avatar.Root>
+      <Avatar.Root data-slot="icon">
         <Avatar.Image src={person.src} alt={person.name} />
         <Avatar.Fallback>{person.initials}</Avatar.Fallback>
       </Avatar.Root>

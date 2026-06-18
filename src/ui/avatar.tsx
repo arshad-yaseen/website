@@ -25,13 +25,7 @@ const avatarVariants = cva(
 export type AvatarProps = AvatarPrimitive.Root.Props & VariantProps<typeof avatarVariants>;
 
 function Root({ size, className, ...props }: AvatarProps) {
-  return (
-    <AvatarPrimitive.Root
-      data-slot="avatar"
-      className={cn(avatarVariants({ size }), className)}
-      {...props}
-    />
-  );
+  return <AvatarPrimitive.Root className={cn(avatarVariants({ size }), className)} {...props} />;
 }
 
 function Image({ className, ...props }: AvatarPrimitive.Image.Props) {
