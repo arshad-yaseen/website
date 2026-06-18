@@ -29,6 +29,10 @@ export default {
       <P>Show an icon next to each option.</P>
       <Demo name="select/icons" />
 
+      <H2>Avatars</H2>
+      <P>Show an avatar next to each option.</P>
+      <Demo name="select/avatars" />
+
       <H2>Disabled</H2>
       <P>Disable the whole control or individual options.</P>
       <Demo name="select/disabled" />

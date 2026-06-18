@@ -26,6 +26,7 @@ import loadersColorDemo from "./demos/loaders/color";
 import loadersGalleryDemo from "./demos/loaders/gallery";
 import loadersSizesDemo from "./demos/loaders/sizes";
 import selectDemo from "./demos/select/basic";
+import selectAvatarsDemo from "./demos/select/avatars";
 import selectDisabledDemo from "./demos/select/disabled";
 import selectGroupedDemo from "./demos/select/grouped";
 import selectIconsDemo from "./demos/select/icons";
@@ -59,6 +60,7 @@ export const demos = {
   "loaders/gallery": loadersGalleryDemo,
   "loaders/sizes": loadersSizesDemo,
   "select/basic": selectDemo,
+  "select/avatars": selectAvatarsDemo,
   "select/disabled": selectDisabledDemo,
   "select/grouped": selectGroupedDemo,
   "select/icons": selectIconsDemo,
