@@ -12,7 +12,6 @@ export default function ThemeToggle() {
       variant="plain"
       color="neutral"
       aria-label="Toggle theme"
-      className="pointer-coarse:min-w-11"
       onClick={() => {
         setTheme(resolvedTheme === "dark" ? "light" : "dark");
       }}

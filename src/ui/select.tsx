@@ -32,7 +32,7 @@ const triggerVariants = cva(
     "data-disabled:cursor-not-allowed data-disabled:bg-neutral-200/50 data-disabled:opacity-50 dark:data-disabled:bg-neutral-800/50",
     "data-invalid:ring-danger-500/50 dark:data-invalid:ring-danger-500/50",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring data-invalid:focus-visible:outline-danger-500",
-    "touch-manipulation pointer-coarse:min-h-11",
+    "touch-manipulation",
     "*:data-[slot=icon]:shrink-0 *:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400",
   ],
   {

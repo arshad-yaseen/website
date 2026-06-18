@@ -15,7 +15,7 @@ const textareaVariants = cva(
     "data-invalid:ring-danger-500/50 data-invalid:focus-visible:outline-danger-500 dark:data-invalid:ring-danger-500/50",
     "disabled:cursor-not-allowed disabled:bg-neutral-200/50 disabled:opacity-50 dark:disabled:bg-neutral-800/50",
 
-    "touch-manipulation pointer-coarse:text-base",
+    "touch-manipulation",
   ],
   {
     variants: {

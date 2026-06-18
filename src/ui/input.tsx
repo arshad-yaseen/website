@@ -13,7 +13,7 @@ const inputVariants = cva(
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring",
     "data-invalid:ring-danger-500/50 data-invalid:focus-visible:outline-danger-500 dark:data-invalid:ring-danger-500/50",
     "data-disabled:cursor-not-allowed data-disabled:bg-neutral-200/50 data-disabled:opacity-50 dark:data-disabled:bg-neutral-800/50",
-    "touch-manipulation pointer-coarse:min-h-11 pointer-coarse:text-base",
+    "touch-manipulation",
   ],
   {
     variants: {
