@@ -1,11 +1,15 @@
 import type { ComponentType } from "react";
 import type { Doc, Note, Section } from "./types";
 
+import avatar from "./components/avatar";
 import button from "./components/button";
 import input from "./components/input";
 import loaders from "./components/loaders";
 import select from "./components/select";
 import textarea from "./components/textarea";
+import avatarDemo from "./demos/avatar/basic";
+import avatarFallbackDemo from "./demos/avatar/fallback";
+import avatarSizesDemo from "./demos/avatar/sizes";
 import buttonDemo from "./demos/button/basic";
 import buttonColorsDemo from "./demos/button/colors";
 import buttonElevatedDemo from "./demos/button/elevated";
@@ -36,6 +40,9 @@ import ringsOverBorders from "./notes/rings-over-borders";
 import introduction from "./pages/introduction";
 
 export const demos = {
+  "avatar/basic": avatarDemo,
+  "avatar/fallback": avatarFallbackDemo,
+  "avatar/sizes": avatarSizesDemo,
   "button/basic": buttonDemo,
   "button/colors": buttonColorsDemo,
   "button/elevated": buttonElevatedDemo,
@@ -79,7 +86,7 @@ export const sections: Section[] = [
   {
     slug: "components",
     title: "Components",
-    docs: [button, input, textarea, select, loaders].map(withSource),
+    docs: [button, input, textarea, select, avatar, loaders].map(withSource),
   },
   { slug: "experiments", title: "Experiments", docs: [] },
 ];

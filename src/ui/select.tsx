@@ -60,6 +60,7 @@ function Trigger({ size, className, ...props }: SelectTriggerProps) {
 
 const CONTENT_ICON = cn(
   "*:data-[slot=icon]:me-2 *:data-[slot=icon]:inline-block *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle *:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400",
+  "*:data-[slot=avatar]:me-2 *:data-[slot=avatar]:size-5 *:data-[slot=avatar]:shrink-0 *:data-[slot=avatar]:rounded-full *:data-[slot=avatar]:align-middle",
 );
 
 function Value({ className, ...props }: SelectPrimitive.Value.Props) {
