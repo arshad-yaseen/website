@@ -2,6 +2,7 @@ import type { ComponentType } from "react";
 import type { Doc, Note, Section } from "./types";
 
 import button from "./components/button";
+import input from "./components/input";
 import loaders from "./components/loaders";
 import select from "./components/select";
 import buttonDemo from "./demos/button/basic";
@@ -11,6 +12,10 @@ import buttonIconsDemo from "./demos/button/icons";
 import buttonLinkDemo from "./demos/button/link";
 import buttonLoadingDemo from "./demos/button/loading";
 import buttonSizesDemo from "./demos/button/sizes";
+import inputDemo from "./demos/input/basic";
+import inputDisabledDemo from "./demos/input/disabled";
+import inputInvalidDemo from "./demos/input/invalid";
+import inputSizesDemo from "./demos/input/sizes";
 import loadersDemo from "./demos/loaders/basic";
 import loadersColorDemo from "./demos/loaders/color";
 import loadersGalleryDemo from "./demos/loaders/gallery";
@@ -33,6 +38,10 @@ export const demos = {
   "button/link": buttonLinkDemo,
   "button/loading": buttonLoadingDemo,
   "button/sizes": buttonSizesDemo,
+  "input/basic": inputDemo,
+  "input/disabled": inputDisabledDemo,
+  "input/invalid": inputInvalidDemo,
+  "input/sizes": inputSizesDemo,
   "loaders/basic": loadersDemo,
   "loaders/color": loadersColorDemo,
   "loaders/gallery": loadersGalleryDemo,
@@ -58,7 +67,11 @@ const withSource = <T extends Doc>(doc: T): T =>
 export const pages: Doc[] = [introduction].map(withSource);
 
 export const sections: Section[] = [
-  { slug: "components", title: "Components", docs: [button, select, loaders].map(withSource) },
+  {
+    slug: "components",
+    title: "Components",
+    docs: [button, input, select, loaders].map(withSource),
+  },
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 
