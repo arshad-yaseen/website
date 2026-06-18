@@ -20,6 +20,10 @@ export default {
       <P>Shown while the image loads or if it fails.</P>
       <Demo name="avatar/fallback" />
 
+      <H2>Group</H2>
+      <P>Overlap avatars to show a set of people.</P>
+      <Demo name="avatar/group" />
+
       <H2>API</H2>
       <PropsTable rows={[{ name: "size", type: '"sm" | "md" | "lg"', default: '"md"' }]} />
       <P>

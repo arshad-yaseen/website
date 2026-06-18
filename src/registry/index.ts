@@ -9,6 +9,7 @@ import select from "./components/select";
 import textarea from "./components/textarea";
 import avatarDemo from "./demos/avatar/basic";
 import avatarFallbackDemo from "./demos/avatar/fallback";
+import avatarGroupDemo from "./demos/avatar/group";
 import avatarSizesDemo from "./demos/avatar/sizes";
 import buttonDemo from "./demos/button/basic";
 import buttonColorsDemo from "./demos/button/colors";
@@ -43,6 +44,7 @@ import introduction from "./pages/introduction";
 export const demos = {
   "avatar/basic": avatarDemo,
   "avatar/fallback": avatarFallbackDemo,
+  "avatar/group": avatarGroupDemo,
   "avatar/sizes": avatarSizesDemo,
   "button/basic": buttonDemo,
   "button/colors": buttonColorsDemo,
