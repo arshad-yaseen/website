@@ -19,6 +19,7 @@ import selectDemo from "./demos/select/basic";
 import selectDisabledDemo from "./demos/select/disabled";
 import selectGroupedDemo from "./demos/select/grouped";
 import selectIconsDemo from "./demos/select/icons";
+import selectInvalidDemo from "./demos/select/invalid";
 import selectMultipleDemo from "./demos/select/multiple";
 import selectSizesDemo from "./demos/select/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
@@ -40,6 +41,7 @@ export const demos = {
   "select/disabled": selectDisabledDemo,
   "select/grouped": selectGroupedDemo,
   "select/icons": selectIconsDemo,
+  "select/invalid": selectInvalidDemo,
   "select/multiple": selectMultipleDemo,
   "select/sizes": selectSizesDemo,
 } satisfies Record<string, ComponentType>;

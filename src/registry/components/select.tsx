@@ -33,6 +33,10 @@ export default {
       <P>Disable the whole control or individual options.</P>
       <Demo name="select/disabled" />
 
+      <H2>Invalid</H2>
+      <P>Shows an error state when the value is invalid.</P>
+      <Demo name="select/invalid" />
+
       <H2>API</H2>
 
       <H3>Select.Trigger</H3>
