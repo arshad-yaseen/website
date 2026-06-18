@@ -6,13 +6,14 @@ const avatarVariants = cva(
   [
     "relative inline-flex shrink-0 items-center justify-center overflow-hidden rounded-full align-middle font-medium select-none",
     "bg-neutral-200 text-neutral-700 dark:bg-neutral-800 dark:text-neutral-200",
+    "@container",
   ],
   {
     variants: {
       size: {
-        sm: "size-6 text-xs",
-        md: "size-8 text-sm",
-        lg: "size-10 text-base",
+        sm: "size-6",
+        md: "size-8",
+        lg: "size-10",
       },
     },
     defaultVariants: {
@@ -40,7 +41,10 @@ function Image({ className, ...props }: AvatarPrimitive.Image.Props) {
 function Fallback({ className, ...props }: AvatarPrimitive.Fallback.Props) {
   return (
     <AvatarPrimitive.Fallback
-      className={cn("flex size-full items-center justify-center", className)}
+      className={cn(
+        "flex size-full items-center justify-center text-[40cqw] leading-none",
+        className,
+      )}
       {...props}
     />
   );
