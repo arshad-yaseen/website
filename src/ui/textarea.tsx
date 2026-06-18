@@ -6,6 +6,7 @@ const textareaVariants = cva(
   [
     "block min-h-16 w-full resize-y rounded-md bg-transparent text-foreground",
     "ring ring-black/15 enabled:shadow-sm dark:ring-white/12",
+    "enabled:not-data-invalid:hover:ring-black/25 dark:enabled:not-data-invalid:hover:ring-white/20",
     "placeholder:text-neutral-500 dark:placeholder:text-neutral-400",
     "transition-[color,box-shadow] duration-150 ease-out motion-reduce:transition-none",
 
