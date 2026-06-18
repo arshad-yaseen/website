@@ -5,6 +5,7 @@ import button from "./components/button";
 import input from "./components/input";
 import loaders from "./components/loaders";
 import select from "./components/select";
+import textarea from "./components/textarea";
 import buttonDemo from "./demos/button/basic";
 import buttonColorsDemo from "./demos/button/colors";
 import buttonElevatedDemo from "./demos/button/elevated";
@@ -27,6 +28,10 @@ import selectIconsDemo from "./demos/select/icons";
 import selectInvalidDemo from "./demos/select/invalid";
 import selectMultipleDemo from "./demos/select/multiple";
 import selectSizesDemo from "./demos/select/sizes";
+import textareaDemo from "./demos/textarea/basic";
+import textareaDisabledDemo from "./demos/textarea/disabled";
+import textareaInvalidDemo from "./demos/textarea/invalid";
+import textareaSizesDemo from "./demos/textarea/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
 import introduction from "./pages/introduction";
 
@@ -53,6 +58,10 @@ export const demos = {
   "select/invalid": selectInvalidDemo,
   "select/multiple": selectMultipleDemo,
   "select/sizes": selectSizesDemo,
+  "textarea/basic": textareaDemo,
+  "textarea/disabled": textareaDisabledDemo,
+  "textarea/invalid": textareaInvalidDemo,
+  "textarea/sizes": textareaSizesDemo,
 } satisfies Record<string, ComponentType>;
 
 export type DemoName = keyof typeof demos;
@@ -70,7 +79,7 @@ export const sections: Section[] = [
   {
     slug: "components",
     title: "Components",
-    docs: [button, input, select, loaders].map(withSource),
+    docs: [button, input, textarea, select, loaders].map(withSource),
   },
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
