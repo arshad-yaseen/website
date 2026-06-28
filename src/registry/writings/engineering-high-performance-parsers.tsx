@@ -1,64 +1,62 @@
 import { CodeBlock } from "@/components/docs/code-block";
-import { A, H2, InlineCode, Li, Ol, P, Strong, Table, Ul } from "@/components/docs/prose";
+import { A, Callout, H2, InlineCode, Li, Ol, P, Strong, Table, Ul } from "@/components/docs/prose";
 import type { Writing } from "../types";
 
 export default {
   slug: "engineering-high-performance-parsers",
   title: "Engineering High-Performance Parsers with Data-Oriented Design",
   description:
-    "How designing the data structure first—flat arrays of indices instead of a pointer tree—makes a parser fast and collapses memory layout, allocation, and serialization into one decision.",
+    "How designing the data structure first (flat arrays of indices instead of a pointer tree) makes a parser fast and collapses memory layout, allocation, and serialization into one decision.",
   date: "2026-06-28",
   body: (
     <>
       <H2>Abstract</H2>
       <P>
-        A parser is usually taught as a problem of grammars. In practice, once the grammar is
-        correct, almost all of the performance and most of the engineering difficulty live somewhere
-        else, in how the resulting tree is represented in memory. This article describes the design
-        discipline I used to build <A href="https://yuku.fyi">Yuku</A>, a JavaScript and TypeScript
-        parser written in Zig that runs several times faster than the established parsers in its
-        category. The techniques are not specific to ECMAScript. They apply to any parser or
-        compiler frontend in a native language. The central claim is simple. If you design the data
-        structure first, and you let the access patterns of the machine dictate that structure, the
-        speed follows almost for free, and a number of unrelated-looking problems (memory layout,
-        allocation, and serialization) collapse into a single coherent solution.
+        A parser is usually taught as a problem of grammars, but once the grammar is correct, almost
+        all of the performance and most of the engineering difficulty live somewhere else, in how
+        the resulting tree is represented in memory. This is the design discipline behind{" "}
+        <A href="https://yuku.fyi">Yuku</A>, a JavaScript and TypeScript parser written in Zig that
+        runs several times faster than the established parsers in its category, and it applies to
+        any parser or compiler frontend in a native language. The claim is simple. Design the data
+        structure first, let the machine’s access patterns dictate its shape, and the speed follows
+        almost for free, while unrelated-looking problems (memory layout, allocation, and
+        serialization) collapse into one solution.
       </P>
+
+      <Callout>
+        Although this article is framed around a parser, almost none of it is specific to parsing.
+        Any system that builds a large structure once and then traverses it many times wins from the
+        same moves. Query planners, game engines, simulations, and serializers all live or die on
+        memory layout. Design the data for the machine, prefer indices over pointers, and keep the
+        hot path linear.
+      </Callout>
 
       <H2>1. The Single Idea</H2>
       <P>
-        The performance of a parser is decided long before its first benchmark. Every section below
-        is a consequence of one principle. A compiler is a sequence of transformations over data,
-        and the data is the program. So the first design question is not “what is my grammar” but
-        “what is the shape of the data, and how will the hot loops touch it.” This is data-oriented
-        design. You start from the access pattern and the hardware, and you derive the
-        representation. Everything else, the lexer, the recursive descent, the visitor API, the
-        foreign-function boundary, is built to serve that representation.
+        A parser’s performance is decided long before its first benchmark, by how its tree is laid
+        out in memory. That is data-oriented design. Start from the access pattern and the hardware,
+        derive the representation, and build everything else, the lexer, the recursive descent, the
+        visitor API, to serve it.
       </P>
-      <P>Two facts about modern hardware drive the entire argument.</P>
+      <P>Two facts about modern hardware drive the whole argument.</P>
       <Ol>
         <Li>
           A cache miss to main memory costs on the order of a hundred nanoseconds. A floating-point
-          operation costs a fraction of one. The gap is two to three orders of magnitude. A parser
-          that chases pointers is not compute-bound, it is memory-latency-bound, and the profiler
-          will show it stalling on loads.
+          operation costs a fraction of one. A parser that chases pointers is memory-latency-bound,
+          stalling on loads rather than computing.
         </Li>
         <Li>
-          A general-purpose allocator call is not free. It touches shared metadata, may lock, and
-          scatters related objects across the address space. A parser that allocates one node at a
-          time pays this cost millions of times and destroys locality in the process.
+          A general-purpose allocator call is not free, and a parser that allocates one node at a
+          time pays that cost millions of times while scattering related objects across memory.
         </Li>
       </Ol>
       <P>
-        A back-of-the-envelope sketch makes the stakes concrete. A medium source file of one hundred
-        thousand bytes produces roughly fifty thousand AST nodes. If each node is a separately
-        allocated, pointer-linked object, you pay fifty thousand allocations on the way up and fifty
-        thousand frees on the way down, and every subsequent traversal chases fifty thousand
-        pointers into cold memory. If instead the nodes live in one flat array, you pay a handful of
-        allocations total, every traversal is a linear scan over contiguous memory, and teardown is
-        a single operation. The difference is not a constant factor. It changes the slope of the
-        curve.
+        The stakes are concrete. A hundred-thousand-byte file produces roughly fifty thousand AST
+        nodes. As separately allocated, pointer-linked objects, that is fifty thousand allocations,
+        as many frees, and every later traversal chasing pointers into cold memory. In one flat
+        array, it is a handful of allocations, a linear scan, and a single teardown. That is not a
+        constant factor. It changes the slope of the curve.
       </P>
-      <P>The rest of this article is the working-out of that idea.</P>
 
       <H2>2. The Cost of the Obvious Design</H2>
       <P>

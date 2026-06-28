@@ -10,7 +10,7 @@ export function WritingsList() {
         <li key={writing.slug}>
           <Link
             href={`/writings/${writing.slug}` as Route}
-            className="group -mx-2 flex flex-col gap-1 rounded-md px-3 py-2.5 transition-colors sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 hover-open:bg-neutral-100/70 dark:hover-open:bg-neutral-900/50"
+            className="group flex flex-col gap-1 rounded-md px-3 py-2.5 transition-colors sm:flex-row sm:items-baseline sm:justify-between sm:gap-4 hover-open:bg-neutral-100/70 dark:hover-open:bg-neutral-900/50"
           >
             <span className="text-base text-neutral-800 transition-colors group-hover:text-neutral-900 dark:text-neutral-200 dark:group-hover:text-white">
               {writing.title}

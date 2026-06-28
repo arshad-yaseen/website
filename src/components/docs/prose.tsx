@@ -55,7 +55,7 @@ export function H2({ children }: PropsWithChildren) {
 
 export function H3({ children }: PropsWithChildren) {
   return (
-    <Heading as="h3" className="mt-8 text-base font-medium tracking-tight">
+    <Heading as="h3" className="mt-8 text-base/7 font-medium tracking-tight">
       {children}
     </Heading>
   );
@@ -73,7 +73,7 @@ export function Callout({ className, children }: CalloutProps) {
   return (
     <aside
       className={cn(
-        "rounded-lg bg-neutral-100/60 px-4 py-3 text-sm/6 text-neutral-600 dark:bg-neutral-900/60 dark:text-neutral-400",
+        "rounded-lg border-hairline border-current/6! bg-neutral-100/60 p-4 px-4 py-3 text-base/7 text-neutral-600 dark:bg-neutral-900/60 dark:text-neutral-400",
         className,
       )}
     >

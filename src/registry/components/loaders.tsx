@@ -24,7 +24,7 @@ export default {
       <H2>Color</H2>
       <P>
         Pass any CSS color to <InlineCode>color</InlineCode>. It defaults to the current
-        theme&apos;s foreground — black on light, white on dark.
+        theme&apos;s foreground, black on light, white on dark.
       </P>
       <Demo name="loaders/color" />
 
