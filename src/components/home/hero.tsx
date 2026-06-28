@@ -17,7 +17,7 @@ export default function Hero() {
 
         <HeroRole />
 
-        <div className="mt-4 flex flex-wrap justify-center gap-2 border-t-hairline border-current/10 bg-background px-(--layout-padding) py-2">
+        <div className="rule-bleed mt-4 flex flex-wrap justify-center gap-2 bg-background px-(--layout-padding) py-2">
           <Button className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
@@ -30,7 +30,7 @@ export default function Hero() {
           </Button>
         </div>
 
-        <div className="border-t-hairline border-current/10 bg-background px-(--layout-padding) py-6">
+        <div className="rule-bleed bg-background px-(--layout-padding) py-6">
           <div className="mx-auto w-full max-w-2xl">
             <WritingsList />
           </div>

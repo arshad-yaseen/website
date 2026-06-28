@@ -8,3 +8,28 @@
 .dark .shiki span {
   color: var(--shiki-dark);
 }
+
+/* A hairline that bleeds past the centered hero box out to the screen edges. */
+.rule-bleed {
+  position: relative;
+}
+
+.rule-bleed::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-top: var(--hairline-width) solid color-mix(in oklab, currentColor 10%, transparent);
+  pointer-events: none;
+}
+
+/* Code blocks are bare in the component docs, but filled inside writings. */
+.writing-content [data-slot="code-block"] {
+  @apply bg-neutral-100/60;
+}
+
+.dark .writing-content [data-slot="code-block"] {
+  @apply bg-neutral-900/60;
+}
