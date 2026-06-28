@@ -14,21 +14,20 @@ export default {
       <P>
         A parser is usually taught as a problem of grammars, but once the grammar is correct, almost
         all of the performance and most of the engineering difficulty live somewhere else, in how
-        the resulting tree is represented in memory. This is the design discipline behind{" "}
-        <A href="https://yuku.fyi">Yuku</A>, a JavaScript and TypeScript parser written in Zig that
-        runs several times faster than the established parsers in its category, and it applies to
-        any parser or compiler frontend in a native language. The claim is simple. Design the data
-        structure first, let the machine’s access patterns dictate its shape, and the speed follows
-        almost for free, while unrelated-looking problems (memory layout, allocation, and
-        serialization) collapse into one solution.
+        the resulting tree is represented in memory. This article describes the design discipline I
+        used to build <A href="https://yuku.fyi">Yuku</A>, a JavaScript and TypeScript parser
+        written in Zig that runs several times faster than the established parsers in its category,
+        and it applies to any parser or compiler frontend in a native language. The claim is simple.
+        Design the data structure first, let the machine’s access patterns dictate its shape, and
+        the speed follows almost for free, while unrelated-looking problems (memory layout,
+        allocation, and serialization) collapse into one solution.
       </P>
 
       <Callout>
         Although this article is framed around a parser, almost none of it is specific to parsing.
         Any system that builds a large structure once and then traverses it many times wins from the
         same moves. Query planners, game engines, simulations, and serializers all live or die on
-        memory layout. Design the data for the machine, prefer indices over pointers, and keep the
-        hot path linear.
+        memory layout. Design the data for the machine.
       </Callout>
 
       <H2>1. The Single Idea</H2>
