@@ -1,10 +1,10 @@
 const url = process.env.NEXT_PUBLIC_SITE_URL ?? "https://arshad.fyi";
 
 export const siteConfig = {
-  name: "arshad/ui",
-  title: "arshad/ui",
+  name: "Arshad Yaseen",
+  title: "Arshad Yaseen",
   description:
-    "UI components, experiments, and design notes for design engineers, from Arshad Yaseen.",
+    "The personal site of Arshad Yaseen: design engineering, UI components, experiments, and writing.",
   url,
   author: { name: "Arshad Yaseen", url },
   twitter: "@arshadyaseeen",

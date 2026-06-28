@@ -2,7 +2,7 @@ import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og";
 import { siteConfig } from "@/lib/site";
 import { getWriting, writings } from "@/registry";
 
-export const alt = `${siteConfig.name} — Writing`;
+export const alt = `${siteConfig.name} · Writing`;
 export const size = OG_SIZE;
 export const contentType = OG_CONTENT_TYPE;
 

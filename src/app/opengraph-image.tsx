@@ -8,6 +8,6 @@ export const contentType = OG_CONTENT_TYPE;
 export default async function Image() {
   return renderOgImage({
     title: siteConfig.name,
-    subtitle: "UI · experiments · design notes",
+    subtitle: "Design engineer · UI · writing",
   });
 }
