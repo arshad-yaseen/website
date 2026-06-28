@@ -111,3 +111,12 @@ body {
 [id] {
   scroll-margin-top: calc(var(--header-height) + var(--spacing) * 8);
 }
+
+/* Code blocks are bare in the component docs, but filled inside writings. */
+.writing-content [data-slot="code-block"] {
+  @apply bg-neutral-100/60;
+}
+
+.dark .writing-content [data-slot="code-block"] {
+  @apply bg-neutral-900/60;
+}

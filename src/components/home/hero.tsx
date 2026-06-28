@@ -1,8 +1,8 @@
+import { WritingsList } from "@/components/writings/writings-list";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { HeroArt } from "./hero-art";
 import { HeroRole } from "./hero-role";
-import { Icon } from "@/ui/icon";
 
 export default function Hero() {
   return (
@@ -10,14 +10,14 @@ export default function Hero() {
       <div className="absolute w-full mask-b-from-52">
         <HeroArt />
       </div>
-      <div className="relative z-20 mx-auto flex size-full flex-col justify-end pt-52">
+      <div className="relative z-20 flex size-full flex-col justify-center">
         <h1 className="mx-(--layout-padding) text-center text-2xl/12 tracking-tight text-balance">
           Arshad Yaseen
         </h1>
 
         <HeroRole />
 
-        <div className="mt-4 flex flex-wrap justify-center gap-2 border-y-hairline border-current/10 bg-background px-(--layout-padding) py-2">
+        <div className="mt-4 flex flex-wrap justify-center gap-2 border-t-hairline border-current/10 bg-background px-(--layout-padding) py-2">
           <Button className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
@@ -26,12 +26,15 @@ export default function Hero() {
             className="rounded-full"
             render={<Link href="https://github.com/arshad-yaseen" target="_blank" />}
           >
-            <Icon name="Github" />
             Projects
           </Button>
         </div>
 
-        <div className="grid h-44 w-full grid-cols-2 divide-x-hairline divide-current/10 bg-background" />
+        <div className="border-t-hairline border-current/10 bg-background px-(--layout-padding) py-6">
+          <div className="mx-auto w-full max-w-2xl">
+            <WritingsList />
+          </div>
+        </div>
       </div>
     </section>
   );

@@ -34,16 +34,10 @@ export function HeroRole() {
           <motion.span
             key={role}
             initial={
-              shouldReduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, y: 10, x: -8, filter: "blur(8px)" }
+              shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: 10, filter: "blur(8px)" }
             }
-            animate={{ opacity: 1, y: 0, x: 0, filter: "blur(0px)" }}
-            exit={
-              shouldReduceMotion
-                ? { opacity: 0 }
-                : { opacity: 0, y: -10, x: 8, filter: "blur(8px)" }
-            }
+            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
+            exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -10, filter: "blur(8px)" }}
             transition={{ duration: 0.4, ease: EASE_OUT }}
             className="inline-block whitespace-nowrap will-change-[transform,opacity,filter]"
           >

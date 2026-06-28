@@ -1,5 +1,5 @@
 import type { ComponentType } from "react";
-import type { Doc, Note, Section } from "./types";
+import type { Doc, Note, Section, Writing } from "./types";
 
 import avatar from "./components/avatar";
 import button from "./components/button";
@@ -40,6 +40,7 @@ import textareaInvalidDemo from "./demos/textarea/invalid";
 import textareaSizesDemo from "./demos/textarea/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
 import introduction from "./pages/introduction";
+import highPerformanceParsers from "./writings/engineering-high-performance-parsers";
 
 export const demos = {
   "avatar/basic": avatarDemo,
@@ -97,6 +98,10 @@ export const sections: Section[] = [
 
 export const notes: Note[] = [ringsOverBorders];
 
+export const writings: Writing[] = [highPerformanceParsers].sort((a, b) =>
+  b.date.localeCompare(a.date),
+);
+
 export function getPage(slug: string) {
   return pages.find((page) => page.slug === slug);
 }
@@ -107,4 +112,8 @@ export function getSection(slug: string) {
 
 export function getDoc(section: string, slug: string) {
   return getSection(section)?.docs.find((doc) => doc.slug === slug);
+}
+
+export function getWriting(slug: string) {
+  return writings.find((writing) => writing.slug === slug);
 }

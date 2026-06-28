@@ -1,4 +1,4 @@
-import type { PropsWithChildren } from "react";
+import type { PropsWithChildren, ReactNode } from "react";
 import { cn } from "@/utils/cn";
 
 function slugify(text: string) {
@@ -83,12 +83,12 @@ export function Callout({ className, children }: CalloutProps) {
 }
 
 export function Strong({ children }: PropsWithChildren) {
-  return <strong className="font-medium text-neutral-800 dark:text-neutral-300">{children}</strong>;
+  return <strong className="font-medium text-neutral-800 dark:text-neutral-200">{children}</strong>;
 }
 
 export function InlineCode({ children }: PropsWithChildren) {
   return (
-    <code className="rounded-sm bg-neutral-200/60 px-1 py-0.5 text-sm text-neutral-900 dark:bg-neutral-800/60 dark:text-white">
+    <code className="rounded-sm bg-neutral-200/60 px-1 py-0.5 text-sm text-neutral-900 ring ring-neutral-200 dark:bg-neutral-800/60 dark:text-white dark:ring-neutral-800">
       {children}
     </code>
   );
@@ -103,10 +103,15 @@ export function A({ href, children }: AProps) {
     <a
       href={href}
       className="text-neutral-900 underline decoration-neutral-400 underline-offset-2 transition-colors hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600 dark:hover:decoration-neutral-500"
+      target="_blank"
     >
       {children}
     </a>
   );
+}
+
+export function Hr() {
+  return <hr className="border-t-hairline border-current/10" />;
 }
 
 export function Ul({ children }: PropsWithChildren) {
@@ -117,6 +122,51 @@ export function Ul({ children }: PropsWithChildren) {
   );
 }
 
+export function Ol({ children }: PropsWithChildren) {
+  return (
+    <ol className="list-decimal space-y-3 pl-5 text-base/7 text-neutral-600 marker:text-neutral-400 dark:text-neutral-400 dark:marker:text-neutral-600">
+      {children}
+    </ol>
+  );
+}
+
 export function Li({ children }: PropsWithChildren) {
   return <li>{children}</li>;
+}
+
+type TableProps = {
+  head: ReactNode[];
+  rows: ReactNode[][];
+};
+
+export function Table({ head, rows }: TableProps) {
+  return (
+    <div className="overflow-x-auto rounded-lg border-hairline border-current/10">
+      <table className="w-full text-left text-sm">
+        <thead>
+          <tr className="border-b-hairline border-current/10 text-neutral-600 dark:text-neutral-400">
+            {head.map((cell) => (
+              <th key={String(cell)} className="px-4 py-2.5 font-medium whitespace-nowrap">
+                {cell}
+              </th>
+            ))}
+          </tr>
+        </thead>
+        <tbody>
+          {rows.map((row) => (
+            <tr key={String(row[0])} className="border-current/10 not-last:border-b-hairline">
+              {row.map((cell, column) => (
+                <td
+                  key={`${String(row[0])}-${String(head[column])}`}
+                  className="px-4 py-2.5 align-top text-neutral-600 dark:text-neutral-400"
+                >
+                  {cell}
+                </td>
+              ))}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
 }

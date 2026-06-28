@@ -1,9 +1,9 @@
-import { type BundledLanguage, codeToHtml } from "shiki";
+import { type BundledLanguage, codeToHtml, type SpecialLanguage } from "shiki";
 import { CodeBlockScroller } from "./code-block-scroller";
 
 type CodeBlockProps = {
   code: string;
-  lang?: BundledLanguage;
+  lang?: BundledLanguage | SpecialLanguage;
 };
 
 export async function CodeBlock({ code, lang = "tsx" }: CodeBlockProps) {

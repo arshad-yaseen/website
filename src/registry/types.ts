@@ -13,6 +13,11 @@ export type Note = Doc & {
   date: string;
 };
 
+export type Writing = Doc & {
+  /** Publish date, ISO 8601 (YYYY-MM-DD). */
+  date: string;
+};
+
 export type Section = {
   slug: string;
   title: string;

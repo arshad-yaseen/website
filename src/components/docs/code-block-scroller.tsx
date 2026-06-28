@@ -36,7 +36,8 @@ export function CodeBlockScroller({ html }: CodeBlockScrollerProps) {
   return (
     <div
       ref={ref}
-      className="max-h-120 overflow-auto rounded-lg border-hairline border-current/10 p-4 text-[0.8125rem]/6 [&_pre]:focus-visible:outline-hidden"
+      data-slot="code-block"
+      className="max-h-120 overflow-auto rounded-lg border-hairline border-current/6 p-4 text-[0.8125rem]/6 [&_pre]:focus-visible:outline-hidden"
       dangerouslySetInnerHTML={{ __html: html }}
     />
   );
