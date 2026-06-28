@@ -22,7 +22,7 @@ export function AnchorLink({ href, children }: AnchorLinkProps) {
     <a href={href}>
       <span
         aria-hidden
-        className="mr-2 -ml-5 text-neutral-400 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-600"
+        className="mr-2 -ml-5 text-foreground/80 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none"
       >
         #
       </span>
@@ -62,7 +62,7 @@ export function H3({ children }: PropsWithChildren) {
 }
 
 export function P({ children }: PropsWithChildren) {
-  return <p className="text-base/7 text-neutral-600 dark:text-neutral-400">{children}</p>;
+  return <p className="text-base/7 text-foreground/80">{children}</p>;
 }
 
 type CalloutProps = PropsWithChildren<{
@@ -73,7 +73,7 @@ export function Callout({ className, children }: CalloutProps) {
   return (
     <aside
       className={cn(
-        "rounded-lg border-hairline border-current/6! bg-neutral-100/60 p-4 px-4 py-3 text-base/7 text-neutral-600 dark:bg-neutral-900/60 dark:text-neutral-400",
+        "rounded-lg border-hairline border-current/6! bg-neutral-100/60 p-4 px-4 py-3 text-base/7 text-foreground/80 dark:bg-neutral-900/60",
         className,
       )}
     >
@@ -116,7 +116,7 @@ export function Hr() {
 
 export function Ul({ children }: PropsWithChildren) {
   return (
-    <ul className="list-disc space-y-2 pl-5 text-base/7 text-neutral-600 marker:text-neutral-400 dark:text-neutral-400 dark:marker:text-neutral-600">
+    <ul className="list-disc space-y-2 pl-5 text-base/7 text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
       {children}
     </ul>
   );
@@ -124,7 +124,7 @@ export function Ul({ children }: PropsWithChildren) {
 
 export function Ol({ children }: PropsWithChildren) {
   return (
-    <ol className="list-decimal space-y-3 pl-5 text-base/7 text-neutral-600 marker:text-neutral-400 dark:text-neutral-400 dark:marker:text-neutral-600">
+    <ol className="list-decimal space-y-3 pl-5 text-base/7 text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
       {children}
     </ol>
   );
@@ -144,7 +144,7 @@ export function Table({ head, rows }: TableProps) {
     <div className="overflow-x-auto rounded-lg border-hairline border-current/10">
       <table className="w-full text-left text-sm">
         <thead>
-          <tr className="border-b-hairline border-current/10 text-neutral-600 dark:text-neutral-400">
+          <tr className="border-b-hairline border-current/10 text-foreground/80">
             {head.map((cell) => (
               <th key={String(cell)} className="px-4 py-2.5 font-medium whitespace-nowrap">
                 {cell}
@@ -158,7 +158,7 @@ export function Table({ head, rows }: TableProps) {
               {row.map((cell, column) => (
                 <td
                   key={`${String(row[0])}-${String(head[column])}`}
-                  className="px-4 py-2.5 align-top text-neutral-600 dark:text-neutral-400"
+                  className="px-4 py-2.5 align-top text-foreground/80"
                 >
                   {cell}
                 </td>
