@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Article } from "@/components/docs/article";
+import { createMetadata } from "@/lib/metadata";
 import { getPage, getSection, pages, sections } from "@/registry";
 
 type Props = {
@@ -24,7 +25,15 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { section } = await params;
   const page = getPage(section);
 
-  return { title: page?.title, description: page?.description };
+  if (!page) {
+    return {};
+  }
+
+  return createMetadata({
+    title: page.title,
+    description: page.description,
+    path: `/ui/${page.slug}`,
+  });
 }
 
 export default async function Page({ params }: Props) {

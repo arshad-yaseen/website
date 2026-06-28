@@ -1,10 +1,12 @@
-import type { Metadata } from "next";
 import { AnchorLink } from "@/components/docs/prose";
+import { createMetadata } from "@/lib/metadata";
 import { notes } from "@/registry";
 
-export const metadata: Metadata = {
+export const metadata = createMetadata({
   title: "Notes",
-};
+  description: "Short design and engineering notes.",
+  path: "/ui/notes",
+});
 
 export default function NotesPage() {
   return (

@@ -1,8 +1,9 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import type { PropsWithChildren } from "react";
 import Header from "@/components/layout/header";
 import ScrollToHash from "@/components/layout/ui/scroll-to-hash";
 import ThemeProvider from "@/components/theme/theme-provider";
+import { siteConfig } from "@/lib/site";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import localFont from "next/font/local";
 
@@ -10,12 +11,39 @@ import "@/styles/globals.css";
 import { cn } from "@/utils/cn";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteConfig.url),
   title: {
-    default: "arshad/ui",
-    template: "%s - arshad/ui",
+    default: siteConfig.title,
+    template: `%s - ${siteConfig.name}`,
   },
-  description:
-    "UI components, experiments, and design notes for design engineers, from Arshad Yaseen.",
+  description: siteConfig.description,
+  applicationName: siteConfig.name,
+  authors: [siteConfig.author],
+  creator: siteConfig.author.name,
+  publisher: siteConfig.author.name,
+  alternates: { canonical: "/" },
+  openGraph: {
+    type: "website",
+    siteName: siteConfig.name,
+    title: siteConfig.title,
+    description: siteConfig.description,
+    url: siteConfig.url,
+    locale: "en_US",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: siteConfig.title,
+    description: siteConfig.description,
+    creator: siteConfig.twitter,
+    site: siteConfig.twitter,
+  },
+};
+
+export const viewport: Viewport = {
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#fbfbf9" },
+    { media: "(prefers-color-scheme: dark)", color: "#0c0c09" },
+  ],
 };
 
 const fontSans = Inter({
