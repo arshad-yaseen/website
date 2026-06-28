@@ -14,11 +14,11 @@ export function generateStaticParams() {
   );
 }
 
-export default async function Image({
-  params,
-}: {
+type Props = {
   params: Promise<{ section: string; slug: string }>;
-}) {
+};
+
+export default async function Image({ params }: Props) {
   const { section, slug } = await params;
   const doc = getDoc(section, slug);
 

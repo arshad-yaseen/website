@@ -12,7 +12,11 @@ export function generateStaticParams() {
   return writings.map((writing) => ({ slug: writing.slug }));
 }
 
-export default async function Image({ params }: { params: Promise<{ slug: string }> }) {
+type Props = {
+  params: Promise<{ slug: string }>;
+};
+
+export default async function Image({ params }: Props) {
   const { slug } = await params;
   const writing = getWriting(slug);
 
