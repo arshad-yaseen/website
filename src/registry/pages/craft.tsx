@@ -8,24 +8,37 @@ export default {
   source: "src/styles/globals.css",
   body: (
     <>
+      <P>
+        Interfaces succeed on hundreds of small decisions. Change a token to change the system.
+        Follow the conventions to keep it coherent.
+      </P>
+
       <H2>Spacing</H2>
       <P>
-        Tailwind computes every spacing utility as <InlineCode>calc(var(--spacing) * n)</InlineCode>
-        : padding, margin, gap, width, height, insets, and numeric line heights. The default unit is
-        4px, the comfortable scale. This system retunes it to 3.5px, the compact scale.
+        One token decides how dense an interface feels. Tailwind resolves every spacing utility to{" "}
+        <InlineCode>calc(var(--spacing) * n)</InlineCode>, so padding, margin, gap, width, height,
+        insets, and numeric line heights all move together. The default unit is 4px, the comfortable
+        scale. Dense product interfaces feel better one notch tighter.
       </P>
       <Table
         head={["Token", "Value", "Effect"]}
         rows={[
-          ["--spacing: 0.25rem", "4px unit", "Comfortable, the Tailwind default"],
-          ["--spacing: 0.21875rem", "3.5px unit", "Compact, what this system uses"],
+          [
+            <InlineCode key="a">--spacing: 0.25rem</InlineCode>,
+            "4px unit",
+            "Comfortable, the Tailwind default",
+          ],
+          [
+            <InlineCode key="b">--spacing: 0.21875rem</InlineCode>,
+            "3.5px unit",
+            "Compact, the scale dense interfaces use",
+          ],
         ]}
       />
       <P>
-        Common steps at the compact unit: <InlineCode>1</InlineCode> is 3.5px,{" "}
-        <InlineCode>2</InlineCode> is 7px, <InlineCode>2.5</InlineCode> is 8.75px,{" "}
-        <InlineCode>4</InlineCode> is 14px, <InlineCode>6</InlineCode> is 21px, and{" "}
-        <InlineCode>8</InlineCode> is 28px.
+        At the compact unit, <InlineCode>1</InlineCode> is 3.5px, <InlineCode>2</InlineCode> is 7px,{" "}
+        <InlineCode>2.5</InlineCode> is 8.75px, <InlineCode>4</InlineCode> is 14px,{" "}
+        <InlineCode>6</InlineCode> is 21px, and <InlineCode>8</InlineCode> is 28px.
       </P>
       <P>
         Never hardcode a size the scale can express. No <InlineCode>h-[28px]</InlineCode>, no rem
@@ -36,8 +49,9 @@ export default {
 
       <H2>Typography</H2>
       <P>
-        Type is tiered by size and color, and emphasized by weight. The sm token is retuned from
-        14px to 13px, the size dense product interfaces run their UI at.
+        Type is tiered by size and color, and emphasized by weight. Thirteen pixels is the body size
+        dense product interfaces settle on, one notch under the browser default, crisp without being
+        small. Every piece of text belongs to a tier, and every tier has a job.
       </P>
       <Table
         head={["Tier", "Utility", "Rendered", "Use for"]}
@@ -84,14 +98,14 @@ export default {
       />
       <P>
         Numeric leadings like <InlineCode>/6</InlineCode> ride the spacing scale, so line heights
-        compact together with everything else. Font weights are retuned for the variable font:
-        normal is 400, medium is 510, semibold is 590, bold is 680.
+        compact together with everything else. Reading text is the exception. Long form prose keeps
+        a roomy leading near 1.75 no matter how dense the chrome gets. Weights are tokens too.
+        Normal is 400, medium 510, semibold 590, bold 680, tuned optically for the variable font.
       </P>
       <Ul>
         <Li>
           <Strong>Emphasize with weight and color, never with a size bump.</Strong> Nothing renders
-          lighter than 400, and headings sit in the 500 to 600 range, which is why medium here is
-          510.
+          lighter than 400, and headings sit in the 500 to 600 range.
         </Li>
         <Li>
           <Strong>Headings are semantic and sequential.</Strong> One h1 per page, levels never skip,
@@ -124,16 +138,18 @@ export default {
         </Li>
         <Li>
           <Strong>Glue terms together.</Strong> A non breaking space keeps units, shortcuts, and
-          compound names on one line, and a number takes a space before its unit: 10 MB, never 10MB.
+          compound names on one line, and a number takes a space before its unit, 10 MB rather than
+          10MB.
         </Li>
       </Ul>
 
       <H2>Radius</H2>
       <P>
-        Radii do not scale with spacing, they are fixed rem tokens. Controls use{" "}
-        <InlineCode>rounded-md</InlineCode>, retuned to 5px, about a fifth of the 28px control
-        height. Cards and previews use <InlineCode>rounded-lg</InlineCode> at 8px, and floating
-        surfaces sit just above that. Larger surface, larger radius.
+        Radii do not scale with spacing, they are fixed rem tokens. A control wants a radius near
+        one fifth of its height, 5px on a 28px control, which is what{" "}
+        <InlineCode>rounded-md</InlineCode> maps to. Cards and previews step up to 8px with{" "}
+        <InlineCode>rounded-lg</InlineCode>, and floating surfaces sit just above that. Larger
+        surface, larger radius.
       </P>
       <P>
         Corners nested inside corners must be concentric, so both curves bend around one shared
@@ -143,43 +159,6 @@ export default {
         the radius and spacing tokens rather than writing the result as a number, and they stay
         correct when either token changes.
       </P>
-
-      <H2>Elevation</H2>
-      <P>
-        Depth comes from a fixed ladder, not from ad hoc shadows. Every layer pairs one shadow with
-        one edge, and nothing sits between the rungs.
-      </P>
-      <Table
-        head={["Layer", "Recipe", "Examples"]}
-        rows={[
-          ["Page", "No shadow, hairline separators", "Headers, sections, tables"],
-          [
-            "Control",
-            <InlineCode key="control">shadow-sm + ring</InlineCode>,
-            "Buttons, inputs, triggers",
-          ],
-          [
-            "Floating",
-            <InlineCode key="floating">shadow-lg + ring</InlineCode>,
-            "Popups, menus, tooltips",
-          ],
-        ]}
-      />
-      <Ul>
-        <Li>
-          <Strong>Shadows are layered.</Strong> A soft ambient layer plus a tighter direct one reads
-          as real light. The semi transparent ring keeps the edge crisp where the shadow blurs.
-        </Li>
-        <Li>
-          <Strong>Dark mode elevates differently.</Strong> Shadows vanish against dark backgrounds,
-          so elevation leans on the ring and on slightly lighter surfaces.
-        </Li>
-        <Li>
-          <Strong>Stacking is managed, not escalated.</Strong> New stacking contexts come from{" "}
-          <InlineCode>isolation: isolate</InlineCode>, and z-index values come from a small fixed
-          scale, never from an arbitrary 9999.
-        </Li>
-      </Ul>
 
       <H2>Edges</H2>
       <P>
@@ -193,7 +172,7 @@ export default {
 
       <H2>Color</H2>
       <P>
-        Neutrals carry all chrome: surfaces, edges, hover and highlight fills, secondary text.
+        Neutrals carry all of the chrome, the surfaces, edges, hover fills, and secondary text.
         Accent is reserved for focus rings, selection, and primary actions. If a state can be
         expressed in neutral, it should be.
       </P>
@@ -203,16 +182,17 @@ export default {
           hue so every surface feels cut from the same material.
         </Li>
         <Li>
-          <Strong>Hover and highlight fills:</Strong> <InlineCode>bg-neutral-200</InlineCode> in
-          light, <InlineCode>bg-neutral-800/50</InlineCode> in dark. Balance the two modes by eye,
-          not by mirrored numbers. Dark mode needs less.
+          <Strong>Fills stay quiet.</Strong> Hover and highlight use fills like{" "}
+          <InlineCode>bg-neutral-200</InlineCode> in light and{" "}
+          <InlineCode>bg-neutral-800/50</InlineCode> in dark. Balance the two modes by eye, not by
+          mirrored numbers. Dark mode needs less.
         </Li>
         <Li>
           <Strong>Interaction increases contrast.</Strong> Hover, active, and focus states are
           always more contrasted than rest, never less.
         </Li>
         <Li>
-          <Strong>Contrast has a floor.</Strong> Body and secondary text hold 4.5:1 against their
+          <Strong>Contrast has a floor.</Strong> Body and secondary text hold 4.5 to 1 against their
           surface, checked perceptually where possible. Disabled states are the one exemption.
         </Li>
         <Li>
@@ -253,7 +233,7 @@ export default {
 
       <H2>Motion</H2>
       <P>
-        Motion is decided before it is styled. The first question is frequency: an interaction a
+        Motion is decided before it is styled, and the first question is frequency. An interaction a
         person triggers a hundred times a day, like a context menu or a list edit, gets no animation
         at all.
       </P>
@@ -296,6 +276,10 @@ export default {
       </Ul>
 
       <H2>Interaction</H2>
+      <P>
+        How an interface feels in the hand comes down to defaults. These are the ones worth being
+        strict about.
+      </P>
       <Ul>
         <Li>
           <Strong>Everything works from the keyboard.</Strong> Flows follow the established
@@ -314,8 +298,8 @@ export default {
         </Li>
         <Li>
           <Strong>Links are links.</Strong> Navigation uses real anchors so new tabs, middle clicks,
-          and copied addresses all work. Buttons act, links go. Cursors follow the same convention:
-          controls keep the arrow, links get the pointer.
+          and copied addresses all work. Buttons act, links go, and the cursor agrees, an arrow on
+          controls and a pointer on links.
         </Li>
         <Li>
           <Strong>Menus open on press.</Strong> Dropdowns trigger on mousedown rather than click.
@@ -348,6 +332,10 @@ export default {
       </Ul>
 
       <H2>Forms</H2>
+      <P>
+        Forms are where an interface earns trust. Most of these rules amount to never fighting the
+        person typing.
+      </P>
       <Ul>
         <Li>
           <Strong>A button is a button element.</Strong> Click handlers never land on a div or a
@@ -391,6 +379,10 @@ export default {
       </Ul>
 
       <H2>Content</H2>
+      <P>
+        Words, states, and formats are design surfaces too, and they break in ways a mockup never
+        shows.
+      </P>
       <Ul>
         <Li>
           <Strong>Layouts survive real content.</Strong> Short, average, and very long values all
@@ -421,15 +413,24 @@ export default {
       </Ul>
 
       <H2>Details</H2>
+      <P>
+        The finishing layer. None of these are noticed when present, and all of them are felt when
+        missing.
+      </P>
       <Ul>
         <Li>
           <Strong>Align optically, not mathematically.</Strong> Icons nudge to their visual center,
           a pixel of adjustment wins when perception beats geometry, and padding compensates where a
-          glyph carries uneven weight, like a trigger using <InlineCode>ps-2.5 pe-2</InlineCode>.
+          glyph carries uneven weight.
         </Li>
         <Li>
           <Strong>Everything aligns with something.</Strong> A grid, a baseline, an edge, or an
           optical center. No accidental positioning.
+        </Li>
+        <Li>
+          <Strong>Stacking is managed, not escalated.</Strong> New stacking contexts come from{" "}
+          <InlineCode>isolation: isolate</InlineCode>, and z-index values come from a small fixed
+          scale, never from an arbitrary 9999.
         </Li>
         <Li>
           <Strong>Page scrollbars stay native.</Strong> Custom scrollbars belong only in small panes
@@ -452,6 +453,7 @@ export default {
       </Ul>
 
       <H2>Performance</H2>
+      <P>Speed is part of craft. A beautiful interface that stutters reads as broken.</P>
       <Ul>
         <Li>
           <Strong>Typing never lags.</Strong> Keystroke handling stays cheap, and expensive work
@@ -463,11 +465,11 @@ export default {
         </Li>
         <Li>
           <Strong>Writes finish fast.</Strong> Mutations complete within about 500ms, and anything
-          slower shows optimistic UI or progress.
+          slower shows progress.
         </Li>
         <Li>
-          <Strong>Fonts are deliberate.</Strong> Critical fonts preload, subset to the characters
-          actually used, and reserve their space so text never shifts.
+          <Strong>Fonts are deliberate.</Strong> Critical fonts preload and subset to the characters
+          actually used.
         </Li>
         <Li>
           <Strong>Effects have budgets.</Strong> Large blurs are expensive,{" "}
@@ -481,6 +483,7 @@ export default {
       </Ul>
 
       <H2>Rules of thumb</H2>
+      <P>Four habits keep everything above true.</P>
       <Ul>
         <Li>Medium first. Build the md size, derive sm and lg last.</Li>
         <Li>One knob. If a change needs edits in many components, it belongs in a token.</Li>
@@ -489,9 +492,8 @@ export default {
           Accessible by default. Build on semantic elements or accessible primitives, give icon only
           controls an <InlineCode>aria-label</InlineCode>, keep visible focus states, and hide
           decorative elements with <InlineCode>aria-hidden</InlineCode>. Walk new components once
-          with a screen reader: the name, role, and state of every control should be announced.
+          with a screen reader and confirm every control announces its name, role, and state.
         </Li>
-        <Li>Measure one computed size in devtools. Stale styles lie to the eye.</Li>
       </Ul>
     </>
   ),

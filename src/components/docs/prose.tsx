@@ -22,7 +22,7 @@ export function AnchorLink({ href, children }: AnchorLinkProps) {
     <a href={href}>
       <span
         aria-hidden
-        className="mr-2 -ml-5 text-foreground/80 opacity-0 transition-opacity duration-150 select-none group-hover:opacity-100 motion-reduce:transition-none"
+        className="mr-2 -ml-5 text-foreground/50 opacity-0 transition-opacity duration-150 select-none group-hover:opacity-100 motion-reduce:transition-none"
       >
         #
       </span>
@@ -145,21 +145,18 @@ export function Table({ head, rows }: TableProps) {
       <table className="w-full text-left text-sm tabular-nums">
         <thead>
           <tr className="border-b-hairline border-current/10 text-foreground/80">
-            {head.map((cell) => (
-              <th key={String(cell)} className="px-4 py-2.5 font-medium whitespace-nowrap">
+            {head.map((cell, column) => (
+              <th key={column} className="px-4 py-2.5 font-medium whitespace-nowrap">
                 {cell}
               </th>
             ))}
           </tr>
         </thead>
         <tbody>
-          {rows.map((row) => (
-            <tr key={String(row[0])} className="border-current/10 not-last:border-b-hairline">
+          {rows.map((row, index) => (
+            <tr key={index} className="border-current/10 not-last:border-b-hairline">
               {row.map((cell, column) => (
-                <td
-                  key={`${String(row[0])}-${String(head[column])}`}
-                  className="px-4 py-2.5 align-top text-foreground/80"
-                >
+                <td key={column} className="px-4 py-2.5 align-top text-foreground/80">
                   {cell}
                 </td>
               ))}
