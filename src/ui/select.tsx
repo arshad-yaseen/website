@@ -90,7 +90,7 @@ function Icon({ className, children, ...props }: SelectPrimitive.Icon.Props) {
 const POSITIONER = cn("z-50 outline-hidden select-none");
 
 const POPUP = cn(
-  "group relative min-w-(--anchor-width) origin-(--transform-origin) rounded-[0.625rem] bg-clip-padding",
+  "group relative min-w-(--anchor-width) origin-(--transform-origin) rounded-[calc(var(--radius-md)_+_--spacing(1))] bg-clip-padding",
   "bg-background text-foreground",
   "shadow-lg ring shadow-black/5 ring-black/10 dark:shadow-black/40 dark:ring-white/10",
   "overflow-hidden outline-hidden",
@@ -182,9 +182,9 @@ function Item({ className, ...props }: SelectPrimitive.Item.Props) {
     <SelectPrimitive.Item
       className={cn(
         "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[--spacing(4)_1fr] items-center gap-x-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
-        "py-[calc((var(--anchor-height,--spacing(8))_-_--spacing(6))/2)]",
+        "py-[calc((var(--anchor-height,--spacing(8))-(--spacing(6)))/2)]",
         "text-foreground group-data-[side=none]:pe-10",
-        "data-highlighted:before:absolute data-highlighted:before:inset-x-[3.5px] data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-neutral-200 data-highlighted:before:content-[''] dark:data-highlighted:before:bg-neutral-800/50",
+        "data-highlighted:before:absolute data-highlighted:before:inset-x-1 data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-neutral-200 data-highlighted:before:content-[''] dark:data-highlighted:before:bg-neutral-800/50",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}

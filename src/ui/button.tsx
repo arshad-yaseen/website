@@ -4,12 +4,12 @@ import { Button as BaseUIButton } from "@base-ui/react";
 
 const buttonVariants = cva(
   [
-    "relative isolate inline-flex cursor-default items-center justify-center gap-x-2 rounded-md font-medium data-disabled:cursor-not-allowed [&:is(a)]:cursor-pointer",
+    "relative isolate inline-flex cursor-default items-center justify-center gap-x-2 rounded-md font-medium data-disabled:cursor-not-allowed [a]:cursor-pointer",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
     "data-disabled:opacity-50",
     "touch-manipulation",
     "transition-[background-color,color,transform] duration-150 *:data-[slot=icon]:transition-[color] motion-reduce:transition-none",
-    "not-data-disabled:active:scale-[0.97] motion-reduce:active:scale-100",
+    "not-data-disabled:active:scale-[0.99] motion-reduce:active:scale-100",
     "*:data-[slot=icon]:-mx-0.5 *:data-[slot=icon]:my-1 *:data-[slot=icon]:shrink-0 *:data-[slot=icon]:self-center",
   ],
   {

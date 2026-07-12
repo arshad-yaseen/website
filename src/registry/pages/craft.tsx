@@ -131,10 +131,17 @@ export default {
       <H2>Radius</H2>
       <P>
         Radii do not scale with spacing, they are fixed rem tokens. Controls use{" "}
-        <InlineCode>rounded-md</InlineCode> (6px), cards and previews use{" "}
-        <InlineCode>rounded-lg</InlineCode> (8px), and floating surfaces like popups use 10px.
-        Larger surface, larger radius. Nested radii stay concentric: a child radius is smaller than
-        its parent by the gap between them, so the curves share a center.
+        <InlineCode>rounded-md</InlineCode>, retuned to 5px, about a fifth of the 28px control
+        height. Cards and previews use <InlineCode>rounded-lg</InlineCode> at 8px, and floating
+        surfaces sit just above that. Larger surface, larger radius.
+      </P>
+      <P>
+        Corners nested inside corners must be concentric, so both curves bend around one shared
+        center. The formula is simple. The inner radius equals the outer radius minus the gap
+        between the two edges, and the outer radius equals the inner radius plus that gap. A 5px
+        item resting 3.5px inside a popup asks for an 8.5px popup corner. Derive these values from
+        the radius and spacing tokens rather than writing the result as a number, and they stay
+        correct when either token changes.
       </P>
 
       <H2>Elevation</H2>

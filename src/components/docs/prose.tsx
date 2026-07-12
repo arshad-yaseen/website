@@ -62,7 +62,7 @@ export function H3({ children }: PropsWithChildren) {
 }
 
 export function P({ children }: PropsWithChildren) {
-  return <p className="text-base/8 text-pretty text-foreground/80">{children}</p>;
+  return <p className="text-base/8 text-pretty text-foreground/75">{children}</p>;
 }
 
 type CalloutProps = PropsWithChildren<{

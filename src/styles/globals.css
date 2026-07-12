@@ -16,6 +16,9 @@
   --text-2xs--line-height: calc(16 / 11);
   --text-2xs--letter-spacing: 0.02em;
 
+  /* 5px control radius: about 1/5 of the 28px control height. */
+  --radius-md: 0.3125rem;
+
   --border-width-hairline: var(--hairline-width);
 
   --font-weight-light: 300;

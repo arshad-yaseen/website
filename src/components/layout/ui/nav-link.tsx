@@ -18,7 +18,7 @@ export default function NavLink<T extends string>({ href, children }: NavLinkPro
     <Button
       variant={isActive ? "solid" : "plain"}
       color="neutral"
-      className="-mx-2.5 w-[calc(100%_+_--spacing(5))] justify-start"
+      className="-mx-2.5 w-[calc(100%+(--spacing(5)))] justify-start"
       render={<Link href={href} role="link" aria-current={isActive ? "page" : undefined} />}
     >
       {children}
