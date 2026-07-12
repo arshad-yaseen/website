@@ -5,6 +5,12 @@
 @custom-variant hover-open (&:is(:hover:not([data-disabled]), [data-popup-open]));
 
 @theme inline {
+  /* 3.5px unit: compact density, md control (min-h-8) = 28px */
+  --spacing: 0.21875rem;
+
+  --text-sm: 0.8125rem;
+  --text-sm--line-height: calc(20 / 13);
+
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
   --font-serif: var(--font-serif);

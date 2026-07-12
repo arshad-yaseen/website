@@ -97,7 +97,7 @@ const POPUP = cn(
   "transition-[transform,scale,opacity] duration-100 ease-out motion-reduce:transition-none",
   "data-starting-style:scale-[0.98] data-starting-style:opacity-0",
   "data-ending-style:scale-[0.98] data-ending-style:opacity-0 data-ending-style:duration-75",
-  "data-[side=none]:min-w-[calc(var(--anchor-width)+1.75rem)]",
+  "data-[side=none]:min-w-[calc(var(--anchor-width)_+_--spacing(7))]",
   "data-[side=none]:data-starting-style:scale-100 data-[side=none]:data-starting-style:opacity-100",
   "data-[side=none]:data-ending-style:transition-none data-[side=none]:data-starting-style:transition-none",
 );
@@ -181,8 +181,8 @@ function Item({ className, ...props }: SelectPrimitive.Item.Props) {
   return (
     <SelectPrimitive.Item
       className={cn(
-        "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[1rem_1fr] items-center gap-x-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
-        "py-[calc((var(--anchor-height,2rem)-1.5rem)/2)]",
+        "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[--spacing(4)_1fr] items-center gap-x-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
+        "py-[calc((var(--anchor-height,--spacing(8))_-_--spacing(6))/2)]",
         "text-foreground group-data-[side=none]:pe-10",
         "data-highlighted:before:absolute data-highlighted:before:inset-x-[3.5px] data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-neutral-200 data-highlighted:before:content-[''] dark:data-highlighted:before:bg-neutral-800/50",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
@@ -234,7 +234,7 @@ function GroupLabel({ className, ...props }: SelectPrimitive.GroupLabel.Props) {
   return (
     <SelectPrimitive.GroupLabel
       className={cn(
-        "py-1.5 ps-[calc(0.625rem+1rem+0.5rem)] pe-4 text-xs font-medium text-neutral-500 select-none dark:text-neutral-400",
+        "py-1.5 ps-8.5 pe-4 text-xs font-medium text-neutral-500 select-none dark:text-neutral-400",
         className,
       )}
       {...props}
