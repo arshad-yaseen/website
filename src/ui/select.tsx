@@ -184,8 +184,7 @@ function Item({ className, ...props }: SelectPrimitive.Item.Props) {
         "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[1rem_1fr] items-center gap-x-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
         "py-[calc((var(--anchor-height,2rem)-1.5rem)/2)]",
         "text-foreground group-data-[side=none]:pe-10",
-        "data-highlighted:text-white",
-        "data-highlighted:before:absolute data-highlighted:before:inset-x-[3.5px] data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-accent-500 data-highlighted:before:content-['']",
+        "data-highlighted:before:absolute data-highlighted:before:inset-x-[3.5px] data-highlighted:before:inset-y-[-0.5px] data-highlighted:before:-z-10 data-highlighted:before:rounded-md data-highlighted:before:bg-neutral-200 data-highlighted:before:content-[''] dark:data-highlighted:before:bg-neutral-800/50",
         "data-disabled:pointer-events-none data-disabled:opacity-50",
         className,
       )}
@@ -208,12 +207,7 @@ function ItemIndicator({ className, children, ...props }: SelectPrimitive.ItemIn
 function ItemText({ className, ...props }: SelectPrimitive.ItemText.Props) {
   return (
     <SelectPrimitive.ItemText
-      className={cn(
-        "col-start-2 min-w-0 truncate",
-        CONTENT_ICON,
-        "group-data-highlighted/item:*:data-[slot=icon]:text-white dark:group-data-highlighted/item:*:data-[slot=icon]:text-white",
-        className,
-      )}
+      className={cn("col-start-2 min-w-0 truncate", CONTENT_ICON, className)}
       {...props}
     />
   );
@@ -225,7 +219,6 @@ function ItemDescription({ className, ...props }: ComponentProps<"div">) {
       data-slot="description"
       className={cn(
         "col-start-2 -mt-0.5 min-w-0 truncate pb-0.5 text-xs/5 text-neutral-500 dark:text-neutral-400",
-        "group-data-highlighted/item:text-white/75 dark:group-data-highlighted/item:text-white/75",
         className,
       )}
       {...props}
