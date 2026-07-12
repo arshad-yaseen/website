@@ -40,6 +40,7 @@ import textareaDisabledDemo from "./demos/textarea/disabled";
 import textareaInvalidDemo from "./demos/textarea/invalid";
 import textareaSizesDemo from "./demos/textarea/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
+import craft from "./pages/craft";
 import introduction from "./pages/introduction";
 import highPerformanceParsers from "./writings/engineering-high-performance-parsers";
 
@@ -87,7 +88,7 @@ const withSource = <T extends Doc>(doc: T): T =>
     ? { ...doc, source: `${REPO}/${doc.source.includes(".") ? "blob" : "tree"}/main/${doc.source}` }
     : doc;
 
-export const pages: Doc[] = [introduction].map(withSource);
+export const pages: Doc[] = [introduction, craft].map(withSource);
 
 export const sections: Section[] = [
   {

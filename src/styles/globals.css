@@ -5,11 +5,22 @@
 @custom-variant hover-open (&:is(:hover:not([data-disabled]), [data-popup-open]));
 
 @theme inline {
-  /* 3.5px unit: compact density, md control (min-h-8) = 28px */
   --spacing: 0.21875rem;
 
   --text-sm: 0.8125rem;
   --text-sm--line-height: calc(20 / 13);
+
+  --text-2xs: 0.6875rem;
+  --text-2xs--line-height: calc(16 / 11);
+  --text-2xs--letter-spacing: 0.02em;
+
+  --border-width-hairline: var(--hairline-width);
+
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-medium: 510;
+  --font-weight-semibold: 590;
+  --font-weight-bold: 680;
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
@@ -66,14 +77,6 @@
   --color-danger-800: var(--color-red-800);
   --color-danger-900: var(--color-red-900);
   --color-danger-950: var(--color-red-950);
-
-  --border-width-hairline: var(--hairline-width);
-
-  --font-weight-light: 300;
-  --font-weight-normal: 400;
-  --font-weight-medium: 510;
-  --font-weight-semibold: 590;
-  --font-weight-bold: 680;
 }
 
 :root {

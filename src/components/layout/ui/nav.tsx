@@ -5,7 +5,7 @@ export default function Nav() {
   return (
     <nav className="flex flex-col gap-8">
       <ul className="flex flex-col gap-1">
-        {pages.map((page) => (
+        {pages.slice(0, 1).map((page) => (
           <li key={page.slug}>
             <NavLink href={`/ui/${page.slug}`}>{page.title}</NavLink>
           </li>
@@ -13,6 +13,11 @@ export default function Nav() {
         <li>
           <NavLink href="/ui/notes">Notes</NavLink>
         </li>
+        {pages.slice(1).map((page) => (
+          <li key={page.slug}>
+            <NavLink href={`/ui/${page.slug}`}>{page.title}</NavLink>
+          </li>
+        ))}
       </ul>
       {sections
         .filter((section) => section.docs.length > 0)
