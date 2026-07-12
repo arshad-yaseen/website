@@ -14,7 +14,7 @@ function Label({ className, ...props }: SelectPrimitive.Label.Props) {
   return (
     <SelectPrimitive.Label
       className={cn(
-        "cursor-default text-sm font-medium text-foreground select-none data-disabled:opacity-50",
+        "cursor-default text-sm/6 font-medium text-foreground select-none data-disabled:opacity-50",
         className,
       )}
       {...props}
@@ -181,7 +181,7 @@ function Item({ className, ...props }: SelectPrimitive.Item.Props) {
   return (
     <SelectPrimitive.Item
       className={cn(
-        "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[1rem_1fr] items-center gap-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
+        "group/item relative isolate grid cursor-default scroll-my-1 grid-cols-[1rem_1fr] items-center gap-x-2 rounded-md ps-2.5 pe-4 text-sm/6 outline-hidden select-none",
         "py-[calc((var(--anchor-height,2rem)-1.5rem)/2)]",
         "text-foreground group-data-[side=none]:pe-10",
         "data-highlighted:text-white",
@@ -212,6 +212,20 @@ function ItemText({ className, ...props }: SelectPrimitive.ItemText.Props) {
         "col-start-2 min-w-0 truncate",
         CONTENT_ICON,
         "group-data-highlighted/item:*:data-[slot=icon]:text-white dark:group-data-highlighted/item:*:data-[slot=icon]:text-white",
+        className,
+      )}
+      {...props}
+    />
+  );
+}
+
+function ItemDescription({ className, ...props }: ComponentProps<"div">) {
+  return (
+    <div
+      data-slot="description"
+      className={cn(
+        "col-start-2 -mt-0.5 min-w-0 truncate pb-0.5 text-xs/5 text-neutral-500 dark:text-neutral-400",
+        "group-data-highlighted/item:text-white/75 dark:group-data-highlighted/item:text-white/75",
         className,
       )}
       {...props}
@@ -327,6 +341,7 @@ export const Select = {
   Item,
   ItemIndicator,
   ItemText,
+  ItemDescription,
   Group,
   GroupLabel,
   Separator,

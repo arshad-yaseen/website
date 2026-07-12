@@ -25,6 +25,10 @@ export default {
       <P>Organize options into labeled sections.</P>
       <Demo name="select/grouped" />
 
+      <H2>Descriptions</H2>
+      <P>Add supporting text below each option.</P>
+      <Demo name="select/descriptions" />
+
       <H2>Icons</H2>
       <P>Show an icon next to each option.</P>
       <Demo name="select/icons" />
