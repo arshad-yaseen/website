@@ -23,7 +23,7 @@ export default function Nav() {
         .filter((section) => section.docs.length > 0)
         .map((section) => (
           <div key={section.slug} className="flex flex-col gap-2">
-            <h4 className="text-sm font-medium">{section.title}</h4>
+            <p className="text-sm font-medium">{section.title}</p>
             <ul className="flex flex-col gap-1">
               {section.docs.map((doc) => (
                 <li key={doc.slug}>

@@ -22,7 +22,7 @@ export function AnchorLink({ href, children }: AnchorLinkProps) {
     <a href={href}>
       <span
         aria-hidden
-        className="mr-2 -ml-5 text-foreground/80 opacity-0 transition-opacity duration-150 ease-out select-none group-hover:opacity-100 motion-reduce:transition-none"
+        className="mr-2 -ml-5 text-foreground/80 opacity-0 transition-opacity duration-150 select-none group-hover:opacity-100 motion-reduce:transition-none"
       >
         #
       </span>
@@ -47,7 +47,7 @@ function Heading({ as: Tag, className, children }: HeadingProps) {
 
 export function H2({ children }: PropsWithChildren) {
   return (
-    <Heading as="h2" className="mt-10 text-lg font-medium tracking-tight">
+    <Heading as="h2" className="mt-10 text-lg font-medium tracking-tight text-balance">
       {children}
     </Heading>
   );
@@ -55,14 +55,14 @@ export function H2({ children }: PropsWithChildren) {
 
 export function H3({ children }: PropsWithChildren) {
   return (
-    <Heading as="h3" className="mt-8 text-base/7 font-medium tracking-tight">
+    <Heading as="h3" className="mt-8 text-base/7 font-medium tracking-tight text-balance">
       {children}
     </Heading>
   );
 }
 
 export function P({ children }: PropsWithChildren) {
-  return <p className="text-base/7 text-foreground/80">{children}</p>;
+  return <p className="text-base/8 text-pretty text-foreground/80">{children}</p>;
 }
 
 type CalloutProps = PropsWithChildren<{
@@ -73,7 +73,7 @@ export function Callout({ className, children }: CalloutProps) {
   return (
     <aside
       className={cn(
-        "rounded-lg border-hairline border-current/6! bg-neutral-100/60 p-4 px-4 py-3 text-base/7 text-foreground/80 dark:bg-neutral-900/60",
+        "rounded-lg border-hairline border-current/6! bg-neutral-100/60 p-4 px-4 py-3 text-base/8 text-pretty text-foreground/80 dark:bg-neutral-900/60",
         className,
       )}
     >
@@ -116,7 +116,7 @@ export function Hr() {
 
 export function Ul({ children }: PropsWithChildren) {
   return (
-    <ul className="list-disc space-y-2 pl-5 text-base/7 text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
+    <ul className="list-disc space-y-2 pl-5 text-base/8 text-pretty text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
       {children}
     </ul>
   );
@@ -124,7 +124,7 @@ export function Ul({ children }: PropsWithChildren) {
 
 export function Ol({ children }: PropsWithChildren) {
   return (
-    <ol className="list-decimal space-y-3 pl-5 text-base/7 text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
+    <ol className="list-decimal space-y-3 pl-5 text-base/8 text-pretty text-foreground/80 marker:text-neutral-400 dark:marker:text-neutral-600">
       {children}
     </ol>
   );
@@ -142,7 +142,7 @@ type TableProps = {
 export function Table({ head, rows }: TableProps) {
   return (
     <div className="overflow-x-auto rounded-lg border-hairline border-current/10">
-      <table className="w-full text-left text-sm">
+      <table className="w-full text-left text-sm tabular-nums">
         <thead>
           <tr className="border-b-hairline border-current/10 text-foreground/80">
             {head.map((cell) => (

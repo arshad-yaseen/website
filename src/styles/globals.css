@@ -5,6 +5,8 @@
 @custom-variant hover-open (&:is(:hover:not([data-disabled]), [data-popup-open]));
 
 @theme inline {
+  --default-transition-timing-function: ease;
+
   --spacing: 0.21875rem;
 
   --text-sm: 0.8125rem;
@@ -85,11 +87,21 @@
   --ring: var(--color-accent-500);
 
   --hairline-width: 1px;
+
+  color-scheme: light;
 }
 
 .dark {
   --background: var(--color-neutral-950);
   --foreground: var(--color-neutral-100);
+
+  color-scheme: dark;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
 }
 
 @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
@@ -115,6 +127,9 @@
 
 body {
   @apply bg-background text-foreground;
+
+  text-rendering: optimizeLegibility;
+  -webkit-text-size-adjust: 100%;
 }
 
 [id] {

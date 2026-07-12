@@ -6,7 +6,7 @@ import type { Doc } from "../types";
 export default {
   slug: "avatar",
   title: "Avatar",
-  description: "A user's image, with initials as a fallback.",
+  description: "A user’s image, with initials as a fallback.",
   source: "src/ui/avatar.tsx",
   body: (
     <>

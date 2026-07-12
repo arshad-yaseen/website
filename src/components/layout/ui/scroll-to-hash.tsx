@@ -9,7 +9,9 @@ export default function ScrollToHash() {
       return;
     }
 
-    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView();
+    document.getElementById(decodeURIComponent(hash.slice(1)))?.scrollIntoView({
+      behavior: "instant",
+    });
   }, []);
 
   return null;

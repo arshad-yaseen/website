@@ -5,7 +5,7 @@ export default function ButtonLoadingDemo() {
   return (
     <Button variant="outline" disabled>
       <Diffusion />
-      Generating
+      Generating…
     </Button>
   );
 }

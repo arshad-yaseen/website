@@ -11,7 +11,7 @@ type PropsTableProps = {
 export function PropsTable({ rows }: PropsTableProps) {
   return (
     <div className="overflow-x-auto rounded-lg border-hairline border-current/10">
-      <table className="w-full text-left text-sm">
+      <table className="w-full text-left text-sm tabular-nums">
         <thead>
           <tr className="border-b-hairline border-current/10 text-neutral-600 dark:text-neutral-400">
             <th className="px-4 py-2.5 font-medium">Prop</th>

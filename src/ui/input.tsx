@@ -9,7 +9,7 @@ const inputVariants = cva(
     "not-data-disabled:not-data-invalid:hover:ring-black/25 dark:not-data-disabled:not-data-invalid:hover:ring-white/20",
     "data-invalid:not-data-disabled:hover:ring-danger-500/70",
     "placeholder:text-neutral-500 dark:placeholder:text-neutral-400",
-    "transition-[color,box-shadow] duration-150 ease-out motion-reduce:transition-none",
+    "transition-[color,box-shadow] duration-150 motion-reduce:transition-none",
     "focus:not-focus-visible:outline-hidden focus-visible:outline-2 focus-visible:-outline-offset-1 focus-visible:outline-ring",
     "data-invalid:ring-danger-500/50 data-invalid:focus-visible:outline-danger-500 dark:data-invalid:ring-danger-500/50",
     "data-disabled:cursor-not-allowed data-disabled:bg-neutral-200/50 data-disabled:opacity-50 dark:data-disabled:bg-neutral-800/50",

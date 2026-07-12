@@ -27,7 +27,7 @@ const triggerVariants = cva(
     "group/trigger relative inline-flex min-w-44 cursor-default items-center justify-between gap-2 rounded-md font-normal whitespace-nowrap select-none",
     "bg-transparent text-foreground",
     "ring ring-black/15 not-data-disabled:shadow-sm dark:ring-white/12",
-    "transition-[background-color,box-shadow,color] duration-150 ease-out motion-reduce:transition-none",
+    "transition-[background-color,box-shadow,color] duration-150 motion-reduce:transition-none",
     "hover-open:bg-neutral-200/50 dark:hover-open:bg-neutral-800/50",
     "data-disabled:cursor-not-allowed data-disabled:bg-neutral-200/50 data-disabled:opacity-50 dark:data-disabled:bg-neutral-800/50",
     "data-invalid:ring-danger-500/50 dark:data-invalid:ring-danger-500/50",

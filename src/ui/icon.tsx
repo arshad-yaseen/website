@@ -29,6 +29,13 @@ type IconProps = Omit<HugeiconsIconProps, "icon"> & {
 
 export function Icon({ name, ...props }: IconProps) {
   return (
-    <HugeiconsIcon {...props} icon={Icons[name]} data-slot="icon" strokeWidth={1.75} size={24} />
+    <HugeiconsIcon
+      aria-hidden
+      strokeWidth={1.75}
+      size={24}
+      {...props}
+      icon={Icons[name]}
+      data-slot="icon"
+    />
   );
 }

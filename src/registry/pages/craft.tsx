@@ -68,11 +68,18 @@ export default {
           ],
           [
             "Prose",
-            <InlineCode key="p">text-base/7</InlineCode>,
-            "16px / 24.5px",
+            <InlineCode key="p">text-base/8</InlineCode>,
+            "16px / 28px",
             "Long form reading, docs",
           ],
-          ["Heading", <InlineCode key="h">text-lg</InlineCode>, "18px", "Page and section titles"],
+          ["Heading", <InlineCode key="h">text-lg</InlineCode>, "18px", "Section titles (h2)"],
+          ["Title", <InlineCode key="t">text-2xl</InlineCode>, "24px", "Page titles (h1)"],
+          [
+            "Display",
+            <InlineCode key="d">text-3xl+</InlineCode>,
+            "30px and up",
+            "Long form and hero titles",
+          ],
         ]}
       />
       <P>
@@ -85,6 +92,11 @@ export default {
           <Strong>Emphasize with weight and color, never with a size bump.</Strong> Nothing renders
           lighter than 400, and headings sit in the 500 to 600 range, which is why medium here is
           510.
+        </Li>
+        <Li>
+          <Strong>Headings are semantic and sequential.</Strong> One h1 per page, levels never skip,
+          and the visual tier follows the semantic level, an h3 can even share prose size and stand
+          on weight alone.
         </Li>
         <Li>
           <Strong>Micro text has rules.</Strong> <InlineCode>text-2xs</InlineCode> is for labels a
@@ -392,7 +404,7 @@ export default {
         </Li>
         <Li>
           <Strong>Formats follow locale.</Strong> Dates, numbers, and currencies format for the
-          user's locale, and language comes from browser settings, never from location.
+          user’s locale, and language comes from browser settings, never from location.
         </Li>
         <Li>
           <Strong>The document title tells the truth.</Strong> It reflects the current context, and

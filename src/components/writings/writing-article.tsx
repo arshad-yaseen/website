@@ -12,7 +12,7 @@ export function WritingArticle({ writing }: WritingArticleProps) {
         <h1 className="text-3xl font-medium tracking-tight text-balance sm:text-4xl/tight">
           {writing.title}
         </h1>
-        <time dateTime={writing.date} className="font-mono text-sm text-neutral-500">
+        <time dateTime={writing.date} className="font-mono text-xs text-neutral-500 tabular-nums">
           {formatDate(writing.date)}
         </time>
       </header>
