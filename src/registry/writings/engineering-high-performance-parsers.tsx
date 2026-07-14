@@ -112,8 +112,20 @@ comptime {
       />
       <P>
         <InlineCode>std.MultiArrayList</InlineCode> stores this as a struct of arrays: one column of
-        payloads, one column of spans, the same index into both. A pass that only switches on node
-        kind never drags spans through the cache, and vice versa:
+        payloads, one column of spans, the same index into both.
+      </P>
+      <CodeBlock
+        lang="text"
+        code={`array of structs                      struct of arrays
+
+[ data | span ][ data | span ] ...    data: [ d0 ][ d1 ][ d2 ] ...
+                                      span: [ s0 ][ s1 ][ s2 ] ...
+
+reading node kinds drags every        a kind-only pass reads one
+span into cache as dead weight        dense column and nothing else`}
+      />
+      <P>
+        A pass that only switches on node kind never drags spans through the cache, and vice versa:
       </P>
       <CodeBlock
         lang="zig"
@@ -146,13 +158,76 @@ try self.tree.nodes.ensureTotalCapacity(alloc, estimated_nodes);`}
         <InlineCode>left</InlineCode> and <InlineCode>right</InlineCode> are integers.
       </P>
       <P>
-        You can push this further. The Zig compiler&rsquo;s own AST stores ~13 bytes per node: a
-        one-byte tag, an index to the node&rsquo;s main token, and two <InlineCode>u32</InlineCode>{" "}
-        words whose meaning depends on the tag, with spans recomputed by re-lexing one token on
-        demand. That is the right trade for an internal frontend. Yuku&rsquo;s AST is a public API,
-        consumed from JavaScript as ESTree, so it spends 52 bytes on a self-describing union and
-        stored spans. Both designs are the same idea. They just sit at different points on the
-        spectrum of how much the consumer is willing to recompute.
+        Here is what that actually produces. Parsing <InlineCode>let x = 1 + 2;</InlineCode> yields
+        seven nodes:
+      </P>
+      <CodeBlock
+        lang="text"
+        code={`let x = 1 + 2;
+0   4   8   12    byte offsets
+
+nodes                                                         span
+[0] binding_identifier   { name = source[4..5] }              4..5
+[1] numeric_literal      { raw  = source[8..9] }              8..9
+[2] numeric_literal      { raw  = source[12..13] }            12..13
+[3] binary_expression    { left = 1, right = 2, op = + }      8..13
+[4] variable_declarator  { id = 0, init = 3 }                 4..13
+[5] variable_declaration { kind = let,
+                           declarators = extras[0..1] }       0..14
+[6] program              { body = extras[1..2] }              0..14
+
+extras  [ 4 ][ 5 ]
+          |    program body
+          declarator list`}
+      />
+      <P>
+        Everything from the previous sections is visible in this little dump. Children precede their
+        parents, and the root is the last node appended. Every edge is a small integer:{" "}
+        <InlineCode>binary_expression</InlineCode> holds <InlineCode>1</InlineCode> and{" "}
+        <InlineCode>2</InlineCode>, not addresses. The identifier&rsquo;s name is not a copied
+        string but the byte range <InlineCode>4..5</InlineCode> of the source. And the two
+        variable-length lists live in <InlineCode>extras</InlineCode>, referenced by offset and
+        length. The whole tree is a few dozen integers in two flat arrays.
+      </P>
+      <P>
+        You can push this further. If the parser is an internal frontend with no external consumers,
+        nothing forces a node to describe itself, and it can shrink to around 13 bytes:
+      </P>
+      <CodeBlock
+        lang="zig"
+        code={`const Node = struct {
+    tag: Tag,        // 1 byte: node kind, and the key to reading \`data\`
+    main_token: u32, // the token this node hangs off
+    data: [2]u32,    // two words whose meaning depends on \`tag\`
+};`}
+      />
+      <P>
+        The data word has no type of its own; the tag says how to read it, so every access goes
+        through a <InlineCode>switch</InlineCode>:
+      </P>
+      <CodeBlock
+        lang="zig"
+        code={`switch (tree.tag(node)) {
+    // binary op: both words are child indices
+    .add, .mul => {
+        const left = tree.data(node)[0];
+        const right = tree.data(node)[1];
+    },
+    // block: the words are a (start, end) range into extras
+    .block => {
+        const range = tree.data(node);
+        const statements = tree.extras[range[0]..range[1]];
+    },
+    else => {},
+}`}
+      />
+      <P>
+        No span is stored at all; a position is recovered by re-lexing the main token on the rare
+        occasion one is needed. I didn&rsquo;t take that trade for Yuku, whose AST is a public API
+        consumed from JavaScript as ESTree: positions are queried constantly, and a set of per-tag
+        conventions is hostile to external readers, so it spends 52 bytes on a self-describing union
+        with stored spans. Both designs are the same idea; they differ only in how much the consumer
+        is willing to recompute.
       </P>
 
       <H2>Variable-length children</H2>
@@ -274,6 +349,11 @@ comptime {
     std.debug.assert(@sizeOf(Token) <= 16);
 }`}
       />
+      <P>
+        (You can shrink this too: store only the start offset and re-lex one token whenever an end
+        is needed. Same trade as the minimal node above, and rejected for the same reason: a public
+        parser queries spans constantly.)
+      </P>
       <P>
         The interesting part is the tag. The parser asks the same questions of every token: what is
         its precedence, is it a binary operator, is it a keyword. Instead of answering with branches
