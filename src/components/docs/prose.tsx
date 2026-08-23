@@ -103,7 +103,7 @@ export function A({ href, children }: AProps) {
     <a
       href={href}
       className="text-neutral-900 underline decoration-neutral-400 underline-offset-2 transition-colors hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600 dark:hover:decoration-neutral-500"
-      target="_blank"
+      target={href.startsWith("#") ? undefined : "_blank"}
     >
       {children}
     </a>

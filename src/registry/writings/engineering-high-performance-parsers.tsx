@@ -1,45 +1,76 @@
 import { CodeBlock } from "@/components/docs/code-block";
-import { A, H2, InlineCode, Li, P, Strong, Ul } from "@/components/docs/prose";
+import { A, H2, H3, InlineCode, Li, P, Strong, Table, Ul } from "@/components/docs/prose";
 import type { Writing } from "../types";
 
 export default {
   slug: "engineering-high-performance-parsers",
   title: "Engineering High-Performance Parsers with Data-Oriented Design",
   description:
-    "Notes from building Yuku: the AST is flat arrays of u32 indices instead of a pointer tree, and memory layout, allocation, strings, unicode, and serialization all follow from that one decision.",
+    "Notes from building Yuku: the AST is flat arrays of u32 indices instead of a pointer tree, and everything else — allocation, lists, backtracking, strings, and the FFI boundary — follows from that.",
   date: "2026-06-28",
   body: (
     <>
       <P>
-        <A href="https://yuku.fyi">Yuku</A> is a JavaScript/TypeScript parser written in Zig that
-        runs 3–10x faster than the alternatives on npm. I wrote it alone, and it keeps pace with
-        parsers built by teams. The grammar was never the hard part. Recursive descent is a solved
-        problem; you can transcribe it from the ECMAScript spec. What decides whether the parser is
-        fast is a question the spec says nothing about: what does a node{" "}
-        <Strong>look like in memory</Strong>?
+        <A href="https://yuku.fyi">Yuku</A> is a JavaScript and TypeScript parser I write in Zig. It
+        gets through{" "}
+        <A href="https://raw.githubusercontent.com/yuku-toolchain/parser-benchmark-files/refs/heads/main/typescript.js">
+          <InlineCode>typescript.js</InlineCode>
+        </A>
+        , an 8 MB file, in{" "}
+        <A href="https://github.com/yuku-toolchain/ecmascript-parser-benchmark-native">
+          about 19 ms
+        </A>{" "}
+        on my M3. The grammar was never the interesting part of that. Recursive descent is in every
+        textbook and you can more or less transcribe it from the ECMAScript spec. What decides
+        whether a parser is fast is a question the spec never asks: what does a node look like in
+        memory, and who allocates it.
       </P>
-      <P>Two hardware facts drive everything below.</P>
+      <P>
+        The answer isn&rsquo;t mine. The Zig compiler stores its AST as flat arrays of indices, and
+        I learned the technique by reading it, along with{" "}
+        <A href="https://vimeo.com/649009599">Andrew Kelley&rsquo;s talk on data-oriented design</A>
+        , where the reasoning is laid out properly. Yuku applies the same idea with a looser grip
+        than Zig does, on purpose. The last section is about exactly where, and why.
+      </P>
       <Ul>
         <Li>
-          A load that misses cache and goes to main memory costs on the order of 100ns. Arithmetic
-          costs a fraction of a nanosecond. A program that chases pointers through scattered heap
-          objects spends its life stalled on loads.
+          <A href="#what-the-pointer-tree-costs">What the pointer tree costs</A>
         </Li>
         <Li>
-          A general-purpose allocator call costs tens to hundreds of nanoseconds and scatters
-          related objects across the address space. A parser that allocates per node pays this tens
-          of thousands of times per file.
+          <A href="#indices-not-pointers">Indices, not pointers</A>
+        </Li>
+        <Li>
+          <A href="#variable-length-children">Variable-length children</A>
+        </Li>
+        <Li>
+          <A href="#backtracking-is-just-truncation">Backtracking is just truncation</A>
+        </Li>
+        <Li>
+          <A href="#strings-are-offsets">Strings are offsets</A>
+        </Li>
+        <Li>
+          <A href="#answers-baked-into-the-token-tag">Answers baked into the token tag</A>
+        </Li>
+        <Li>
+          <A href="#unicode-identifiers-without-paying-for-them">
+            Unicode identifiers without paying for them
+          </A>
+        </Li>
+        <Li>
+          <A href="#the-tree-is-its-own-wire-format">The tree is its own wire format</A>
+        </Li>
+        <Li>
+          <A href="#where-yuku-holds-the-idea-more-loosely-than-zig">
+            Where Yuku holds the idea more loosely than Zig
+          </A>
+        </Li>
+        <Li>
+          <A href="#what-generalizes">What generalizes</A>
         </Li>
       </Ul>
-      <P>
-        Yuku budgets roughly one AST node per two source bytes, so a 100 KB file means ~50,000
-        nodes. Built the textbook way, that is 50,000 allocations, 50,000 frees, and every traversal
-        afterward is a pointer chase through cold memory. Built as flat arrays, it is a handful of
-        allocations, linear scans, and one free.
-      </P>
 
       <H2>What the pointer tree costs</H2>
-      <P>The textbook AST in a native language looks like this:</P>
+      <P>The AST most of us write first looks like this:</P>
       <CodeBlock
         lang="zig"
         code={`const Node = union(enum) {
@@ -50,20 +81,30 @@ export default {
 };`}
       />
       <P>
-        It is correct and readable, and everything about it is hostile to the machine. Every{" "}
-        <InlineCode>*Node</InlineCode> is a separate allocation. Every edge is 8 bytes of pointer,
-        often more than the payload it points to. The children live wherever the allocator put them,
-        so walking the tree is a series of unpredictable loads the prefetcher can do nothing with.
-        And because the structure is full of absolute addresses, it is welded to one address space:
-        you cannot write it to disk, share it between processes, or hand it to another language
-        without a deep copy.
+        Nothing wrong with it as a description of the grammar. It&rsquo;s just bad for the machine,
+        and you don&rsquo;t feel it until the file gets big. Yuku produces 852,919 nodes for{" "}
+        <InlineCode>typescript.js</InlineCode>, roughly one per ten bytes of source. In the pointer
+        version every one is a separate <InlineCode>malloc</InlineCode>. At tens of nanoseconds a
+        call, that&rsquo;s tens of milliseconds spent asking for memory, and a similar bill to give
+        it back, for a parse that should take 19 ms in total.
       </P>
-      <P>None of these costs come from the grammar. They come from the representation.</P>
+      <P>
+        Then the nodes live wherever the allocator felt like putting them. Every later walk is a
+        chain of dependent loads to addresses the CPU can&rsquo;t predict. A miss to main memory
+        costs around 100 ns; arithmetic costs a fraction of one. A traversal over 850k scattered
+        nodes spends most of its life stalled.
+      </P>
+      <P>
+        The third cost is easy to miss: the tree is full of absolute addresses, so it&rsquo;s welded
+        to one process. You can&rsquo;t write it to a file, map it back in, or hand it to another
+        language without rebuilding it object by object. For Yuku that last one matters most,
+        because JavaScript is the main consumer.
+      </P>
+      <P>None of these costs come from the grammar. They all come from the representation.</P>
 
       <H2>Indices, not pointers</H2>
       <P>
-        Yuku replaces every pointer with an integer index into one flat array. This is the actual
-        definition:
+        Every pointer becomes a <InlineCode>u32</InlineCode> index into one flat array:
       </P>
       <CodeBlock
         lang="zig"
@@ -71,9 +112,9 @@ export default {
 pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
       />
       <P>
-        Half the size of a pointer, position-independent, and with a reserved value for &ldquo;no
-        child&rdquo; so optional children cost nothing extra. The tree itself is a handful of arrays
-        plus the arena that owns them:
+        Half the size of a pointer, indifferent to which address space it lives in, and the max
+        value is reserved for &ldquo;no child&rdquo; so an optional child costs nothing extra. The
+        tree is a handful of arrays plus the arena that owns them:
       </P>
       <CodeBlock
         lang="zig"
@@ -85,7 +126,9 @@ pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
     /// Backing storage for variadic node children.
     extras: std.ArrayList(NodeIndex) = .empty,
     /// String pool for AST node string fields.
-    strings: ASTStringPool = .{},
+    strings: StringPool = .{},
+    /// The original source text passed to the parser.
+    source: []const u8 = "",
     /// Arena allocator owning all the memory.
     arena: std.heap.ArenaAllocator,
 
@@ -95,14 +138,25 @@ pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
 };`}
       />
       <P>
-        A node is a tagged union plus a source span, and the sizes are pinned by the compiler so a
-        field added to one variant cannot silently bloat all 50,000 nodes:
+        That <InlineCode>deinit</InlineCode> is the first thing you get for free. Nodes, lists,
+        pooled strings and diagnostics all live in one arena, so 850,000 frees become one.
+      </P>
+      <P>
+        A node is a tagged union plus a source span, and I pin both sizes with compile-time asserts
+        so a field added to one variant can&rsquo;t quietly grow all 850k nodes. A field is cheap to
+        add; 850,000 copies of it are not.
       </P>
       <CodeBlock
         lang="zig"
         code={`pub const Node = struct {
-    data: NodeData, // tagged union, one variant per node kind
-    span: Span,     // { start: u32, end: u32 }
+    data: NodeData, // tagged union, one variant per node kind (171 of them)
+    span: Span,     // { start: u32, end: u32 }, byte offsets into source
+};
+
+pub const BinaryExpression = struct {
+    left: NodeIndex,
+    right: NodeIndex,
+    operator: BinaryOperator,
 };
 
 comptime {
@@ -111,8 +165,51 @@ comptime {
 }`}
       />
       <P>
-        <InlineCode>std.MultiArrayList</InlineCode> stores this as a struct of arrays: one column of
-        payloads, one column of spans, the same index into both.
+        Here&rsquo;s what that produces. <InlineCode>let x = 1 + 2;</InlineCode>, dumped straight
+        out of the parser:
+      </P>
+      <CodeBlock
+        lang="text"
+        code={`let x = 1 + 2;
+0   4   8   12    byte offsets
+
+[0] binding_identifier     4..5    name=4..5 ("x")
+[1] numeric_literal        8..9    raw=8..9 ("1")
+[2] numeric_literal        12..13  raw=12..13 ("2")
+[3] binary_expression      8..13   left=1 right=2 operator=add
+[4] variable_declarator    4..13   id=0 init=3
+[5] variable_declaration   0..14   kind=let declarators=extras[0..1]
+[6] program                0..14   body=extras[1..2]
+
+extras: [ 4 ][ 5 ]
+          |    program body
+          declarator list`}
+      />
+      <P>Four things to notice, and you&rsquo;ll use every one of them later:</P>
+      <Ul>
+        <Li>
+          Children come before parents. Node 3 refers to 1 and 2, which already exist, and the root
+          is the last node appended. This falls out of recursive descent for free: a parse function
+          builds its children, appends itself, and hands its index back.
+        </Li>
+        <Li>
+          Every edge is a small integer. <InlineCode>left=1</InlineCode>,{" "}
+          <InlineCode>right=2</InlineCode>. Not addresses.
+        </Li>
+        <Li>
+          The identifier&rsquo;s name isn&rsquo;t a copied string. It&rsquo;s the byte range{" "}
+          <InlineCode>4..5</InlineCode> of the source.
+        </Li>
+        <Li>
+          The two variable-length lists live in a shared <InlineCode>extras</InlineCode> array, and
+          the node keeps a start and a length.
+        </Li>
+      </Ul>
+
+      <H3>Two columns, not one array of structs</H3>
+      <P>
+        <InlineCode>std.MultiArrayList</InlineCode> stores those nodes as separate columns instead
+        of one array of 52-byte structs:
       </P>
       <CodeBlock
         lang="text"
@@ -124,9 +221,6 @@ comptime {
 reading node kinds drags every        a kind-only pass reads one
 span into cache as dead weight        dense column and nothing else`}
       />
-      <P>
-        A pass that only switches on node kind never drags spans through the cache, and vice versa:
-      </P>
       <CodeBlock
         lang="zig"
         code={`pub inline fn data(self: *const Tree, index: NodeIndex) NodeData {
@@ -138,9 +232,14 @@ pub inline fn span(self: *const Tree, index: NodeIndex) Span {
 }`}
       />
       <P>
-        Appending a node is a bump of a length. The parser estimates the node count from the source
-        length up front, so the capacity check almost never fails and the allocator stays off the
-        hot path entirely:
+        A pass that only switches on node kind, which is most passes, never pulls spans through the
+        cache. A pass that only wants positions never pulls payloads.
+      </P>
+
+      <H3>Appending is a bump</H3>
+      <P>
+        Adding a node increments a length. The parser reserves capacity up front from the source
+        size, so the allocator stays off the hot path:
       </P>
       <CodeBlock
         lang="zig"
@@ -148,93 +247,54 @@ pub inline fn span(self: *const Tree, index: NodeIndex) Span {
     @max(256, source_len / 2)
 else
     source_len / 4;
+
 try self.tree.nodes.ensureTotalCapacity(alloc, estimated_nodes);`}
       />
       <P>
-        The array only grows and is never compacted, so an index stays valid for the life of the
-        tree. Construction is bottom-up: a parse routine builds its children first, appends itself,
-        and returns its index for the parent to store. The recursive descent on top is completely
-        ordinary; the only difference from the textbook version is that{" "}
-        <InlineCode>left</InlineCode> and <InlineCode>right</InlineCode> are integers.
+        Those estimates are deliberately fat. Real files land near one node per ten bytes, so{" "}
+        <InlineCode>source_len / 2</InlineCode> asks for several times what gets used. That&rsquo;s
+        fine: a large allocation is an <InlineCode>mmap</InlineCode> underneath, and the OS
+        doesn&rsquo;t hand you a page until you write to it. Reserve generously, pay for what you
+        touch.
       </P>
-      <P>
-        Here is what that actually produces. Parsing <InlineCode>let x = 1 + 2;</InlineCode> yields
-        seven nodes:
-      </P>
-      <CodeBlock
-        lang="text"
-        code={`let x = 1 + 2;
-0   4   8   12    byte offsets
 
-nodes                                                         span
-[0] binding_identifier   { name = source[4..5] }              4..5
-[1] numeric_literal      { raw  = source[8..9] }              8..9
-[2] numeric_literal      { raw  = source[12..13] }            12..13
-[3] binary_expression    { left = 1, right = 2, op = + }      8..13
-[4] variable_declarator  { id = 0, init = 3 }                 4..13
-[5] variable_declaration { kind = let,
-                           declarators = extras[0..1] }       0..14
-[6] program              { body = extras[1..2] }              0..14
-
-extras  [ 4 ][ 5 ]
-          |    program body
-          declarator list`}
-      />
+      <H3>The bonus nobody advertises</H3>
       <P>
-        Everything from the previous sections is visible in this little dump. Children precede their
-        parents, and the root is the last node appended. Every edge is a small integer:{" "}
-        <InlineCode>binary_expression</InlineCode> holds <InlineCode>1</InlineCode> and{" "}
-        <InlineCode>2</InlineCode>, not addresses. The identifier&rsquo;s name is not a copied
-        string but the byte range <InlineCode>4..5</InlineCode> of the source. And the two
-        variable-length lists live in <InlineCode>extras</InlineCode>, referenced by offset and
-        length. The whole tree is a few dozen integers in two flat arrays.
-      </P>
-      <P>
-        You can push this further. If the parser is an internal frontend with no external consumers,
-        nothing forces a node to describe itself, and it can shrink to around 13 bytes:
+        Because every child has a lower index than its parent, a plain <InlineCode>for</InlineCode>{" "}
+        loop over the node array from 0 to n <Strong>is</Strong> a post-order traversal. No
+        recursion, no explicit stack, and the access is sequential so the prefetcher does the work.
+        Any bottom-up pass can just be a loop. Stripping parenthesized expressions is exactly this:
       </P>
       <CodeBlock
         lang="zig"
-        code={`const Node = struct {
-    tag: Tag,        // 1 byte: node kind, and the key to reading \`data\`
-    main_token: u32, // the token this node hangs off
-    data: [2]u32,    // two words whose meaning depends on \`tag\`
-};`}
-      />
-      <P>
-        The data word has no type of its own; the tag says how to read it, so every access goes
-        through a <InlineCode>switch</InlineCode>:
-      </P>
-      <CodeBlock
-        lang="zig"
-        code={`switch (tree.tag(node)) {
-    // binary op: both words are child indices
-    .add, .mul => {
-        const left = tree.data(node)[0];
-        const right = tree.data(node)[1];
-    },
-    // block: the words are a (start, end) range into extras
-    .block => {
-        const range = tree.data(node);
-        const statements = tree.extras[range[0]..range[1]];
-    },
-    else => {},
+        code={`fn stripParenthesizedNodes(tree: *ast.Tree) void {
+    const datas = tree.nodes.items(.data);
+    const spans = tree.nodes.items(.span);
+    for (0..datas.len) |i| {
+        var inner: u32 = switch (datas[i]) {
+            .parenthesized_expression => |p| @intFromEnum(p.expression),
+            .ts_parenthesized_type => |p| @intFromEnum(p.type_annotation),
+            else => continue,
+        };
+        // resolve to the innermost non-paren node
+        while (true) {
+            switch (datas[inner]) {
+                .parenthesized_expression => |p| inner = @intFromEnum(p.expression),
+                .ts_parenthesized_type => |p| inner = @intFromEnum(p.type_annotation),
+                else => break,
+            }
+        }
+        datas[i] = datas[inner];
+        spans[i] = spans[inner];
+    }
 }`}
       />
-      <P>
-        No span is stored at all; a position is recovered by re-lexing the main token on the rare
-        occasion one is needed. I didn&rsquo;t take that trade for Yuku, whose AST is a public API
-        consumed from JavaScript as ESTree: positions are queried constantly, and a set of per-tag
-        conventions is hostile to external readers, so it spends 52 bytes on a self-describing union
-        with stored spans. Both designs are the same idea; they differ only in how much the consumer
-        is willing to recompute.
-      </P>
 
       <H2>Variable-length children</H2>
       <P>
-        A binary expression has exactly two children and they fit in the node. A block has any
+        A binary expression has exactly two children and they fit inside the node. A block has any
         number of statements. Rather than size every node for the worst case, variadic children go
-        into one shared array, and the owning node stores an 8-byte descriptor:
+        into the shared array and the owner keeps an 8-byte descriptor:
       </P>
       <CodeBlock
         lang="zig"
@@ -246,65 +306,115 @@ pub inline fn extra(self: *const Tree, range: IndexRange) []const NodeIndex {
 }`}
       />
       <P>
-        Building those lists has a wrinkle: the parser doesn&rsquo;t know a block&rsquo;s statement
-        count until it hits the closing brace, and it must not allocate a growable list per block.
-        The fix is a scratch buffer owned by the parser, used as a stack:
+        Building those lists is the interesting part. The parser doesn&rsquo;t know a block&rsquo;s
+        statement count until it hits the closing brace, and it must not allocate a growable list
+        per block. So there&rsquo;s one scratch buffer used as a stack: each list-building function
+        records where it started and truncates back to that point on the way out.
       </P>
       <CodeBlock
         lang="zig"
-        code={`const ScratchBuffer = struct {
-    items: std.ArrayList(ast.NodeIndex) = .empty,
-
-    pub inline fn begin(self: *ScratchBuffer) usize {
-        return self.items.items.len;
-    }
-    pub inline fn reset(self: *ScratchBuffer, checkpoint: usize) void {
-        self.items.shrinkRetainingCapacity(checkpoint);
-    }
-};`}
-      />
-      <CodeBlock
-        lang="zig"
         code={`pub fn parseBody(self: *Parser, terminator: ?TokenTag) !ast.IndexRange {
-    const checkpoint = self.scratch_statements.begin();
-    defer self.scratch_statements.reset(checkpoint);
+    const checkpoint = self.scratch_statements.begin(); // current length
+    defer self.scratch_statements.reset(checkpoint);    // truncate on exit
 
     while (!self.isAtBodyEnd(terminator)) {
         const statement = try statements.parseStatement(self, .{});
         try self.scratch_statements.append(self.allocator(), statement);
     }
-    // one bulk copy into tree.extras
+    // one bulk copy of scratch[checkpoint..] into tree.extras
     return self.flushToExtras(&self.scratch_statements, checkpoint);
 }`}
       />
       <P>
-        Because every call records its own checkpoint and resets to it on the way out, the same
-        buffer nests through recursion: an inner block uses the tail above the outer block&rsquo;s
-        region and restores it when done. Growing the buffer happens a few times per parse;
-        appending a child is a bounds check and a store. Yuku keeps five of these for contexts that
-        need to assemble lists concurrently (statements, cover grammars, decorators, and two
-        general-purpose ones).
+        Nesting is where that pays off. Here&rsquo;s{" "}
+        <InlineCode>{"{ a; { b; c; } d; }"}</InlineCode>:
+      </P>
+      <CodeBlock
+        lang="text"
+        code={`[0] identifier_reference   "a"
+[1] expression_statement   expression=0
+[2] identifier_reference   "b"
+[3] expression_statement   expression=2
+[4] identifier_reference   "c"
+[5] expression_statement   expression=4
+[6] block_statement        body=extras[0..2]    the inner block
+[7] identifier_reference   "d"
+[8] expression_statement   expression=7
+[9] block_statement        body=extras[2..5]    the outer block
+[10] program               body=extras[5..6]
+
+extras: [ 3  5 | 1  6  8 | 9 ]
+          inner   outer     program`}
+      />
+      <P>
+        Read the extras left to right and you can see the recursion. The inner block finished first,
+        so its two statements flushed first, at 0..2, while the outer block&rsquo;s statement{" "}
+        <InlineCode>1</InlineCode> sat lower in the same buffer, untouched. The outer block then
+        resumed, collected <InlineCode>6</InlineCode> and <InlineCode>8</InlineCode>, and flushed
+        all three at 2..5. The buffer grows a few times per parse and then never again; appending a
+        child is a bounds check and a store. Yuku keeps five of these for contexts that assemble
+        lists at the same time.
       </P>
       <P>
-        The same offset-and-length trick reappears wherever a node owns a variable number of things.
-        Comments attach to nodes through a prefix-sum array of length{" "}
-        <InlineCode>node_count + 1</InlineCode>: node <InlineCode>i</InlineCode>&rsquo;s comments
-        are the slice between offsets <InlineCode>i</InlineCode> and <InlineCode>i + 1</InlineCode>.
-        One representation, reused.
+        The same offset-and-length shape shows up everywhere once you have it. Comments attach to
+        nodes through a prefix-sum array of length <InlineCode>node_count + 1</InlineCode>: node{" "}
+        <InlineCode>i</InlineCode>&rsquo;s comments are the slice between offsets{" "}
+        <InlineCode>i</InlineCode> and <InlineCode>i + 1</InlineCode>.
+      </P>
+
+      <H2>Backtracking is just truncation</H2>
+      <P>
+        This one is a side effect of the layout rather than something I designed in, and it matters
+        more than it sounds. TypeScript needs speculation in a few places:{" "}
+        <InlineCode>{"<T>(x) => x"}</InlineCode> is a generic arrow in a{" "}
+        <InlineCode>.ts</InlineCode> file and a JSX element in <InlineCode>.tsx</InlineCode>, and{" "}
+        <InlineCode>{"a < b"}</InlineCode> and <InlineCode>{"a<T>(b)"}</InlineCode> start out
+        identical. Yuku covers the parenthesis cases with a cover grammar, but for arrows and type
+        argument lists it simply tries, and rewinds if the attempt doesn&rsquo;t pan out. A
+        checkpoint is a handful of integers:
+      </P>
+      <CodeBlock
+        lang="zig"
+        code={`pub const Checkpoint = struct {
+    lexer_cursor: u32,
+    lexer_state: lexer.LexerState,
+    current_token: Token,
+    // tree-backed append-only storage: just the lengths
+    nodes_len: usize,
+    extra_len: usize,
+    diagnostics_len: usize,
+    // parser flags, small structs copied by value
+    context: Context,
+    ts_context: TsContext,
+};
+
+pub fn rewind(self: *Parser, cp: Checkpoint) void {
+    self.lexer.cursor = cp.lexer_cursor;
+    // ...
+    self.tree.nodes.shrinkRetainingCapacity(cp.nodes_len);
+    self.tree.extras.shrinkRetainingCapacity(cp.extra_len);
+    self.diagnostics.shrinkRetainingCapacity(cp.diagnostics_len);
+}`}
+      />
+      <P>
+        Whatever the failed attempt built is the tail of three arrays, and rewinding cuts the tail
+        off. No frees, no walking a half-built subtree, nothing left rotting in the arena. With a
+        pointer tree you either free the subtree node by node or leak it and hope it doesn&rsquo;t
+        add up. Append-only storage hands you this for nothing, and once you have it you stop being
+        nervous about speculative parsing.
       </P>
 
       <H2>Strings are offsets</H2>
       <P>
-        The naive parser copies every identifier and string literal into its own heap allocation.
-        But nearly every string the parser produces already exists, verbatim, in the source text it
-        was given. So a string in Yuku is two offsets, and which backing store they point into is
-        encoded in the offsets themselves:
+        Nearly every string a parser produces already exists, byte for byte, in the source it was
+        handed. So a string in Yuku is two offsets, and the offsets themselves say which backing
+        store they point into:
       </P>
       <CodeBlock
         lang="zig"
         code={`pub const String = struct { start: u32, end: u32 };
 
-pub fn get(self: *const ASTStringPool, id: String) []const u8 {
+pub fn get(self: *const StringPool, id: String) []const u8 {
     if (id.start == id.end) return "";
     const src_len: u32 = @intCast(self.source.len);
     if (id.start < src_len) {
@@ -314,16 +424,25 @@ pub fn get(self: *const ASTStringPool, id: String) []const u8 {
 }`}
       />
       <P>
-        Offsets below <InlineCode>source.len</InlineCode> are source slices and cost nothing.
-        Offsets past it land in a small interned pool that holds the exceptions: identifiers written
-        with unicode escapes, string literals whose escapes had to be decoded, names synthesized by
-        transforms. The pool deduplicates through a hash map keyed by content, so a repeated
-        synthetic name is stored once.
+        Below <InlineCode>source.len</InlineCode> it&rsquo;s a source slice and costs nothing. Past
+        it, it lands in a small pool holding the exceptions: identifiers written with unicode
+        escapes, string literals whose escapes had to be decoded, names a transform invented. Here
+        is one, in a source 15 bytes long:
       </P>
+      <CodeBlock
+        lang="text"
+        code={`let x = "a\\nb";
+
+[1] string_literal   8..14   raw=8..14 ("a\\nb")   value=15..18 ("a", newline, "b")
+
+string pool: 3 bytes`}
+      />
       <P>
-        This only works because the lexer refuses to do work up front. It never decodes anything; it
-        records a span and sets a flag if it saw a backslash. Decoding happens at the moment a name
-        is actually needed, and only for the rare token that needs it:
+        <InlineCode>raw</InlineCode> is still a source slice. <InlineCode>value</InlineCode> starts
+        at 15, exactly <InlineCode>source.len</InlineCode>, so it&rsquo;s the first 3 bytes of the
+        pool. That works only because the lexer refuses to do work early: it never decodes anything
+        while scanning, it records a span and sets a flag if it saw a backslash. Decoding happens
+        when a name is actually asked for, and only for the rare token that needs it:
       </P>
       <CodeBlock
         lang="zig"
@@ -334,9 +453,16 @@ pub fn get(self: *const ASTStringPool, id: String) []const u8 {
     return self.tree.sourceSlice(token.span.start, token.span.end);
 }`}
       />
+      <P>
+        For an 8 MB file the whole pool ends up in the hundreds of bytes. Everything else is the
+        source, already in memory, never copied.
+      </P>
 
-      <H2>Answers in the token&rsquo;s bits</H2>
-      <P>A token is three fields, and its size is enforced the same way as the node&rsquo;s:</P>
+      <H2>Answers baked into the token tag</H2>
+      <P>
+        A token is 16 bytes, and Yuku never keeps an array of them. The lexer produces one on
+        demand, the parser holds the current one, and each node records its own span.
+      </P>
       <CodeBlock
         lang="zig"
         code={`pub const Token = struct {
@@ -350,14 +476,10 @@ comptime {
 }`}
       />
       <P>
-        (You can shrink this too: store only the start offset and re-lex one token whenever an end
-        is needed. Same trade as the minimal node above, and rejected for the same reason: a public
-        parser queries spans constantly.)
-      </P>
-      <P>
-        The interesting part is the tag. The parser asks the same questions of every token: what is
+        The tag is the interesting part. The parser asks the same questions of every token: what is
         its precedence, is it a binary operator, is it a keyword. Instead of answering with branches
-        or lookup tables, the answers are encoded in the tag&rsquo;s integer value at declaration:
+        or a lookup table, the answers are encoded into the tag&rsquo;s integer value at
+        declaration:
       </P>
       <CodeBlock
         lang="zig"
@@ -386,42 +508,56 @@ pub const TokenTag = enum(u32) {
 };`}
       />
       <P>
-        The precedence-climbing loop at the core of expression parsing runs these queries once per
-        operator. Each one is a shift and a mask on a value already in a register. No table, no
-        branch, no load.
+        The precedence-climbing loop runs these once per operator. Each is a shift and a mask on a
+        value already sitting in a register. No table, no branch, no load.
+      </P>
+      <P>
+        Keywords are the other question asked constantly. An ASCII identifier is scanned with a
+        256-entry table, and if it&rsquo;s 2 to 11 bytes and starts lowercase it might be a keyword.
+        Yuku answers that with a perfect hash over (first byte, second byte, last byte, length). The
+        multipliers came from an offline search, so every keyword lands in its own slot of a
+        512-entry table and the lookup is one probe, one length compare, one short memcmp:
+      </P>
+      <CodeBlock
+        lang="zig"
+        code={`inline fn keywordHash(c0: u8, c1: u8, c_last: u8, length: usize) u32 {
+    const h = @as(u32, c0) * 56 + @as(u32, c1) * 97 +
+        @as(u32, c_last) * 108 + @as(u32, @intCast(length)) * 117;
+    return h & 511;
+}
+
+fn getKeywordType(lexeme: []const u8) TokenTag {
+    if (lexeme.len < 2 or lexeme.len > 11) return .identifier;
+    const entry = &keyword_table[keywordHash(lexeme[0], lexeme[1], lexeme[lexeme.len - 1], lexeme.len)];
+    if (entry.len != lexeme.len) return .identifier;
+    if (!std.mem.eql(u8, entry.name[0..lexeme.len], lexeme)) return .identifier;
+    return entry.tag;
+}`}
+      />
+      <P>
+        The table is built at compile time from the keyword list, and a{" "}
+        <InlineCode>@compileError</InlineCode> names the offending keyword if two ever collide, so
+        adding one later is safe.
       </P>
 
       <H2>Unicode identifiers without paying for them</H2>
       <P>
-        JavaScript identifiers are not ASCII. The spec defines them by the Unicode{" "}
+        JavaScript identifiers aren&rsquo;t ASCII. The spec defines them by the Unicode{" "}
         <InlineCode>ID_Start</InlineCode> and <InlineCode>ID_Continue</InlineCode> properties, so{" "}
-        <InlineCode>π</InlineCode>, <InlineCode>変数</InlineCode>, and a few hundred thousand other
-        code points are legal, and the lexer needs an exact membership test over the full code point
-        range. Concretely it needs two functions:
-      </P>
-      <CodeBlock
-        lang="zig"
-        code={`pub fn canStartId(cp: u32) bool;    // may a codepoint begin an identifier?
-pub fn canContinueId(cp: u32) bool; // may it appear after the first?`}
-      />
-      <P>
-        The obvious implementation is one bit per code point. The code point space runs to{" "}
-        <InlineCode>0x10FFFF</InlineCode>, so that is 256 KB per property, 512 KB for both. It
-        works, but a table that size does not stay in cache, and a lexer consults it constantly.
+        <InlineCode>π</InlineCode>, <InlineCode>変数</InlineCode> and a few hundred thousand other
+        code points are legal, and the lexer needs an exact membership test across the whole range.
+        The obvious implementation is one bit per code point: 256 KB per property. It works, and it
+        falls out of cache constantly.
       </P>
       <P>
-        The observation that fixes it: the bitset is wildly repetitive. Slice the code point space
-        into chunks of 512, and most chunks are identical, entire unassigned planes are all zeros,
-        long ideograph ranges are all ones, and many patterns repeat. Yuku&rsquo;s tables, generated
-        from Unicode 17.0, contain 4,096 chunks of which only <Strong>79</Strong> are distinct for{" "}
-        <InlineCode>ID_Start</InlineCode> and <Strong>86</Strong> for{" "}
-        <InlineCode>ID_Continue</InlineCode>.
-      </P>
-      <P>
-        So: store each distinct 512-bit pattern once (a &ldquo;leaf&rdquo;), and keep a root array
-        of 4,096 bytes mapping each chunk to its leaf. Since there are fewer than 256 distinct
-        leaves, the root entry fits in a <InlineCode>u8</InlineCode>. Both properties together come
-        to about 29 KB instead of 512 KB, small enough to stay resident. This is the entire lookup:
+        The fix, which I took from David Tolnay&rsquo;s{" "}
+        <A href="https://github.com/dtolnay/unicode-ident">unicode-ident</A>: the bitset is wildly
+        repetitive. Slice the code point space into chunks of 512 and most chunks turn out identical
+        to some other chunk. Unassigned planes are all zeros, long ideograph ranges are all ones,
+        patterns repeat. Of the 4,096 chunks only 79 are distinct for{" "}
+        <InlineCode>ID_Start</InlineCode> and 86 for <InlineCode>ID_Continue</InlineCode>. So store
+        each distinct 512-bit pattern once and keep a 4,096-byte root array mapping each chunk to
+        its pattern: about 29 KB for both properties, small enough to stay resident.
       </P>
       <CodeBlock
         lang="zig"
@@ -435,47 +571,22 @@ pub fn canContinueId(cp: u32) bool; // may it appear after the first?`}
 }`}
       />
       <P>
-        Walk it once by hand for <InlineCode>π</InlineCode> (U+03C0, code point 960):
-      </P>
-      <CodeBlock
-        lang="text"
-        code={`cp        = 960
-chunk_idx = 960 / 512  = 1          codepoints 512..1023
-root[1]   = 1                        this chunk uses leaf pattern #1
-leaf_base = 1 * 16     = 16          pattern #1 starts at word 16
-offset    = 960 % 512  = 448
-word      = leaf[16 + 448/32] = leaf[30]
-bit       = 448 % 32   = 0
-(leaf[30] >> 0) & 1    = 1           π may start an identifier`}
-      />
-      <P>
-        Two dependent loads from small, hot tables and a bit test. No branches, no binary search
-        over ranges. The tables are emitted as plain source by a build-time program (
-        <InlineCode>tools/gen_unicode_id.zig</InlineCode>) that downloads the Unicode character
-        database, parses <InlineCode>DerivedCoreProperties.txt</InlineCode>, builds the chunks, and
-        deduplicates them with a hash map. Correctness is settled once at build time; the runtime
-        sees two constant arrays.
+        Walk it for <InlineCode>π</InlineCode> (U+03C0, code point 960): chunk 1, and{" "}
+        <InlineCode>root[1]</InlineCode> says pattern 1, which starts at word 16; offset 448 inside
+        the chunk is word 14 of that pattern, bit 0. Two dependent loads from small hot tables and a
+        bit test, no branches and no binary search over ranges. The tables are emitted as plain
+        source by a build-time program that fetches the Unicode character database and deduplicates
+        the chunks, so correctness is settled once at build time and the runtime sees two constant
+        arrays.
       </P>
       <P>
-        Just as important is what never touches these tables. ASCII is classified by a 256-entry
-        boolean table built at compile time, and the identifier scanner runs on that table until it
-        hits a byte with the high bit set:
+        Just as important is what never touches those tables. ASCII is classified by a 256-entry
+        table built at compile time, the identifier loop runs on it until it hits a byte with the
+        high bit set, and that branch is marked cold:
       </P>
       <CodeBlock
         lang="zig"
-        code={`const ident_start_table_ascii: [256]bool = blk: {
-    var t = [_]bool{false} ** 256;
-    for ('a'..('z' + 1)) |c| t[c] = true;
-    for ('A'..('Z' + 1)) |c| t[c] = true;
-    t['_'] = true;
-    t['$'] = true;
-    break :blk t;
-};`}
-      />
-      <CodeBlock
-        lang="zig"
-        code={`// the hot loop of identifier scanning
-while (pos < src.len and ident_continue_table_ascii[src[pos]]) {
+        code={`while (pos < src.len and ident_continue_table_ascii[src[pos]]) {
     pos += 1;
 }
 // ...
@@ -489,131 +600,188 @@ if (c >= 0x80) {
 }`}
       />
       <P>
-        A file that is pure ASCII, which is nearly every file, never executes the unicode path at
-        all. The general case is fully supported and the common case never pays for it.
+        A pure ASCII file, which is nearly every file, never executes the unicode path at all. The
+        general case is fully supported and the common case never pays for it. That sentence is most
+        of the performance work in a parser: find the common case, make sure it pays for nothing
+        else.
       </P>
 
       <H2>The tree is its own wire format</H2>
       <P>
-        Here the flat representation pays its largest dividend. Yuku&rsquo;s primary consumer is
-        JavaScript: the native parser runs, and Node needs the AST as ordinary objects. This
-        boundary is where native tooling usually loses. The common approach, serialize to JSON in
-        native code, <InlineCode>JSON.parse</InlineCode> on the other side, spends more time
-        deserializing than the parse took. Building JS objects one at a time through N-API is worse.
+        Here the flat layout pays its largest dividend, and Yuku&rsquo;s design decisions start
+        making sense. The primary consumer is JavaScript: the native code parses, and Node needs the
+        AST as ordinary objects. This boundary is where native tooling usually loses. The common
+        approach is to serialize to JSON and <InlineCode>JSON.parse</InlineCode> on the other side,
+        and that deserialize typically costs more than the parse did. Building JS objects one at a
+        time through N-API is worse.
       </P>
       <P>
-        But look at what the tree contains. Children are <InlineCode>u32</InlineCode> indices. Lists
-        are offsets into <InlineCode>extras</InlineCode>. Strings are offsets into the source. There
-        is not a single pointer anywhere. The tree is{" "}
-        <Strong>already position-independent bytes</Strong>, which means serialization is not a
-        transformation, it is a copy. Yuku packs everything into one buffer and returns it to JS as
-        an <InlineCode>ArrayBuffer</InlineCode>:
+        But look at what the tree contains. Children are <InlineCode>u32</InlineCode> indices, lists
+        are offsets into <InlineCode>extras</InlineCode>, strings are offsets into the source. Not a
+        single pointer anywhere. The tree is <Strong>already position-independent bytes</Strong>, so
+        serialization isn&rsquo;t a transformation, it&rsquo;s a copy. Yuku packs it into one buffer
+        and returns it to JS as an <InlineCode>ArrayBuffer</InlineCode>:
       </P>
       <CodeBlock
         lang="text"
-        code={`header | nodes | extras | string pool | comments | diagnostics
-fixed    48 B     raw u32s  raw bytes
-         each     (memcpy)  (memcpy)`}
+        code={`header | nodes        | extras     | string pool | comments | diagnostics
+40 B     44 B each      raw u32s     raw bytes
+                        (memcpy)     (memcpy)`}
       />
-      <P>Each node becomes a fixed 48-byte record:</P>
       <CodeBlock
         lang="zig"
         code={`const PackedNode = extern struct {
     tag: u8,
     _pad0: u8 = 0,
-    flags: u16,  // packed bools and small enums
-    field0: u16, // length of the node's first IndexRange
-    _pad1: u16 = 0,
-    field1: u32, field2: u32, field3: u32, field4: u32,
-    field5: u32, field6: u32, field7: u32, field8: u32,
+    flags: u16,   // packed bools and small enums
+    field0: u16,  // length of the node's first IndexRange
+    field0b: u16, // length of the second, if any
+    field1: u32, field2: u32, field3: u32, field4: u32, // 7 u32 slots
+    field5: u32, field6: u32, field7: u32,
     span_start: u32,
     span_end: u32,
 };`}
       />
       <P>
-        How each AST struct maps into that record is not written by hand. It is derived at compile
-        time from the struct declarations themselves: a <InlineCode>bool</InlineCode> field claims
-        the next flag bit, an enum claims <InlineCode>ceil(log2(n))</InlineCode> bits, a{" "}
+        How each AST struct maps into that record isn&rsquo;t written by hand. It&rsquo;s derived at
+        compile time from the struct fields, in declaration order: a <InlineCode>bool</InlineCode>{" "}
+        claims the next flag bit, an enum claims <InlineCode>ceil(log2(n))</InlineCode> bits, a{" "}
         <InlineCode>NodeIndex</InlineCode> claims one <InlineCode>u32</InlineCode> slot, a{" "}
-        <InlineCode>String</InlineCode> two. The encoder, the Zig decoder, and the generator that
-        emits the JavaScript decoder all call the same layout functions, so the three cannot
-        disagree. And the budget is enforced where it belongs:
+        <InlineCode>String</InlineCode> two. The encoder, the Zig decoder, and the program that
+        generates the JavaScript decoder all call the same layout functions, so the three
+        can&rsquo;t drift apart. And the budget is enforced where it belongs:
       </P>
       <CodeBlock
         lang="zig"
         code={`comptime {
-    // any AST struct needing more than 8 u32 slots
+    // any AST struct needing more than 7 u32 slots
     // or 16 flag bits fails the build, by name.
     validateAllNodeLayouts();
 }`}
       />
       <P>
-        On the JavaScript side there is no parsing step. The decoder reads fields straight out of
-        the buffer through typed-array views, one <InlineCode>switch</InlineCode> case per node
-        kind, generated from the Zig definitions:
+        On the JavaScript side there&rsquo;s no parsing step at all. The generated decoder reads
+        fields straight out of the buffer through a typed array, one <InlineCode>case</InlineCode>{" "}
+        per node kind. This is the real emitted code, just spaced out to read:
       </P>
       <CodeBlock
         lang="js"
         code={`const _u32 = new Int32Array(buffer);
 
 function _decode(i) {
-  const b = (_nodesOff + i * 48) >> 2;
-  const tag = _u32[b] & 255;
-  const f1 = _u32[b + 2], f2 = _u32[b + 3]; // u32 slots
+  const b = i * 11 + 10;            // 44-byte node = 11 words, after a 40-byte header
+  const h0 = _u32[b];
+  const tag = h0 & 255;
+  const flags = h0 >>> 16;
+  const _ss = _u32[b + 9], _se = _u32[b + 10];
+  const start = _ss <= _firstNa ? _ss : pm[_ss - _firstNa]; // utf-8 -> utf-16
+  const end = _se <= _firstNa ? _se : pm[_se - _firstNa];
   switch (tag) {
-    // one case per node kind, emitted by tools/estree/decoder.zig
+    case 8: {                        // binary_expression
+      const f1 = _u32[b + 2], f2 = _u32[b + 3];
+      return {
+        type: "BinaryExpression", start, end,
+        left: f1 !== NULL ? node(f1) : null,
+        right: f2 !== NULL ? node(f2) : null,
+        operator: BINARY_OPS[flags & 31],
+      };
+    }
+    // ... one per node kind, all generated
   }
 }`}
       />
       <P>
-        Strings never cross the boundary at all: the JS caller already holds the source string, so a
-        name is <InlineCode>source.slice(start, end)</InlineCode>. The one genuine mismatch is
-        positions, Zig spans are UTF-8 byte offsets, JS wants UTF-16 code unit offsets. The header
-        records the offset of the first non-ASCII byte; below it the two coincide, and a translation
-        map is built only for the tail past it. An all-ASCII file skips even that.
+        Strings never cross the boundary; the caller already holds the source, so a name is{" "}
+        <InlineCode>source.slice(start, end)</InlineCode>. The one genuine mismatch is positions:
+        Zig spans are UTF-8 byte offsets and JavaScript wants UTF-16 code units. The header records
+        the offset of the first non-ASCII byte, <InlineCode>_firstNa</InlineCode> above. Below it
+        the two coincide, and the <InlineCode>pm</InlineCode> translation map is built only for the
+        tail past that point. An all-ASCII file skips even that.
       </P>
       <P>
-        This is validated the only way that counts: the conformance suite runs 53,000+ cases and
-        compares the tree decoded in JavaScript against the expected ESTree output node for node, at
-        100%. And because the buffer is position-independent bytes, JavaScript is just one consumer.
-        The same buffer deserializes back into a Zig <InlineCode>Tree</InlineCode> for the codegen
-        path, and could as easily be cached to disk and mapped back in, or shared read-only across
+        And because the buffer is position-independent bytes, JavaScript is just one consumer. The
+        same bytes deserialize back into a Zig <InlineCode>Tree</InlineCode> for the codegen path,
+        and could as easily be cached to disk and mapped back in, or shared read-only across
         threads. The buffer is the tree.
+      </P>
+
+      <H2>Where Yuku holds the idea more loosely than Zig</H2>
+      <P>
+        Zig pushes this design much further than Yuku does, and the difference is worth being
+        precise about, because it isn&rsquo;t an accident and it isn&rsquo;t a shortcut either. A
+        Zig AST node is a tag plus two <InlineCode>u32</InlineCode> words whose meaning depends on
+        that tag, with anything larger spilled into a side array, and positions recovered from the
+        token array rather than stored. That&rsquo;s the tightest possible packing, and exactly
+        right for a compiler that owns both ends of the pipe: the only consumer of that AST is the
+        compiler itself, so there&rsquo;s nobody to be ergonomic for.
+      </P>
+      <Table
+        head={["", "Zig", "Yuku"]}
+        rows={[
+          [
+            "node payload",
+            "two u32 words, meaning depends on the tag",
+            "tagged union with named, typed fields",
+          ],
+          ["reading a child", "switch on the tag, then index a word", "node.left, node.right"],
+          ["positions", "recovered from the token array", "a span stored on every node"],
+          ["tokens", "whole file tokenized into an array first", "lexed on demand, no array kept"],
+          ["consumer", "the compiler itself", "the JavaScript tooling ecosystem"],
+        ]}
+      />
+      <P>
+        Yuku&rsquo;s AST is public API. It ships to npm as ESTree, and people build linters,
+        transforms, bundlers and formatters on top of it, which changes what the representation has
+        to optimize for. A lint rule reads <InlineCode>node.left</InlineCode> by name, from
+        JavaScript, thousands of times. Every rule reports a position, so recovering spans by
+        re-lexing would put the rare path in the hot seat. And the generated decoders only work
+        because the definitions have named, typed fields: you can generate a decoder from a struct,
+        not from &ldquo;two words, meaning depends on the tag&rdquo;.
+      </P>
+      <P>
+        So Yuku keeps the parts that are pure win, indices instead of pointers, arena instead of
+        per-node allocation, columns instead of structs, offsets instead of copies, and spends the
+        savings on a node that describes itself. Same idea, different consumer, different stopping
+        point. If you&rsquo;re writing an internal frontend nobody else links against, go denser
+        than I did; you&rsquo;ll get more out of it and give up nothing you need.
       </P>
 
       <H2>What generalizes</H2>
       <P>
-        Nothing above is specific to JavaScript, and most of it is not specific to parsing. Any
+        Little of this is specific to JavaScript, and most isn&rsquo;t specific to parsing. Any
         system that builds a large structure once and traverses it many times, compiler frontends,
-        query planners, game entity systems, wins from the same small set of moves:
+        query planners, entity systems, wins from the same handful of moves:
       </P>
       <Ul>
         <Li>
-          <Strong>Choose the representation from the access pattern,</Strong> then write the
-          algorithms to fit. The algorithm on top of Yuku is textbook recursive descent; only the
+          <Strong>Pick the representation from the access pattern,</Strong> then write the
+          algorithms to fit. The algorithm on top of Yuku is textbook recursive descent. Only the
           data is unusual.
         </Li>
         <Li>
           <Strong>Indices over pointers.</Strong> Smaller, position-independent, bulk-freeable,
-          serializable with a copy.
+          serializable with a copy, and rewindable by truncation.
         </Li>
         <Li>
-          <Strong>Amortize.</Strong> Reserve from an estimate, reuse scratch space, batch the rare
-          expensive operation out of the hot loop.
+          <Strong>Amortize everything.</Strong> Reserve from an estimate, reuse scratch space, batch
+          the rare expensive operation out of the hot loop.
         </Li>
         <Li>
           <Strong>Never let the common case pay for the general one.</Strong> ASCII before unicode
           tables, source slices before interning, spans recorded before escapes decoded.
         </Li>
         <Li>
-          <Strong>Make the invariants compile-time checks.</Strong> A node size the compiler asserts
-          cannot regress. A wire layout derived from one definition cannot drift.
+          <Strong>Make invariants compile-time checks.</Strong> A node size the compiler asserts
+          can&rsquo;t regress. A wire layout derived from one definition can&rsquo;t drift.
+        </Li>
+        <Li>
+          <Strong>Know who reads the tree.</Strong> That single question decides how far down this
+          road you should go, and the answer isn&rsquo;t the same for everyone.
         </Li>
       </Ul>
       <P>
-        A fast parser is not a clever algorithm bolted onto an ordinary data structure. It is an
-        ordinary algorithm running over a data structure shaped for the machine. Design the data
-        first and the speed is mostly already there.
+        The parser sitting on top of all this is plain recursive descent, the kind you&rsquo;d write
+        straight from the spec. All the speed is in the data underneath it.
       </P>
     </>
   ),
