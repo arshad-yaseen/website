@@ -3,10 +3,10 @@ import { A, H2, H3, InlineCode, Li, P, Strong, Table, Ul } from "@/components/do
 import type { Writing } from "../types";
 
 export default {
-  slug: "engineering-high-performance-parsers",
-  title: "Engineering High-Performance Parsers with Data-Oriented Design",
+  slug: "data-oriented-design-in-yukus-parser",
+  title: "Data-Oriented Design in Yuku's Parser",
   description:
-    "Notes from building Yuku: the AST is flat arrays of u32 indices instead of a pointer tree, and everything else — allocation, lists, backtracking, strings, and the FFI boundary — follows from that.",
+    "How Yuku stores a JavaScript AST as flat arrays of u32 indices instead of a pointer tree, and what follows from that in allocation, lists, backtracking, strings, and the trip into JavaScript.",
   date: "2026-06-28",
   body: (
     <>
@@ -711,9 +711,9 @@ function _decode(i) {
         precise about, because it isn&rsquo;t an accident and it isn&rsquo;t a shortcut either. A
         Zig AST node is a tag plus two <InlineCode>u32</InlineCode> words whose meaning depends on
         that tag, with anything larger spilled into a side array, and positions recovered from the
-        token array rather than stored. That&rsquo;s the tightest possible packing, and exactly
-        right for a compiler that owns both ends of the pipe: the only consumer of that AST is the
-        compiler itself, so there&rsquo;s nobody to be ergonomic for.
+        token array rather than stored. That is the tightest packing available, and exactly right
+        for a compiler that owns both ends of the pipe. The only consumer of that AST is the
+        compiler itself, so there is nobody to be ergonomic for.
       </P>
       <Table
         head={["", "Zig", "Yuku"]}
@@ -726,24 +726,29 @@ function _decode(i) {
           ["reading a child", "switch on the tag, then index a word", "node.left, node.right"],
           ["positions", "recovered from the token array", "a span stored on every node"],
           ["tokens", "whole file tokenized into an array first", "lexed on demand, no array kept"],
-          ["consumer", "the compiler itself", "the JavaScript tooling ecosystem"],
+          ["consumer", "the compiler itself", "tools built on top, in JavaScript and Zig"],
         ]}
       />
       <P>
-        Yuku&rsquo;s AST is public API. It ships to npm as ESTree, and people build linters,
-        transforms, bundlers and formatters on top of it, which changes what the representation has
-        to optimize for. A lint rule reads <InlineCode>node.left</InlineCode> by name, from
-        JavaScript, thousands of times. Every rule reports a position, so recovering spans by
-        re-lexing would put the rare path in the hot seat. And the generated decoders only work
-        because the definitions have named, typed fields: you can generate a decoder from a struct,
-        not from &ldquo;two words, meaning depends on the tag&rdquo;.
+        Yuku isn&rsquo;t an internal frontend. The AST is the public API. It ships to npm as ESTree
+        and it is a Zig package too, and the whole point is that other people build on it, linters
+        and bundlers and formatters and codemods and editor tooling, from JavaScript and from Zig
+        alike. That changes what the representation has to optimize for. It has to cross into
+        JavaScript fast, and it has to stay pleasant to work with once it gets there. A tool reads{" "}
+        <InlineCode>node.left</InlineCode> by name, constantly. Every rule and every source map
+        wants a position, so recovering spans by re-lexing would put the rare path in the hot seat.
+        And the decoders on both sides are generated from the struct definitions, which only works
+        because those definitions have named, typed fields. You can generate a decoder from a
+        struct, not from &ldquo;two words, meaning depends on the tag&rdquo;.
       </P>
       <P>
-        So Yuku keeps the parts that are pure win, indices instead of pointers, arena instead of
-        per-node allocation, columns instead of structs, offsets instead of copies, and spends the
-        savings on a node that describes itself. Same idea, different consumer, different stopping
-        point. If you&rsquo;re writing an internal frontend nobody else links against, go denser
-        than I did; you&rsquo;ll get more out of it and give up nothing you need.
+        So the bytes went into a node that describes itself rather than into density. Yuku keeps
+        everything that costs its consumers nothing, indices instead of pointers, arena instead of
+        per-node allocation, columns instead of structs, offsets instead of copies, and stops at the
+        point where more packing would start costing the people downstream. Same idea, different
+        consumer, different stopping point. If you&rsquo;re writing an internal frontend nobody else
+        links against, go denser than I did. You&rsquo;ll get more out of it and give up nothing you
+        need.
       </P>
 
       <H2>What generalizes</H2>

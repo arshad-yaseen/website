@@ -42,7 +42,7 @@ import textareaSizesDemo from "./demos/textarea/sizes";
 import ringsOverBorders from "./notes/rings-over-borders";
 import craft from "./pages/craft";
 import introduction from "./pages/introduction";
-import highPerformanceParsers from "./writings/engineering-high-performance-parsers";
+import yukuDataOrientedDesign from "./writings/data-oriented-design-in-yukus-parser";
 
 export const demos = {
   "avatar/basic": avatarDemo,
@@ -101,7 +101,7 @@ export const sections: Section[] = [
 
 export const notes: Note[] = [ringsOverBorders];
 
-export const writings: Writing[] = [highPerformanceParsers].sort((a, b) =>
+export const writings: Writing[] = [yukuDataOrientedDesign].sort((a, b) =>
   b.date.localeCompare(a.date),
 );
 
