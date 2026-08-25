@@ -1,3 +1,5 @@
+import type { Route } from "next";
+import Link from "next/link";
 import type { PropsWithChildren, ReactNode } from "react";
 import { cn } from "@/utils/cn";
 
@@ -94,19 +96,22 @@ export function InlineCode({ children }: PropsWithChildren) {
   );
 }
 
-type AProps = PropsWithChildren<{
-  href: string;
+type AProps<T extends string> = PropsWithChildren<{
+  href: Route<T>;
 }>;
 
-export function A({ href, children }: AProps) {
+export function A<T extends string>({ href, children }: AProps<T>) {
+  const isExternal = !href.startsWith("/") && !href.startsWith("#");
+
   return (
-    <a
+    <Link
       href={href}
       className="text-neutral-900 underline decoration-neutral-400 underline-offset-2 transition-colors hover:decoration-neutral-500 dark:text-white dark:decoration-neutral-600 dark:hover:decoration-neutral-500"
-      target={href.startsWith("#") ? undefined : "_blank"}
+      target={isExternal ? "_blank" : undefined}
+      rel={isExternal ? "noreferrer" : undefined}
     >
       {children}
-    </a>
+    </Link>
   );
 }
 

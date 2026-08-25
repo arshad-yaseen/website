@@ -1,12 +1,13 @@
 import type { PropsWithChildren } from "react";
 import Pagination, { type PaginationItem } from "@/components/layout/ui/pagination";
 import Sidebar from "@/components/layout/ui/sidebar";
-import { pages, sections } from "@/registry";
+import { notes, pages, sections } from "@/registry";
 
 export default function DocsLayout({ children }: PropsWithChildren) {
   const items: PaginationItem[] = [
     ...pages.map((page) => ({ title: page.title, href: `/ui/${page.slug}` })),
     { title: "Notes", href: "/ui/notes" },
+    ...notes.map((note) => ({ title: note.title, href: `/ui/notes/${note.slug}` })),
     ...sections
       .filter((section) => section.docs.length > 0)
       .flatMap((section) =>

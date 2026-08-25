@@ -1,33 +1,30 @@
-import { AnchorLink } from "@/components/docs/prose";
+import { Article } from "@/components/docs/article";
+import { A, Li, Ul } from "@/components/docs/prose";
 import { createMetadata } from "@/lib/metadata";
 import { notes } from "@/registry";
+import type { Doc } from "@/registry/types";
 
-export const metadata = createMetadata({
+const doc: Doc = {
+  slug: "notes",
   title: "Notes",
   description: "Short design and engineering notes.",
+  body: (
+    <Ul>
+      {notes.map((note) => (
+        <Li key={note.slug}>
+          <A href={`/ui/notes/${note.slug}`}>{note.title}</A>
+        </Li>
+      ))}
+    </Ul>
+  ),
+};
+
+export const metadata = createMetadata({
+  title: doc.title,
+  description: doc.description,
   path: "/ui/notes",
 });
 
 export default function NotesPage() {
-  return (
-    <div className="flex flex-col gap-12">
-      <h1 className="text-2xl font-medium tracking-tight text-balance">Notes</h1>
-      {notes.map((note) => (
-        <article key={note.slug} id={note.slug} className="flex flex-col gap-4">
-          <header className="flex items-baseline justify-between gap-4">
-            <h2 className="group text-lg font-medium tracking-tight text-balance">
-              <AnchorLink href={`#${note.slug}`}>{note.title}</AnchorLink>
-            </h2>
-            <time
-              dateTime={note.date}
-              className="shrink-0 font-mono text-xs text-neutral-600 tabular-nums dark:text-neutral-400"
-            >
-              {note.date}
-            </time>
-          </header>
-          {note.body}
-        </article>
-      ))}
-    </div>
-  );
+  return <Article doc={doc} />;
 }

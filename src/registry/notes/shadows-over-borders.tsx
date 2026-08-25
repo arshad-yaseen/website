@@ -64,9 +64,8 @@ export default {
   body: (
     <>
       <P>
-        An edge drawn as a shadow stays crisp above other shadows and holds on any background. Both
-        squares below draw the same 1px edge, the first with a border, the second with a shadow,
-        Tailwind’s <InlineCode>ring</InlineCode>.
+        Both squares below draw the same 1px edge, the first with a border, the second with a
+        shadow, Tailwind’s <InlineCode>ring</InlineCode>.
       </P>
 
       <Callout className="hidden dark:block">

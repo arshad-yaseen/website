@@ -13,7 +13,8 @@ type NavLinkProps<T extends string> = PropsWithChildren<{
 
 export default function NavLink<T extends string>({ href, children }: NavLinkProps<T>) {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isCurrent = pathname === href;
+  const isActive = isCurrent || pathname.startsWith(`${href}/`);
 
   return (
     <Button
@@ -24,7 +25,7 @@ export default function NavLink<T extends string>({ href, children }: NavLinkPro
         !isActive &&
           "[--plain-fg:var(--color-neutral-600)] dark:[--plain-fg:var(--color-neutral-400)] hover-open:[--plain-fg:var(--color-neutral-900)] dark:hover-open:[--plain-fg:var(--color-white)]",
       )}
-      render={<Link href={href} role="link" aria-current={isActive ? "page" : undefined} />}
+      render={<Link href={href} role="link" aria-current={isCurrent ? "page" : undefined} />}
     >
       {children}
     </Button>

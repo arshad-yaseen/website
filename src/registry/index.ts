@@ -98,7 +98,7 @@ export const sections: Section[] = [
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 
-export const notes: Note[] = [shadowsOverBorders];
+export const notes: Note[] = [shadowsOverBorders].sort((a, b) => b.date.localeCompare(a.date));
 
 export const writings: Writing[] = [yukuDataOrientedDesign].sort((a, b) =>
   b.date.localeCompare(a.date),
@@ -114,6 +114,10 @@ export function getSection(slug: string) {
 
 export function getDoc(section: string, slug: string) {
   return getSection(section)?.docs.find((doc) => doc.slug === slug);
+}
+
+export function getNote(slug: string) {
+  return notes.find((note) => note.slug === slug);
 }
 
 export function getWriting(slug: string) {

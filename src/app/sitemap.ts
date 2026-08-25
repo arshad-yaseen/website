@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { pages, sections, writings } from "@/registry";
+import { notes, pages, sections, writings } from "@/registry";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
@@ -24,6 +24,13 @@ export default function sitemap(): MetadataRoute.Sitemap {
     })),
   );
 
+  const noteRoutes: MetadataRoute.Sitemap = notes.map((note) => ({
+    url: `${base}/ui/notes/${note.slug}`,
+    lastModified: note.date,
+    changeFrequency: "yearly",
+    priority: 0.5,
+  }));
+
   const writingRoutes: MetadataRoute.Sitemap = writings.map((writing) => ({
     url: `${base}/writings/${writing.slug}`,
     lastModified: writing.date,
@@ -31,5 +38,5 @@ export default function sitemap(): MetadataRoute.Sitemap {
     priority: 0.7,
   }));
 
-  return [...staticRoutes, ...pageRoutes, ...docRoutes, ...writingRoutes];
+  return [...staticRoutes, ...pageRoutes, ...docRoutes, ...noteRoutes, ...writingRoutes];
 }
