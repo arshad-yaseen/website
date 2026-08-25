@@ -48,28 +48,25 @@ function Pill({ className, label }: PillProps) {
 
 function ImageComparison() {
   return (
-    <div className="flex min-h-64 flex-wrap items-center justify-center gap-4 rounded-lg bg-[url(/notes/rings-over-borders.webp)] bg-cover bg-center p-8">
+    <div className="flex min-h-64 flex-wrap items-center justify-center gap-4 rounded-lg bg-[url(/notes/shadows-over-borders.webp)] bg-cover bg-center p-8">
       <Pill className="border border-neutral-300" label="Border" />
-      <Pill className="ring ring-black/10" label="Ring" />
+      <Pill className="ring ring-black/10" label="Shadow" />
     </div>
   );
 }
 
 export default {
-  slug: "rings-over-borders",
-  title: "Rings over borders",
-  description: "Why rings draw crisper edges than borders, over shadows and on any background.",
+  slug: "shadows-over-borders",
+  title: "Shadows over borders",
+  description:
+    "Why an edge drawn as a shadow stays crisp over shadows and holds on any background.",
   date: "2025-10-23",
   body: (
     <>
       <P>
-        Drawing edges with rings instead of borders keeps the line crisp above drop shadows,
-        preserves depth, and adapts to any background.
-      </P>
-
-      <P>
-        Both squares below draw the same 1px edge in the same color, above the same drop shadow. The
-        first uses a border, the second a ring.
+        An edge drawn as a shadow stays crisp above other shadows and holds on any background. Both
+        squares below draw the same 1px edge, the first with a border, the second with a shadow,
+        Tailwind’s <InlineCode>ring</InlineCode>.
       </P>
 
       <Callout className="hidden dark:block">
@@ -81,22 +78,20 @@ export default {
       </Preview>
 
       <P>
-        A border is painted inside the element, where it meets the drop shadow and softens into it.
-        A ring is a box shadow, <InlineCode>0 0 0 1px</InlineCode>, rendered outside the element and
-        composited above the drop shadow, so the edge remains a single crisp line.
+        A border paints inside the element, where it softens into the drop shadow. A{" "}
+        <InlineCode>0 0 0 1px</InlineCode> shadow composites above it, so the line stays crisp.
       </P>
 
       <P>
-        The same principle applies to backgrounds. A solid border is a fixed color chosen against
-        one background, and it stops matching on any other. A low-opacity ring darkens whatever is
-        behind it, so the edge holds on gradients, dark surfaces, and images.
+        Backgrounds work the same way. A border color is picked for one background, while a
+        low-opacity shadow darkens whatever is behind it, so the edge holds on gradients, dark
+        surfaces, and images.
       </P>
 
       <ImageComparison />
 
       <P>
-        Rings render a crisp edge above shadows, adapt to any background, and add no width to the
-        box. Prefer a ring where you would otherwise reach for a border.
+        Shadows add no width to the box either. Prefer one wherever you would reach for a border.
       </P>
     </>
   ),

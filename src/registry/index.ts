@@ -39,8 +39,7 @@ import textareaDemo from "./demos/textarea/basic";
 import textareaDisabledDemo from "./demos/textarea/disabled";
 import textareaInvalidDemo from "./demos/textarea/invalid";
 import textareaSizesDemo from "./demos/textarea/sizes";
-import ringsOverBorders from "./notes/rings-over-borders";
-import craft from "./pages/craft";
+import shadowsOverBorders from "./notes/shadows-over-borders";
 import introduction from "./pages/introduction";
 import yukuDataOrientedDesign from "./writings/data-oriented-design-in-yukus-parser";
 
@@ -88,7 +87,7 @@ const withSource = <T extends Doc>(doc: T): T =>
     ? { ...doc, source: `${REPO}/${doc.source.includes(".") ? "blob" : "tree"}/main/${doc.source}` }
     : doc;
 
-export const pages: Doc[] = [introduction, craft].map(withSource);
+export const pages: Doc[] = [introduction].map(withSource);
 
 export const sections: Section[] = [
   {
@@ -99,7 +98,7 @@ export const sections: Section[] = [
   { slug: "experiments", title: "Experiments", docs: [] },
 ];
 
-export const notes: Note[] = [ringsOverBorders];
+export const notes: Note[] = [shadowsOverBorders];
 
 export const writings: Writing[] = [yukuDataOrientedDesign].sort((a, b) =>
   b.date.localeCompare(a.date),

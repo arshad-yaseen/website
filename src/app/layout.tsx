@@ -95,7 +95,7 @@ export default function RootLayout({ children }: PropsWithChildren) {
       <body
         className={cn(
           "font-sans antialiased",
-          "[--header-height:--spacing(16)] [--layout-width:var(--container-5xl)]",
+          "[--header-height:--spacing(16)] [--layout-width:var(--container-4xl)]",
           "[--layout-padding:--spacing(4)]",
         )}
       >
