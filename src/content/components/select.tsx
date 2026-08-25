@@ -1,6 +1,6 @@
 import { Demo } from "@/components/docs/demo";
 import { PropsTable } from "@/components/docs/props-table";
-import { A, H2, H3, InlineCode, P } from "@/components/docs/prose";
+import { A, H2, H3, InlineCode, P } from "@/components/prose";
 import type { Doc } from "../types";
 
 export default {

@@ -1,21 +1,21 @@
-import { pages, sections } from "@/registry";
-import NavLink from "./nav-link";
+import { guides, sections } from "@/content";
+import { NavLink } from "./nav-link";
 
-export default function Nav() {
+export function Nav() {
   return (
     <nav className="flex flex-col gap-8">
       <ul className="flex flex-col gap-1">
-        {pages.slice(0, 1).map((page) => (
-          <li key={page.slug}>
-            <NavLink href={`/ui/${page.slug}`}>{page.title}</NavLink>
+        {guides.slice(0, 1).map((guide) => (
+          <li key={guide.slug}>
+            <NavLink href={`/ui/${guide.slug}`}>{guide.title}</NavLink>
           </li>
         ))}
         <li>
           <NavLink href="/ui/notes">Notes</NavLink>
         </li>
-        {pages.slice(1).map((page) => (
-          <li key={page.slug}>
-            <NavLink href={`/ui/${page.slug}`}>{page.title}</NavLink>
+        {guides.slice(1).map((guide) => (
+          <li key={guide.slug}>
+            <NavLink href={`/ui/${guide.slug}`}>{guide.title}</NavLink>
           </li>
         ))}
       </ul>

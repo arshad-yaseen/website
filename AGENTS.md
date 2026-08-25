@@ -53,7 +53,7 @@ Corners nested inside corners must be concentric, so both curves bend around one
 
 ## Edges
 
-Edges are rings and hairlines, not borders. Controls draw `ring ring-black/15` in light and `dark:ring-white/12` in dark. Low opacity edges hold on any background. Structural lines use `border-hairline`, which renders 0.5px on retina displays. See the Shadows over borders note (`src/registry/notes/shadows-over-borders.tsx`) for why.
+Edges are rings and hairlines, not borders. Controls draw `ring ring-black/15` in light and `dark:ring-white/12` in dark. Low opacity edges hold on any background. Structural lines use `border-hairline`, which renders 0.5px on retina displays. See the Shadows over borders note (`src/content/notes/shadows-over-borders.tsx`) for why.
 
 ## Color
 

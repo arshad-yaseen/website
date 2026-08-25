@@ -1,6 +1,6 @@
 import type { MetadataRoute } from "next";
 import { siteConfig } from "@/lib/site";
-import { notes, pages, sections, writings } from "@/registry";
+import { notes, guides, sections, writings } from "@/content";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const base = siteConfig.url;
@@ -10,8 +10,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${base}/ui/notes`, changeFrequency: "monthly", priority: 0.4 },
   ];
 
-  const pageRoutes: MetadataRoute.Sitemap = pages.map((page) => ({
-    url: `${base}/ui/${page.slug}`,
+  const pageRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
+    url: `${base}/ui/${guide.slug}`,
     changeFrequency: "monthly",
     priority: 0.5,
   }));

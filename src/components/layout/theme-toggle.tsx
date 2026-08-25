@@ -4,7 +4,7 @@ import { Button } from "@/ui/button";
 import { Icon } from "@/ui/icon";
 import { useTheme } from "./theme-provider";
 
-export default function ThemeToggle() {
+export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
 
   return (

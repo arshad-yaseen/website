@@ -40,7 +40,7 @@ import textareaDisabledDemo from "./demos/textarea/disabled";
 import textareaInvalidDemo from "./demos/textarea/invalid";
 import textareaSizesDemo from "./demos/textarea/sizes";
 import shadowsOverBorders from "./notes/shadows-over-borders";
-import introduction from "./pages/introduction";
+import introduction from "./guides/introduction";
 import yukuDataOrientedDesign from "./writings/data-oriented-design-in-yukus-parser";
 
 export const demos = {
@@ -87,7 +87,7 @@ const withSource = <T extends Doc>(doc: T): T =>
     ? { ...doc, source: `${REPO}/${doc.source.includes(".") ? "blob" : "tree"}/main/${doc.source}` }
     : doc;
 
-export const pages: Doc[] = [introduction].map(withSource);
+export const guides: Doc[] = [introduction].map(withSource);
 
 export const sections: Section[] = [
   {
@@ -104,8 +104,8 @@ export const writings: Writing[] = [yukuDataOrientedDesign].sort((a, b) =>
   b.date.localeCompare(a.date),
 );
 
-export function getPage(slug: string) {
-  return pages.find((page) => page.slug === slug);
+export function getGuide(slug: string) {
+  return guides.find((guide) => guide.slug === slug);
 }
 
 export function getSection(slug: string) {

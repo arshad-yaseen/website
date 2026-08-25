@@ -1,10 +1,10 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { JsonLd } from "@/components/seo/json-ld";
+
 import { WritingArticle } from "@/components/writings/writing-article";
-import { articleJsonLd } from "@/lib/json-ld";
+import { articleJsonLd, JsonLd } from "@/lib/json-ld";
 import { createMetadata } from "@/lib/metadata";
-import { getWriting, writings } from "@/registry";
+import { getWriting, writings } from "@/content";
 
 type Props = {
   params: Promise<{ slug: string }>;

@@ -1,4 +1,4 @@
-import type { Writing } from "@/registry/types";
+import type { Writing } from "@/content/types";
 import { siteConfig } from "./site";
 
 const person = {
@@ -34,4 +34,14 @@ export function articleJsonLd(writing: Writing) {
     author: person,
     publisher: person,
   };
+}
+
+type JsonLdProps = {
+  data: object;
+};
+
+export function JsonLd({ data }: JsonLdProps) {
+  return (
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }} />
+  );
 }

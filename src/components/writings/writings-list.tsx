@@ -1,7 +1,7 @@
 import type { Route } from "next";
 import Link from "next/link";
-import { writings } from "@/registry";
-import { formatDate } from "@/utils/date";
+import { writings } from "@/content";
+import { formatDate } from "@/lib/date";
 
 export function WritingsList() {
   return (

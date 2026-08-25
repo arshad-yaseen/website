@@ -1,6 +1,6 @@
 import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og";
 import { siteConfig } from "@/lib/site";
-import { getDoc, sections } from "@/registry";
+import { getDoc, sections } from "@/content";
 
 export const alt = `${siteConfig.name} · Component`;
 export const size = OG_SIZE;

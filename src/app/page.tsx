@@ -1,6 +1,5 @@
-import Hero from "@/components/home/hero";
-import { JsonLd } from "@/components/seo/json-ld";
-import { websiteJsonLd } from "@/lib/json-ld";
+import { Hero } from "@/components/home/hero";
+import { JsonLd, websiteJsonLd } from "@/lib/json-ld";
 
 export default function Home() {
   return (

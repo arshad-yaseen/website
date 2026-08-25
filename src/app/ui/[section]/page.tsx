@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
 import { Article } from "@/components/docs/article";
 import { createMetadata } from "@/lib/metadata";
-import { getPage, getSection, pages, sections } from "@/registry";
+import { getGuide, getSection, guides, sections } from "@/content";
 
 type Props = {
   params: Promise<{ section: string }>;
@@ -12,7 +12,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return [
-    ...pages.map((page) => ({ section: page.slug })),
+    ...guides.map((guide) => ({ section: guide.slug })),
     ...sections
       .filter((section) => section.docs.length > 0)
       .map((section) => ({
@@ -23,25 +23,25 @@ export function generateStaticParams() {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { section } = await params;
-  const page = getPage(section);
+  const guide = getGuide(section);
 
-  if (!page) {
+  if (!guide) {
     return {};
   }
 
   return createMetadata({
-    title: page.title,
-    description: page.description,
-    path: `/ui/${page.slug}`,
+    title: guide.title,
+    description: guide.description,
+    path: `/ui/${guide.slug}`,
   });
 }
 
 export default async function Page({ params }: Props) {
   const { section } = await params;
 
-  const page = getPage(section);
-  if (page) {
-    return <Article doc={page} />;
+  const guide = getGuide(section);
+  if (guide) {
+    return <Article doc={guide} />;
   }
 
   const first = getSection(section)?.docs[0];

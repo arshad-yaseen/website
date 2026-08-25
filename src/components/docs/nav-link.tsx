@@ -5,13 +5,13 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { PropsWithChildren } from "react";
 import { Button } from "@/ui/button";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 
 type NavLinkProps<T extends string> = PropsWithChildren<{
   href: Route<T>;
 }>;
 
-export default function NavLink<T extends string>({ href, children }: NavLinkProps<T>) {
+export function NavLink<T extends string>({ href, children }: NavLinkProps<T>) {
   const pathname = usePathname();
   const isCurrent = pathname === href;
   const isActive = isCurrent || pathname.startsWith(`${href}/`);

@@ -1,6 +1,6 @@
-import type { Doc } from "@/registry/types";
+import type { Doc } from "@/content/types";
 import { Button } from "@/ui/button";
-import { P } from "./prose";
+import { P } from "../prose";
 
 type ArticleProps = {
   doc: Doc;

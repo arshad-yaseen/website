@@ -1,6 +1,6 @@
 import { cva, type VariantProps } from "class-variance-authority";
 import type { ComponentProps } from "react";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 import { Select as SelectPrimitive } from "@base-ui/react/select";
 
 const Root = SelectPrimitive.Root;

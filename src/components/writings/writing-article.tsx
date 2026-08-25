@@ -1,5 +1,5 @@
-import type { Writing } from "@/registry/types";
-import { formatDate } from "@/utils/date";
+import type { Writing } from "@/content/types";
+import { formatDate } from "@/lib/date";
 
 type WritingArticleProps = {
   writing: Writing;

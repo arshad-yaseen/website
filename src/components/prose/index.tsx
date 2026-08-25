@@ -1,7 +1,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import type { PropsWithChildren, ReactNode } from "react";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 
 function slugify(text: string) {
   return text

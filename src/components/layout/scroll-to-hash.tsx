@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-export default function ScrollToHash() {
+export function ScrollToHash() {
   useEffect(() => {
     const { hash } = window.location;
     if (!hash) {

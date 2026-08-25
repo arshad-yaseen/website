@@ -1,6 +1,6 @@
 import { Preview } from "@/components/docs/preview";
-import { Callout, InlineCode, P } from "@/components/docs/prose";
-import { cn } from "@/utils/cn";
+import { Callout, InlineCode, P } from "@/components/prose";
+import { cn } from "@/lib/cn";
 import type { Note } from "../types";
 
 type SquareProps = {

@@ -4,7 +4,7 @@ import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Icon } from "@/ui/icon";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 
 const chevronClassName = cn(
   "mt-0.5 hidden size-4 text-neutral-500 opacity-0 transition-opacity duration-150 group-hover:opacity-100 motion-reduce:transition-none dark:text-neutral-400 pointer-fine:block",
@@ -19,7 +19,7 @@ type PaginationProps = {
   items: PaginationItem[];
 };
 
-export default function Pagination({ items }: PaginationProps) {
+export function Pagination({ items }: PaginationProps) {
   const pathname = usePathname();
   const index = items.findIndex((item) => item.href === pathname);
 

@@ -1,8 +1,8 @@
 import { Article } from "@/components/docs/article";
-import { A, Li, Ul } from "@/components/docs/prose";
+import { A, Li, Ul } from "@/components/prose";
 import { createMetadata } from "@/lib/metadata";
-import { notes } from "@/registry";
-import type { Doc } from "@/registry/types";
+import { notes } from "@/content";
+import type { Doc } from "@/content/types";
 
 const doc: Doc = {
   slug: "notes",

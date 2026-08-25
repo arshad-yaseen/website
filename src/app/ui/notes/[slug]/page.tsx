@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { Article } from "@/components/docs/article";
 import { createMetadata } from "@/lib/metadata";
-import { getNote, notes } from "@/registry";
+import { getNote, notes } from "@/content";
 
 type Props = {
   params: Promise<{ slug: string }>;

@@ -1,6 +1,6 @@
 import { redirect } from "next/navigation";
-import { pages } from "@/registry";
+import { guides } from "@/content";
 
 export default function UIPage() {
-  redirect(`/ui/${pages[0].slug}`);
+  redirect(`/ui/${guides[0].slug}`);
 }

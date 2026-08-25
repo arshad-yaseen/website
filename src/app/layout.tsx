@@ -1,14 +1,14 @@
 import type { Metadata, Viewport } from "next";
 import type { PropsWithChildren } from "react";
-import Header from "@/components/layout/header";
-import ScrollToHash from "@/components/layout/ui/scroll-to-hash";
-import ThemeProvider from "@/components/theme/theme-provider";
+import { Header } from "@/components/layout/header";
+import { ScrollToHash } from "@/components/layout/scroll-to-hash";
+import { ThemeProvider } from "@/components/layout/theme-provider";
 import { siteConfig } from "@/lib/site";
 import { Inter, Libre_Baskerville } from "next/font/google";
 import localFont from "next/font/local";
 
 import "@/styles/globals.css";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),

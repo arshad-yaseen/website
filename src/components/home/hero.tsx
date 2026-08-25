@@ -4,7 +4,7 @@ import Link from "next/link";
 import { HeroArt } from "./hero-art";
 import { HeroRole } from "./hero-role";
 
-export default function Hero() {
+export function Hero() {
   return (
     <section className="relative mx-auto h-[calc(100dvh-var(--header-height))] w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] border-x-hairline border-current/10">
       <div className="absolute h-100 w-full mask-b-from-52">

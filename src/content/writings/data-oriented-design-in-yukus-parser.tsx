@@ -1,5 +1,5 @@
-import { CodeBlock } from "@/components/docs/code-block";
-import { A, H2, H3, InlineCode, Li, P, Strong, Table, Ul } from "@/components/docs/prose";
+import { CodeBlock } from "@/components/prose/code-block";
+import { A, H2, H3, InlineCode, Li, P, Strong, Table, Ul } from "@/components/prose";
 import type { Writing } from "../types";
 
 export default {

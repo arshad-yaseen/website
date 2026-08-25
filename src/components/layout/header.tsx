@@ -2,11 +2,11 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { cn } from "@/utils/cn";
-import ThemeToggle from "../theme/theme-toggle";
-import Logo from "./logo";
+import { cn } from "@/lib/cn";
+import { ThemeToggle } from "./theme-toggle";
+import { Logo } from "./logo";
 
-export default function Header() {
+export function Header() {
   const pathname = usePathname();
   const isWriting = pathname.startsWith("/writings");
 

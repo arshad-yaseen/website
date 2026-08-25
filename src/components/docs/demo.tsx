@@ -1,10 +1,10 @@
 import fs from "node:fs/promises";
 import path from "node:path";
-import { type DemoName, demos } from "@/registry";
-import { CodeBlock } from "./code-block";
+import { type DemoName, demos } from "@/content";
+import { CodeBlock } from "../prose/code-block";
 import { Preview } from "./preview";
 
-const DEMOS_DIR = path.join(process.cwd(), "src/registry/demos");
+const DEMOS_DIR = path.join(process.cwd(), "src/content/demos");
 
 type DemoProps = {
   name: DemoName;

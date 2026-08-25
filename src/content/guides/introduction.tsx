@@ -1,4 +1,4 @@
-import { A, P } from "@/components/docs/prose";
+import { A, P } from "@/components/prose";
 import type { Doc } from "../types";
 
 export default {

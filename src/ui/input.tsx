@@ -1,5 +1,5 @@
 import { cva, type VariantProps } from "class-variance-authority";
-import { cn } from "@/utils/cn";
+import { cn } from "@/lib/cn";
 import { Input as BaseInput } from "@base-ui/react/input";
 
 const inputVariants = cva(
