@@ -11,13 +11,6 @@ type CreateMetadataOptions = {
   publishedTime?: string;
 };
 
-/**
- * Builds a complete, self-contained Metadata object (canonical, Open Graph, and
- * Twitter) for a page. Each page carries the full set of tags because Next.js
- * shallow-merges nested metadata objects, so inheriting only part of `openGraph`
- * from the root is not reliable. The OG/Twitter image is added automatically by
- * the colocated `opengraph-image` file convention.
- */
 export function createMetadata({
   title,
   description = siteConfig.description,

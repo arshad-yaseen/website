@@ -19,7 +19,6 @@ async function loadFonts() {
   ];
 }
 
-/** Shrink the title as it gets longer so it always fits the frame. */
 function titleSize(length: number) {
   if (length > 55) return 56;
   if (length > 38) return 68;

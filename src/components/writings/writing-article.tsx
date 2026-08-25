@@ -9,7 +9,7 @@ export function WritingArticle({ writing }: WritingArticleProps) {
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col items-center gap-4 text-center">
-        <h1 className="text-3xl font-medium tracking-tight text-balance sm:text-4xl/tight max-w-xl">
+        <h1 className="max-w-xl text-3xl font-medium tracking-tight text-balance sm:text-4xl/tight">
           {writing.title}
         </h1>
         <time dateTime={writing.date} className="font-mono text-xs text-neutral-500 tabular-nums">

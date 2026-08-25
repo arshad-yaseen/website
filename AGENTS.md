@@ -10,9 +10,9 @@ The tokens referenced here live in `src/styles/globals.css`.
 
 One token decides how dense an interface feels. Tailwind resolves every spacing utility to `calc(var(--spacing) * n)`, so padding, margin, gap, width, height, insets, and numeric line heights all move together. The default unit is 4px, the comfortable scale. Dense product interfaces feel better one notch tighter.
 
-| Token | Value | Effect |
-| --- | --- | --- |
-| `--spacing: 0.25rem` | 4px unit | Comfortable, the Tailwind default |
+| Token                   | Value      | Effect                                  |
+| ----------------------- | ---------- | --------------------------------------- |
+| `--spacing: 0.25rem`    | 4px unit   | Comfortable, the Tailwind default       |
 | `--spacing: 0.21875rem` | 3.5px unit | Compact, the scale dense interfaces use |
 
 At the compact unit, `1` is 3.5px, `2` is 7px, `2.5` is 8.75px, `4` is 14px, `6` is 21px, and `8` is 28px.
@@ -23,16 +23,16 @@ Never hardcode a size the scale can express. No `h-[28px]`, no rem constants ins
 
 Type is tiered by size and color, and emphasized by weight. Thirteen pixels is the body size dense product interfaces settle on, one notch under the browser default, crisp without being small. Every piece of text belongs to a tier, and every tier has a job.
 
-| Tier | Utility | Rendered | Use for |
-| --- | --- | --- | --- |
-| Control | `text-sm/6` | 13px / 21px | Buttons, inputs, menu items, labels |
-| Body | `text-sm` | 13px / 20px | Default UI text, table cells |
-| Meta | `text-xs` | 12px | Descriptions, group labels, timestamps |
-| Micro | `text-2xs` | 11px / 16px | Badges, keyboard hints, overlines |
-| Prose | `text-base/8` | 16px / 28px | Long form reading, docs |
-| Heading | `text-lg` | 18px | Section titles (h2) |
-| Title | `text-2xl` | 24px | Page titles (h1) |
-| Display | `text-3xl+` | 30px and up | Long form and hero titles |
+| Tier    | Utility       | Rendered    | Use for                                |
+| ------- | ------------- | ----------- | -------------------------------------- |
+| Control | `text-sm/6`   | 13px / 21px | Buttons, inputs, menu items, labels    |
+| Body    | `text-sm`     | 13px / 20px | Default UI text, table cells           |
+| Meta    | `text-xs`     | 12px        | Descriptions, group labels, timestamps |
+| Micro   | `text-2xs`    | 11px / 16px | Badges, keyboard hints, overlines      |
+| Prose   | `text-base/8` | 16px / 28px | Long form reading, docs                |
+| Heading | `text-lg`     | 18px        | Section titles (h2)                    |
+| Title   | `text-2xl`    | 24px        | Page titles (h1)                       |
+| Display | `text-3xl+`   | 30px and up | Long form and hero titles              |
 
 Numeric leadings like `/6` ride the spacing scale, so line heights compact together with everything else. Reading text is the exception. Long form prose keeps a roomy leading near 1.75 no matter how dense the chrome gets. Weights are tokens too. Normal is 400, medium 510, semibold 590, bold 680, tuned optically for the variable font.
 
