@@ -21,7 +21,7 @@ export function Hero() {
           </span>
         </p>
 
-        <div className="rule-bleed mt-4 flex flex-wrap justify-center gap-2 bg-background px-(--padding-x) py-3">
+        <div className="rule-bleed mt-4 flex flex-wrap gap-2 bg-background px-[calc(var(--padding-x)+var(--writing-list-item-padding-x))] py-3">
           <Button className="rounded-full" render={<Link href="/ui/introduction" />}>
             Explore UI
           </Button>
