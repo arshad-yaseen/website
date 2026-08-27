@@ -14,16 +14,15 @@ export function Hero() {
           Arshad Yaseen
         </h1>
 
-        <p
-          className="mx-[calc(var(--padding-x)+var(--writing-list-item-padding-x))] text-base/8 text-pretty text-neutral-600 dark:text-neutral-400"
-        >
+        <p className="mx-[calc(var(--padding-x)+var(--writing-list-item-padding-x))] text-base/8 text-pretty text-neutral-600 dark:text-neutral-400">
           <span className="relative inline-flex align-bottom">
-            High-performance systems, compilers, and most of computer science. Mathematics. Interfaces. Less is more.
+            High-performance systems, compilers, and most of computer science. Mathematics.
+            Interfaces. Less is more.
           </span>
         </p>
 
         <div className="rule-bleed mt-4 flex flex-wrap justify-center gap-2 bg-background px-(--padding-x) py-3">
-          <Button className="rounded-full" render={<Link href="/ui" />}>
+          <Button className="rounded-full" render={<Link href="/ui/introduction" />}>
             Explore UI
           </Button>
           <Button
