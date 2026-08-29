@@ -25,6 +25,17 @@
   pointer-events: none;
 }
 
+.rule-bleed-b::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  width: 100vw;
+  transform: translateX(-50%);
+  border-bottom: var(--hairline-width) solid color-mix(in oklab, currentColor 10%, transparent);
+  pointer-events: none;
+}
+
 /* Code blocks are bare in the component docs, but filled inside writings. */
 .writing-content [data-slot="code-block"] {
   @apply bg-neutral-100/60;

@@ -9,12 +9,14 @@ import { cn } from "@/lib/cn";
 
 type NavLinkProps<T extends string> = PropsWithChildren<{
   href: Route<T>;
+  /** Only highlight on an exact pathname match, not on descendant routes. */
+  exact?: boolean;
 }>;
 
-export function NavLink<T extends string>({ href, children }: NavLinkProps<T>) {
+export function NavLink<T extends string>({ href, exact, children }: NavLinkProps<T>) {
   const pathname = usePathname();
   const isCurrent = pathname === href;
-  const isActive = isCurrent || pathname.startsWith(`${href}/`);
+  const isActive = isCurrent || (!exact && pathname.startsWith(`${href}/`));
 
   return (
     <Button

@@ -5,7 +5,10 @@ import { guides, notes, sections } from "@/content";
 
 export default function DocsLayout({ children }: PropsWithChildren) {
   const items: PaginationItem[] = [
-    ...guides.map((guide) => ({ title: guide.title, href: `/ui/${guide.slug}` })),
+    ...guides.map((guide, index) => ({
+      title: guide.title,
+      href: index === 0 ? "/ui" : `/ui/${guide.slug}`,
+    })),
     { title: "Notes", href: "/ui/notes" },
     ...notes.map((note) => ({ title: note.title, href: `/ui/notes/${note.slug}` })),
     ...sections

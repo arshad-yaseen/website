@@ -1,10 +1,16 @@
 "use client";
 
+import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/cn";
 import { ThemeToggle } from "./theme-toggle";
 import { Logo } from "./logo";
+
+/** One path segment up from the current page, so each logo click walks toward home. */
+function parentPath(pathname: string): Route {
+  return (pathname.slice(0, pathname.lastIndexOf("/")) || "/") as Route;
+}
 
 export function Header() {
   const pathname = usePathname();
@@ -20,7 +26,7 @@ export function Header() {
       <div
         className={`mx-auto flex h-(--header-height) w-full max-w-[calc(var(--layout-width)+(var(--layout-padding)*2))] items-center justify-between border-x-hairline px-(--layout-padding) ${pathname === "/" ? "border-current/10" : "border-transparent"}`}
       >
-        <Link href="/" aria-label="Arshad Yaseen" className="shrink-0">
+        <Link href={parentPath(pathname)} aria-label="Arshad Yaseen" className="shrink-0">
           <Logo className="h-6" />
         </Link>
         <ThemeToggle />

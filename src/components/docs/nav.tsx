@@ -5,11 +5,11 @@ export function Nav() {
   return (
     <nav className="flex flex-col gap-8">
       <ul className="flex flex-col gap-1">
-        {guides.slice(0, 1).map((guide) => (
-          <li key={guide.slug}>
-            <NavLink href={`/ui/${guide.slug}`}>{guide.title}</NavLink>
-          </li>
-        ))}
+        <li>
+          <NavLink href="/ui" exact>
+            {guides[0].title}
+          </NavLink>
+        </li>
         <li>
           <NavLink href="/ui/notes">Notes</NavLink>
         </li>

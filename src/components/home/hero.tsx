@@ -1,4 +1,3 @@
-import { WritingsList } from "@/components/writings/writings-list";
 import { Button } from "@/ui/button";
 import Link from "next/link";
 import { HeroArt } from "./hero-art";
@@ -21,23 +20,13 @@ export function Hero() {
           </span>
         </p>
 
-        <div className="rule-bleed mt-4 flex flex-wrap gap-2 bg-background px-[calc(var(--padding-x)+var(--writing-list-item-padding-x))] py-3">
-          <Button className="rounded-full" render={<Link href="/ui/introduction" />}>
+        <div className="rule-bleed rule-bleed-b mt-4 flex flex-wrap gap-2 bg-background px-[calc(var(--padding-x)+var(--writing-list-item-padding-x))] py-3">
+          <Button className="rounded-full" render={<Link href="/ui" />}>
             Explore UI
           </Button>
-          <Button
-            variant="outline"
-            className="rounded-full"
-            render={<Link href="https://github.com/arshad-yaseen" target="_blank" />}
-          >
-            Projects
+          <Button variant="outline" className="rounded-full" render={<Link href="/writings" />}>
+            Writings
           </Button>
-        </div>
-
-        <div className="rule-bleed bg-background px-(--padding-x) py-6">
-          <div className="mx-auto w-full">
-            <WritingsList />
-          </div>
         </div>
       </div>
     </section>

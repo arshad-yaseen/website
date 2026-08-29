@@ -7,10 +7,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: base, changeFrequency: "monthly", priority: 1 },
+    { url: `${base}/writings`, changeFrequency: "monthly", priority: 0.8 },
+    { url: `${base}/ui`, changeFrequency: "monthly", priority: 0.5 },
     { url: `${base}/ui/notes`, changeFrequency: "monthly", priority: 0.4 },
   ];
 
-  const pageRoutes: MetadataRoute.Sitemap = guides.map((guide) => ({
+  const pageRoutes: MetadataRoute.Sitemap = guides.slice(1).map((guide) => ({
     url: `${base}/ui/${guide.slug}`,
     changeFrequency: "monthly",
     priority: 0.5,
