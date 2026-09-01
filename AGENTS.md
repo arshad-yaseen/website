@@ -6,40 +6,6 @@ Interfaces succeed on hundreds of small decisions. Change a token to change the 
 
 Tokens live in `src/styles/globals.css`. Page chrome reads `--layout-width`, `--layout-padding`, and `--header-height` from the body, so every page shares one edge.
 
-## When rules compete
-
-Protect them in this order:
-
-1. The facts. Values, units, labels, qualifiers, and the task’s constraints.
-2. What the project already has. Framework, files, tokens, components.
-3. The reader’s job. Question, strongest supported answer, and its evidence, immediately clear.
-4. Coherence. The same tiers, edges, and rhythm everywhere.
-5. A composition specific to this content, never a generic default or a fixed template.
-6. Responsive behavior, interaction, and polish, never at the expense of hierarchy.
-
-Ask only when proceeding could change meaning, a value, a formula, a claim, a label. Otherwise state the assumption, leave the gap honest, and proceed.
-
-## Start with the job
-
-Know who opens the page and what they need to understand or do before laying anything out.
-
-- **Find the answer first.** The strongest supported claim, the evidence that earns it, and the caveat that could change it. Order by reader need, not source order.
-- **Support two reading speeds.** Title, headings, decisive values, and captions carry the argument to a skimmer. Exact tables, details, and sources preserve the record for an auditor. Plain language up top, exact terms below.
-- **Every section answers a new question.** Combine duplicates, remove ceremony. A restatement at equal prominence is noise.
-- **One home per claim.** A later table may preserve exact lookup, but a second summary, chart, or conclusion for the same point is a duplicate.
-- **Name the obvious layout, then reject it unless the content earns it.** A settings page need not look like every settings page. When the material admits two structures, compare them before coding, changing topology and evidence placement, not palette.
-- **Exhaustive data follows the decision.** Long ledgers go after the decision path or behind native disclosure. A filtered list defaults to the relevant subset, states the rule, shows current and total counts, and keeps a way to see everything.
-
-## Composition
-
-- **The first viewport is the argument,** not a masthead followed by setup. A reader who saw nothing else should remember the central relationship, decision, or tool, not the title.
-- **The page is a field, not a stack.** One throughline for the page, one focal object per section, a few supporting objects, and enough open space to amplify it.
-- **Pace the scroll.** Vary density and quiet within one visual grammar. Repetition is rhythm only between true peers, otherwise it is template noise.
-- **Squint.** The dominant claim should be obvious and the reading path stable. Blur the words and the hierarchy should still show identity, emphasis, grouping, and progression. If every block weighs the same, redesign before coding.
-- **Presence comes from commitment, not effects.** When a page feels too safe, strengthen one focal relationship through proportion, hierarchy, density, pacing, or line breaks, and quiet the rest.
-- **Thin content gets better selection, not decoration.** Never fill a gap with panels, borders, icons, color fields, or decorative charts. Leave it honest.
-- **End with resolution.** The decision, next action, or open question comes last, sources and footer follow quietly. A page never just stops after a table or a caveat.
-
 ## Layout
 
 - **Everything aligns with something.** A shared edge, baseline, grid line, or deliberate optical center. Peers share geometry: type tiers, value positions, internal rows, and action alignment. A split heading and paragraph meet on their first baselines.
@@ -151,24 +117,6 @@ Choose the geometry before the component.
 
 Tables for precise lookup, prose for one conclusion, charts only when the relationship is faster seen than read. Values existing is not a reason for bars.
 
-### Tables
-
-- **Headers align like their cells.** Text left, numbers right, including placeholders and totals, and the header follows its column. Never center a header above right-aligned values.
-- **Rows align to the baseline.** Body cells use `align-baseline` so a wrapped cell keeps the row’s first line. Only multi-line headers bottom-align.
-- **Labels stay on one line.** The row-label column fits ordinary labels, and a short label never wraps while a sibling column has unused width.
-- **Consistent precision.** Peer units and decimals match, nothing gains fake precision.
-- **No column repeats a category.** A run of rows sharing one value gets a row group or a separate table.
-- **Reorder before shrinking.** Arrange columns around the lookup task first. Never clip, truncate, or shrink a header. Highlight a row only when the data supports it.
-
-### Charts
-
-- **Encode honestly.** Units, periods, populations, and comparators sit beside the evidence. Length starts at zero, and a small difference is a marked delta on the same basis, never cropped bars, never hidden in near-identical totals.
-- **Peer bars share one scale.** Repeated bars are one layout with shared label, plot, and value lanes on a parent grid or subgrid, never sized row by row. A track that encodes no value is not a bar.
-- **Counts and rates are a choice.** When denominators differ, decide from the reader’s question. A rate shows its count and base beside it.
-- **Label directly.** Direct labels over legends, a clear lane for every label, legible in both themes.
-- **Captions say what to notice,** and what the chart does not establish. Material data also gets a table or text alternative.
-- **Salience agrees with the argument.** The decisive series, exception, or threshold gets the strongest emphasis, supporting evidence recedes without becoming illegible.
-
 ## Stability
 
 - **State never changes font weight.** Selected tabs and hovered links change color, not weight, so text never reflows.
@@ -203,8 +151,6 @@ Default to stillness. Frequency decides next: an interaction triggered a hundred
 
 - **Typing is never blocked.** A number field accepts any keystroke and explains itself through validation, silence teaches nothing. Paste always works, especially for one time codes.
 - **Submit stays enabled until the request starts.** Pre disabling hides the validation the user needs, disabling in flight prevents duplicates.
-- **Errors sit next to their field.** On submit, focus moves to the first error so the fix is one keystroke away.
-- **Textareas submit too.** Platform modifier plus Enter sends the form, as Enter does from an input.
 - **Inputs declare their intent.** The right `type` and `inputmode` bring the right keyboard, `autocomplete` enables autofill, spellcheck turns off for emails, codes, and usernames.
 - **Warn before losing work.** Leaving unsaved changes asks first, destructive actions confirm or offer undo.
 
@@ -235,21 +181,6 @@ Default to stillness. Frequency decides next: an interaction triggered a hundred
 - **Typing never lags.** Keystroke handling stays cheap, expensive work moves off the main thread.
 - **Long lists virtualize.** Off screen rows are pixels nobody sees. `content-visibility: auto` is the lightweight version.
 - **Effects have budgets.** Large blurs are expensive, `will-change` is a last resort, GPU promotion is a tool, not a default.
-
-## Review
-
-Render the real thing. Inspect the first viewport, the full page, both themes, and a narrow screen. Fix the highest-impact systemic defect, render again, repeat until nothing material remains.
-
-1. **First read.** Is the dominant object obvious? Would the first viewport alone leave the relationship, decision, or tool in memory?
-2. **Language.** Can the least specialized reader explain the answer from headings and captions? Did simplification keep every qualifier?
-3. **Composition.** One dominant object, every section advancing the argument, no accidental empty space.
-4. **Typography.** Tiers consistent, peers equal, baselines aligned, gutters clear, every gap owned.
-5. **Evidence.** Geometry proves the claim, tables run full width, headers match cells, repeated rows share grid lines, nothing repeats without a new task.
-6. **Restraint.** Any surface, border, pill, icon, label, color, paragraph, or section that can go without losing meaning, affordance, or rhythm goes.
-7. **Themes and reflow.** Equivalent hierarchy and contrast in both themes, no overflow, no broken words.
-8. **Access.** Semantics, focus, labels, text alternatives, keyboard only, reduced motion, throttled CPU.
-
-Deliver the implementation, not the critique.
 
 ## Rules of thumb
 
