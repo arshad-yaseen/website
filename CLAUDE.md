@@ -6,19 +6,6 @@ Interfaces succeed on hundreds of small decisions. Change a token to change the 
 
 Tokens live in `src/styles/globals.css`. Page chrome reads `--layout-width`, `--layout-padding`, and `--header-height` from the body, so every page shares one edge.
 
-## When rules compete
-
-Protect them in this order:
-
-1. The facts. Values, units, labels, qualifiers, and the task’s constraints.
-2. What the project already has. Framework, files, tokens, components.
-3. The reader’s job. Question, strongest supported answer, and its evidence, immediately clear.
-4. Coherence. The same tiers, edges, and rhythm everywhere.
-5. A composition specific to this content, never a generic default or a fixed template.
-6. Responsive behavior, interaction, and polish, never at the expense of hierarchy.
-
-Ask only when proceeding could change meaning, a value, a formula, a claim, a label. Otherwise state the assumption, leave the gap honest, and proceed.
-
 ## Layout
 
 - **Everything aligns with something.** A shared edge, baseline, grid line, or deliberate optical center. Peers share geometry: type tiers, value positions, internal rows, and action alignment. A split heading and paragraph meet on their first baselines.
@@ -178,7 +165,6 @@ Default to stillness. Frequency decides next: an interaction triggered a hundred
 - **Titles say what happened or what to decide.** Sentence case everywhere. No em dashes.
 - **Icons and media earn their place.** An icon is not decoration and never sits in a colored tile, and a text label wins unless the icon is established and faster. No stock imagery, decorative illustration, fake screenshots, or mandatory hero media.
 - **Formats follow locale.** Dates, numbers, and currencies format for the user’s locale, and language comes from browser settings, never location.
-- **Anchored headings set** `scroll-margin-top` so links land with breathing room.
 
 ## Details
 
