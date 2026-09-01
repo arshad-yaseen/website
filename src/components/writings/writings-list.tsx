@@ -16,7 +16,7 @@ export function WritingsList() {
           </time>
           <Link
             href={`/writings/${writing.slug}` as Route}
-            className="w-fit text-2xl/snug tracking-tight text-pretty text-accent-500 transition-colors duration-150 motion-reduce:transition-none hover:text-accent-600 dark:text-accent-400 dark:hover:text-accent-300"
+            className="w-fit text-2xl/snug tracking-tight text-pretty text-accent-500 transition-colors duration-150 hover:text-accent-600 motion-reduce:transition-none dark:text-accent-400 dark:hover:text-accent-300"
           >
             {writing.title}
           </Link>
