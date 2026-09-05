@@ -25,8 +25,8 @@ export function WritingArticle({ writing, children }: WritingArticleProps) {
         className={cn(
           "flex flex-col gap-6",
           // Code blocks are bare in the component docs, but filled inside a writing.
-          "[&_[data-slot=code-block]]:bg-neutral-100/60",
-          "dark:[&_[data-slot=code-block]]:bg-neutral-900/60",
+          "`**:data-[slot=code-block]:bg-neutral-100/6",
+          "dark:**:data-[slot=code-block]:bg-neutral-900/60",
         )}
       >
         {children}
