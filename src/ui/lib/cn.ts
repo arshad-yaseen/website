@@ -1,9 +1,8 @@
-import { type ClassValue, clsx } from "clsx";
-import { extendTailwindMerge } from "tailwind-merge";
+import { createCn } from "cn/config";
 
-// `hairline` is a project border width. Without this, tailwind-merge reads it as a
+// `hairline` is a project border width. Without this the merge engine reads it as a
 // border color and drops it whenever a border-color class follows in the same call.
-const twMerge = extendTailwindMerge({
+export const cn = createCn({
   extend: {
     classGroups: {
       "border-w": ["border-hairline"],
@@ -18,7 +17,3 @@ const twMerge = extendTailwindMerge({
     },
   },
 });
-
-export function cn(...classes: ClassValue[]): string {
-  return twMerge(clsx(classes));
-}

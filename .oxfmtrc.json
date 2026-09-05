@@ -3,6 +3,9 @@
   "ignorePatterns": [],
   "experimentalTailwindcss": {
     "stylesheet": "./src/styles/globals.css",
-    "functions": ["cn", "clsx", "cva", "twMerge"]
+    "functions": [
+      "cn",
+      "cva"
+    ]
   }
 }
