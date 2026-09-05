@@ -22,7 +22,7 @@ export function Header() {
     <header
       className={cn(
         "sticky top-0 z-10",
-        !isWriting && "border-b-hairline! border-current/10 bg-background",
+        !isWriting && "border-b-hairline border-current/10 bg-background",
       )}
     >
       <div
