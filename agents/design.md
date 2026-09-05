@@ -100,6 +100,7 @@ Neutrals carry all of the chrome: surfaces, edges, hover fills, secondary text. 
 - **The page is one canvas.** A surface or boundary is earned only by selection, interaction, warning, or a grouping spacing cannot express. Reach for spacing, alignment, typography, and density before a border or a box. Not every section is a card, no panel sits inside a panel, and a border never repairs weak hierarchy.
 - **Diagnose quantity and intensity separately.** Busy means remove, combine, or reorder. Loud means reduce competing color, scale, weight, borders, surfaces, and motion. Keep one deliberate anchor either way, restraint must not flatten the page into sameness.
 - **Interaction increases contrast.** Hover, active, and focus are more contrasted than rest, never less.
+- **Contrast is measured, not eyeballed.** Every foreground holds AA against the background it actually sits on, in both themes. A step that cannot carry text is not used for text.
 - **Every state override needs both modes.** A base `dark:` color outranks an unprefixed state class, so state colors declare a `dark:` counterpart too.
 - **The browser matches the theme.** `color-scheme` is set in dark mode so native scrollbars and controls follow.
 - **Hard rejects.** Decorative gradients, gradient text, glows, blobs, stripes, textures, grid backgrounds, glass, paper, colored side rails, ornamental shadows, fake depth.
@@ -177,6 +178,7 @@ Default to stillness. Frequency decides next: an interaction triggered a hundred
 - **Fade with masks.** Edge fades use `mask-image`, not gradient overlays, and scrollable lists never fade, a fade there hides content.
 - **Decoration never intercepts.** Ornamental layers disable pointer events and selection, and interactive elements disable selection on their inner content so dragging feels clean.
 - **Layouts respect the device.** Safe area insets pad around notches and home indicators, overscroll is contained inside modals and drawers.
+- **Browser chrome is part of the page.** The tab carries an icon, the theme color follows the theme, and the title says where the reader is.
 
 ## Rules of thumb
 

@@ -2,7 +2,7 @@
 
 The standards that keep an interface maintainable as the codebase grows, and light as it ships.
 
-Code is organized by layer, then by kind. A layer says what code is for, a kind says what code is, and every file is exactly one thing in exactly one place. `agents/design.md` decides what to build. These sections decide how it is written.
+Code is organized by layer, then by kind. A layer says what code is for, a kind says what code is, and every file is exactly one thing in exactly one place. `agents/design.md` decides what to build. These sections decide how it is written, and what it is allowed to cost.
 
 ## Architecture
 
@@ -42,6 +42,7 @@ A kind folder holds one kind of file, and the kind fixes the extension. The list
 
 - **One file, one export, named after it.** `button.tsx` exports `Button`, `use-theme.ts` exports `useTheme`, `format-date.ts` exports `formatDate`. A reader who knows the export knows the path.
 - **A family may share a file.** Siblings that share a private base and die together live in one file named after the family: a heading file exporting each level, a list file exporting the list and its item.
+- **Related code lives together.** What changes together sits in one file, and what a file needs sits beside it. A file that exists only to be imported by its neighbour belongs in the neighbour.
 - **A compound component is one file.** It exports one namespace whose parts are private functions. When the file passes three hundred lines, it keeps its name and gains a same-named folder beside it that holds the parts. The file stays the only import path, the folder is private to it.
 - **A props type lives with its component.** A type derived from a value lives with that value. Every other type lives in `types/`, one type or one family per file.
 - **A test sits beside what it tests.** `format-date.test.ts` beside `format-date.ts`.
@@ -119,24 +120,56 @@ The structure check fails on everything above that a script can see: files at a 
 
 An interface is a payload before it is a program. Every route loads instantly, scores 100 on every metric, and ships the least code that can do the job. A change that costs any of that does not land.
 
-- **100 or it does not ship.** Lighthouse performance, accessibility, best practices, and SEO stay at 100 on every route, measured on the routes a change touches.
-- **Core Web Vitals are pass or fail.** LCP, CLS, and INP per route. A regression is reverted, not negotiated.
-- **Measure what the browser receives.** Gzipped JavaScript, HTML, and CSS per route, from a production build. Source lines and `node_modules` are not the number.
+- **100 or it does not ship.** Lighthouse performance, accessibility, best practices, and SEO, on every route, in both themes.
+- **Core Web Vitals hold their thresholds.** LCP under 2.5s, INP under 200ms, CLS under 0.1, on a throttled mid range device.
+- **Measure the built output, never the source.** Gzipped bytes per route from a production build. Source lines, dependency counts, and `node_modules` are not the number.
+- **A measurement is only as fresh as its build.** Numbers come from a clean build and a server started after it. A stale artifact reports the past.
 - **Every change is weighed.** Build before and after, compare the routes touched, report the delta. An unexplained jump is a regression.
 - **The budget is today's number.** There is no allowance to spend down. Weight is added only when it buys more than it costs.
 - **Least code that works.** Delete before deferring. Fewer bytes beats faster bytes.
-- **Ship only what the route reaches.** No barrels, no side effect imports, no registry loaded to read one entry.
-- **A client boundary costs twice.** `"use client"` ships the whole subtree, and every prop crossing it is serialized as well as rendered. Keep it on the smallest leaf.
-- **Static, then server, then client.** Output identical for every visitor is computed at build. The last option needs a reason.
-- **Every view holds the bar, not just the first.** Interaction, scroll, and navigation are measured like load.
-- **Nothing blocks the first paint.** Fonts swap, media ships modern and sized, no script gates the text.
-- **Typing never lags.** Keystroke handling stays cheap, expensive work moves off the main thread.
-- **Long lists virtualize.** Off screen rows are pixels nobody sees. `content-visibility: auto` is the lightweight version.
-- **Effects have budgets.** Large blurs are expensive, `will-change` is a last resort, GPU promotion is a tool, not a default.
+- **Ship only what the route reaches.** A page carries no code it cannot render.
+- **A client boundary costs twice.** Its subtree ships and its props serialize. Keep it on the smallest leaf.
+- **Static, then server, then client.** The last one needs a reason.
+- **The first paint waits for nothing.** No font, script, or request stands between the reader and the text.
+- **No third party on a critical path.** Whatever a route needs to render is served from this origin.
+- **The main thread stays free.** No long task stands between an input and its response.
+- **Off screen is not rendered.** Work is done when it is about to be seen, not before.
+- **Every view holds the bar.** Interaction, scroll, and navigation are measured like load.
+- **Effects have budgets.** Compositing is a tool, never a default.
+
+### Dependencies
+
+A library saves an afternoon and charges every visitor for the life of the project. Writing the exact code a problem needs is no longer the expensive path, and what comes out is smaller, typed, and free to change. Build it here.
+
+- **The default answer is no.** A package must survive its bytes, its surface, its transitive tree, and the day it is abandoned.
+- **Install only what cannot reasonably be written.** A framework, a renderer, a parser for a real specification, a cryptography primitive. Everything under that line is written here.
+- **A package ships its whole surface, not the slice in use.** Read what it weighs and what it drags in before installing, not after.
+- **Platform first, framework second.** No package for what the platform already does.
+- **One tool per job.** Two libraries that overlap is one too many. Delete one, do not fence it off.
+- **Wrap what you might replace.** A third party API used in more than one place goes through one module.
+- **A dependency leaves with its last use.** Removing the code and keeping the package is half a change.
+
+## Accessibility
+
+Accessibility is a correctness property, not a pass at the end. An interface that a keyboard cannot drive or a screen reader cannot narrate is broken in the same way a crash is broken.
+
+- **WCAG 2.2 AA is the floor.** Text holds 4.5:1, large text and non text UI holds 3:1, in both themes.
+- **Everything interactive is keyboard operable**, in the order the page reads, with focus always visible and never trapped by accident.
+- **Every control has an accessible name.** A placeholder is not a name, and neither is an icon.
+- **Semantics come from the element.** A role is an admission that the wrong element was used.
+- **State is announced, not only shown.** Disabled, selected, expanded, invalid, and busy reach the accessibility tree.
+- **Nothing is carried by color, shape, or motion alone.**
+- **Focus is managed at boundaries.** What opens takes focus and gives it back where it was.
+- **What changes without the user is announced.** Silent updates are invisible updates.
+- **Platform preferences win.** Reduced motion, contrast, color scheme, and text size are honoured, never overridden.
+- **Content survives 200% zoom and a 320px viewport** with nothing lost or clipped.
+- **The audit is not the standard.** A perfect automated score covers a fraction of the criteria. A keyboard pass and a screen reader pass are part of done.
 
 ## Hygiene
 
-- **Code says what, comments say why.** A comment carries a constraint, workaround, or decision. If it describes the next line, rename the line. Exports get one JSDoc sentence stating what the type cannot.
+- **A comment is a last resort.** Most code needs none. One earns its place by carrying a constraint, a workaround, or a decision the code cannot show, and it is deleted when that reason goes.
+- **A comment that restates its code is noise.** If it describes the next line, rename the line instead.
+- **JSDoc only where the type falls short.** A unit, a format, a default, a bound, a caveat. Never a sentence that repeats the signature.
 - **Comments are plain sentences.** No em dashes, and no colon or semicolon standing in for one. Split into two sentences instead.
 - **No commented-out code, no journals.** Git is the history. A `TODO` names an owner and a next step or is deleted.
 - **One change, one purpose.** Refactor and feature never share a commit, and a cleanup elsewhere is its own commit. The tree compiles at every commit, callers update with the API they use.
