@@ -78,7 +78,6 @@ export const dataOrientedDesignInYukusParser = {
       <H2>What the pointer tree costs</H2>
       <P>The AST most of us write first looks like this:</P>
       <CodeBlock
-        lang="zig"
         code={`const Node = union(enum) {
     binary: struct { op: Op, left: *Node, right: *Node },
     call: struct { callee: *Node, args: []*Node },
@@ -113,7 +112,6 @@ export const dataOrientedDesignInYukusParser = {
         Every pointer becomes a <InlineCode>u32</InlineCode> index into one flat array:
       </P>
       <CodeBlock
-        lang="zig"
         code={`/// Index into the AST node array.
 pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
       />
@@ -123,7 +121,6 @@ pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
         tree is a handful of arrays plus the arena that owns them:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const Tree = struct {
     /// Index of the root node (always a \`program\` node).
     root: NodeIndex = undefined,
@@ -153,7 +150,6 @@ pub const NodeIndex = enum(u32) { null = std.math.maxInt(u32), _ };`}
         add; 850,000 copies of it are not.
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const Node = struct {
     data: NodeData, // tagged union, one variant per node kind (171 of them)
     span: Span,     // { start: u32, end: u32 }, byte offsets into source
@@ -175,7 +171,6 @@ comptime {
         out of the parser:
       </P>
       <CodeBlock
-        lang="text"
         code={`let x = 1 + 2;
 0   4   8   12    byte offsets
 
@@ -218,7 +213,6 @@ extras: [ 4 ][ 5 ]
         of one array of 52-byte structs:
       </P>
       <CodeBlock
-        lang="text"
         code={`array of structs                      struct of arrays
 
 [ data | span ][ data | span ] ...    data: [ d0 ][ d1 ][ d2 ] ...
@@ -228,7 +222,6 @@ reading node kinds drags every        a kind-only pass reads one
 span into cache as dead weight        dense column and nothing else`}
       />
       <CodeBlock
-        lang="zig"
         code={`pub inline fn data(self: *const Tree, index: NodeIndex) NodeData {
     return self.nodes.items(.data)[@intFromEnum(index)];
 }
@@ -248,7 +241,6 @@ pub inline fn span(self: *const Tree, index: NodeIndex) Span {
         size, so the allocator stays off the hot path:
       </P>
       <CodeBlock
-        lang="zig"
         code={`const estimated_nodes = if (source_len < 512_000)
     @max(256, source_len / 2)
 else
@@ -272,7 +264,6 @@ try self.tree.nodes.ensureTotalCapacity(alloc, estimated_nodes);`}
         Any bottom-up pass can just be a loop. Stripping parenthesized expressions is exactly this:
       </P>
       <CodeBlock
-        lang="zig"
         code={`fn stripParenthesizedNodes(tree: *ast.Tree) void {
     const datas = tree.nodes.items(.data);
     const spans = tree.nodes.items(.span);
@@ -303,7 +294,6 @@ try self.tree.nodes.ensureTotalCapacity(alloc, estimated_nodes);`}
         into the shared array and the owner keeps an 8-byte descriptor:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const IndexRange = struct { start: u32, len: u32 };
 
 /// Returns the extra node indices for the given range.
@@ -318,7 +308,6 @@ pub inline fn extra(self: *const Tree, range: IndexRange) []const NodeIndex {
         records where it started and truncates back to that point on the way out.
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub fn parseBody(self: *Parser, terminator: ?TokenTag) !ast.IndexRange {
     const checkpoint = self.scratch_statements.begin(); // current length
     defer self.scratch_statements.reset(checkpoint);    // truncate on exit
@@ -336,7 +325,6 @@ pub inline fn extra(self: *const Tree, range: IndexRange) []const NodeIndex {
         <InlineCode>{"{ a; { b; c; } d; }"}</InlineCode>:
       </P>
       <CodeBlock
-        lang="text"
         code={`[0] identifier_reference   "a"
 [1] expression_statement   expression=0
 [2] identifier_reference   "b"
@@ -380,7 +368,6 @@ extras: [ 3  5 | 1  6  8 | 9 ]
         checkpoint is a handful of integers:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const Checkpoint = struct {
     lexer_cursor: u32,
     lexer_state: lexer.LexerState,
@@ -417,7 +404,6 @@ pub fn rewind(self: *Parser, cp: Checkpoint) void {
         store they point into:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const String = struct { start: u32, end: u32 };
 
 pub fn get(self: *const StringPool, id: String) []const u8 {
@@ -436,7 +422,6 @@ pub fn get(self: *const StringPool, id: String) []const u8 {
         is one, in a source 15 bytes long:
       </P>
       <CodeBlock
-        lang="text"
         code={`let x = "a\\nb";
 
 [1] string_literal   8..14   raw=8..14 ("a\\nb")   value=15..18 ("a", newline, "b")
@@ -451,7 +436,6 @@ string pool: 3 bytes`}
         when a name is actually asked for, and only for the rare token that needs it:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub inline fn identifierName(self: *Parser, token: Token) !ast.String {
     if (token.isEscaped()) // rare: decode into the pool
         return self.decodeEscapedIdentifier(token.span.start, token.span.end);
@@ -470,7 +454,6 @@ string pool: 3 bytes`}
         demand, the parser holds the current one, and each node records its own span.
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const Token = struct {
     span: Span,    // { start: u32, end: u32 }
     tag: TokenTag,
@@ -488,7 +471,6 @@ comptime {
         declaration:
       </P>
       <CodeBlock
-        lang="zig"
         code={`pub const Mask = struct {
     pub const IsBinaryOp: u32 = 1 << 14;
     pub const IsUnaryOp: u32 = 1 << 16;
@@ -525,7 +507,6 @@ pub const TokenTag = enum(u32) {
         512-entry table and the lookup is one probe, one length compare, one short memcmp:
       </P>
       <CodeBlock
-        lang="zig"
         code={`inline fn keywordHash(c0: u8, c1: u8, c_last: u8, length: usize) u32 {
     const h = @as(u32, c0) * 56 + @as(u32, c1) * 97 +
         @as(u32, c_last) * 108 + @as(u32, @intCast(length)) * 117;
@@ -566,7 +547,6 @@ fn getKeywordType(lexeme: []const u8) TokenTag {
         its pattern: about 29 KB for both properties, small enough to stay resident.
       </P>
       <CodeBlock
-        lang="zig"
         code={`inline fn queryBitTable(cp: u32, comptime root: []const u8, comptime leaf: []const u64) bool {
     const chunk_idx = cp / 512;                       // which 512-codepoint chunk
     const leaf_base = @as(u32, root[chunk_idx]) * 16; // where its pattern lives
@@ -591,7 +571,6 @@ fn getKeywordType(lexeme: []const u8) TokenTag {
         high bit set, and that branch is marked cold:
       </P>
       <CodeBlock
-        lang="zig"
         code={`while (pos < src.len and ident_continue_table_ascii[src[pos]]) {
     pos += 1;
 }
@@ -629,13 +608,11 @@ if (c >= 0x80) {
         and returns it to JS as an <InlineCode>ArrayBuffer</InlineCode>:
       </P>
       <CodeBlock
-        lang="text"
         code={`header | nodes        | extras     | string pool | comments | diagnostics
 40 B     44 B each      raw u32s     raw bytes
                         (memcpy)     (memcpy)`}
       />
       <CodeBlock
-        lang="zig"
         code={`const PackedNode = extern struct {
     tag: u8,
     _pad0: u8 = 0,
@@ -658,7 +635,6 @@ if (c >= 0x80) {
         can&rsquo;t drift apart. And the budget is enforced where it belongs:
       </P>
       <CodeBlock
-        lang="zig"
         code={`comptime {
     // any AST struct needing more than 7 u32 slots
     // or 16 flag bits fails the build, by name.
@@ -671,7 +647,6 @@ if (c >= 0x80) {
         per node kind. This is the real emitted code, just spaced out to read:
       </P>
       <CodeBlock
-        lang="js"
         code={`const _u32 = new Int32Array(buffer);
 
 function _decode(i) {

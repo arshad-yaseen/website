@@ -1,5 +1,4 @@
 @import "tailwindcss";
-@import "./shiki.css";
 
 @custom-variant dark (&:is(.dark *));
 @custom-variant hover-open (&:is(:hover:not([data-disabled]), [data-popup-open]));
