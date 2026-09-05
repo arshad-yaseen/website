@@ -1,6 +1,6 @@
 # Code
 
-The standards that keep an interface maintainable as the codebase grows.
+The standards that keep an interface maintainable as the codebase grows, and light as it ships.
 
 Code is organized by layer, then by kind. A layer says what code is for, a kind says what code is, and every file is exactly one thing in exactly one place. `agents/design.md` decides what to build. These sections decide how it is written.
 
@@ -112,17 +112,33 @@ The structure check fails on everything above that a script can see: files at a 
 - **Options object past two parameters.** No boolean positional flags.
 - **No nested ternaries.** Lookup tables for mapping, `if` for branching.
 - **Never mutate.** Spread, `toSorted`, `with`, `structuredClone`. `readonly` and `as const` where change is wrong.
-- **Platform first.** `Intl`, `URL`, `Object.groupBy`. No package for what the platform does.
 - **`const` always, `===` always, `??` for defaults.**
 - **No floating promises.** Every promise is awaited, returned, or `void`ed with a reason. Independent work runs in `Promise.all`.
+
+## Performance
+
+An interface is a payload before it is a program. Every route loads instantly, scores 100 on every metric, and ships the least code that can do the job. A change that costs any of that does not land.
+
+- **100 or it does not ship.** Lighthouse performance, accessibility, best practices, and SEO stay at 100 on every route, measured on the routes a change touches.
+- **Core Web Vitals are pass or fail.** LCP, CLS, and INP per route. A regression is reverted, not negotiated.
+- **Measure what the browser receives.** Gzipped JavaScript, HTML, and CSS per route, from a production build. Source lines and `node_modules` are not the number.
+- **Every change is weighed.** Build before and after, compare the routes touched, report the delta. An unexplained jump is a regression.
+- **The budget is today's number.** There is no allowance to spend down. Weight is added only when it buys more than it costs.
+- **Least code that works.** Delete before deferring. Fewer bytes beats faster bytes.
+- **Ship only what the route reaches.** No barrels, no side effect imports, no registry loaded to read one entry.
+- **A client boundary costs twice.** `"use client"` ships the whole subtree, and every prop crossing it is serialized as well as rendered. Keep it on the smallest leaf.
+- **Static, then server, then client.** Output identical for every visitor is computed at build. The last option needs a reason.
+- **Every view holds the bar, not just the first.** Interaction, scroll, and navigation are measured like load.
+- **Nothing blocks the first paint.** Fonts swap, media ships modern and sized, no script gates the text.
+- **Typing never lags.** Keystroke handling stays cheap, expensive work moves off the main thread.
+- **Long lists virtualize.** Off screen rows are pixels nobody sees. `content-visibility: auto` is the lightweight version.
+- **Effects have budgets.** Large blurs are expensive, `will-change` is a last resort, GPU promotion is a tool, not a default.
 
 ## Hygiene
 
 - **Code says what, comments say why.** A comment carries a constraint, workaround, or decision. If it describes the next line, rename the line. Exports get one JSDoc sentence stating what the type cannot.
 - **Comments are plain sentences.** No em dashes, and no colon or semicolon standing in for one. Split into two sentences instead.
 - **No commented-out code, no journals.** Git is the history. A `TODO` names an owner and a next step or is deleted.
-- **Every dependency is a decision.** Platform, then framework, then a focused, typed, maintained package. A one-function need is written, not installed. One tool per job.
-- **Wrap what you might replace.** A third-party API used in more than one place goes through one module.
 - **One change, one purpose.** Refactor and feature never share a commit, and a cleanup elsewhere is its own commit. The tree compiles at every commit, callers update with the API they use.
 - **Commit messages follow Go.** The subject is `area: what changed`, all lowercase, imperative, no period, under seventy-two characters: `ui: add size variants to select`. The area is the layer or feature touched. A body of one or two lines says why, and only when the subject cannot.
 - **Commits carry no attribution.** The subject and its short body are the whole message. No `Co-Authored-By` trailer, no session or tool link, no generated-by note, in a commit or a pull request description.

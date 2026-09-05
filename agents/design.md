@@ -6,7 +6,7 @@ Interfaces succeed on hundreds of small decisions. Change a token to change the 
 
 Tokens live in `src/styles/globals.css`. Page chrome reads `--layout-width`, `--layout-padding`, and `--header-height` from the body, so every page shares one edge.
 
-These sections decide what to build. `agents/code.md` decides how it is written.
+These sections decide what to build. `agents/code.md` decides how it is written, and what it is allowed to cost.
 
 ## Layout
 
@@ -177,12 +177,6 @@ Default to stillness. Frequency decides next: an interaction triggered a hundred
 - **Fade with masks.** Edge fades use `mask-image`, not gradient overlays, and scrollable lists never fade, a fade there hides content.
 - **Decoration never intercepts.** Ornamental layers disable pointer events and selection, and interactive elements disable selection on their inner content so dragging feels clean.
 - **Layouts respect the device.** Safe area insets pad around notches and home indicators, overscroll is contained inside modals and drawers.
-
-## Performance
-
-- **Typing never lags.** Keystroke handling stays cheap, expensive work moves off the main thread.
-- **Long lists virtualize.** Off screen rows are pixels nobody sees. `content-visibility: auto` is the lightweight version.
-- **Effects have budgets.** Large blurs are expensive, `will-change` is a last resort, GPU promotion is a tool, not a default.
 
 ## Rules of thumb
 
