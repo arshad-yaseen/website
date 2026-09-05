@@ -3,9 +3,6 @@
   "ignorePatterns": [],
   "experimentalTailwindcss": {
     "stylesheet": "./src/styles/globals.css",
-    "functions": [
-      "cn",
-      "cva"
-    ]
+    "functions": ["cn", "cva"]
   }
 }
