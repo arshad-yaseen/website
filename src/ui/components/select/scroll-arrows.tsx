@@ -5,7 +5,7 @@ import { cn } from "@/ui/lib/cn";
 const SCROLL_ARROW = cn(
   "z-1 flex h-7 w-full cursor-default items-center justify-center",
   "bg-background text-neutral-500 dark:text-neutral-400",
-  "before:absolute before:left-0 before:h-full before:w-full before:content-['']",
+  "before:absolute before:left-0 before:size-full before:content-['']",
 );
 
 export type SelectScrollUpArrowProps = SelectPrimitive.ScrollUpArrow.Props;

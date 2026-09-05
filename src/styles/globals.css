@@ -13,7 +13,7 @@
   }
 }
 
-@theme inline {
+@theme {
   --default-transition-timing-function: ease;
 
   --spacing: 0.21875rem;
@@ -27,13 +27,15 @@
 
   --radius-md: 0.3125rem;
 
-  --border-width-hairline: var(--hairline-width);
-
   --font-weight-light: 300;
   --font-weight-normal: 400;
   --font-weight-medium: 510;
   --font-weight-semibold: 590;
   --font-weight-bold: 680;
+}
+
+@theme inline {
+  --border-width-hairline: var(--hairline-width);
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);

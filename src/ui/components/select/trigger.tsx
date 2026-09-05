@@ -4,7 +4,7 @@ import { cn } from "@/ui/lib/cn";
 
 const triggerVariants = cva(
   [
-    "group/trigger relative inline-flex min-w-44 items-center justify-between gap-2",
+    "relative inline-flex min-w-44 items-center justify-between gap-2",
     "cursor-default rounded-md font-normal whitespace-nowrap select-none",
     "bg-transparent text-foreground",
     "ring ring-black/15 not-data-disabled:shadow-sm dark:ring-white/12",

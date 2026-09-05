@@ -8,7 +8,7 @@ export function Item({ className, ...props }: SelectItemProps) {
     <SelectPrimitive.Item
       data-slot="select-item"
       className={cn(
-        "group/item relative isolate grid grid-cols-[--spacing(4)_1fr] items-center gap-x-2",
+        "relative isolate grid grid-cols-[--spacing(4)_1fr] items-center gap-x-2",
         "cursor-default scroll-my-1 rounded-md ps-2.5 pe-4 outline-hidden select-none",
         "py-[calc((var(--anchor-height,--spacing(8))-(--spacing(6)))/2)]",
         "text-sm/6 text-foreground group-data-[side=none]:pe-10",
