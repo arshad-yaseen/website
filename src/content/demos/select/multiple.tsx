@@ -1,6 +1,6 @@
 "use client";
 
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const languages = [
   { label: "TypeScript", value: "ts" },
@@ -20,7 +20,7 @@ function renderValue(value: string[]) {
   return `${value.length} selected`;
 }
 
-export default function SelectMultipleDemo() {
+export function Multiple() {
   return (
     <Select.Root items={languages} multiple defaultValue={["ts", "rust"]}>
       <Select.Trigger>

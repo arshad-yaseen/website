@@ -1,4 +1,4 @@
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const sizes = [
   { label: "Small", value: "sm" },
@@ -6,7 +6,7 @@ const sizes = [
   { label: "Large", value: "lg" },
 ];
 
-export default function SelectInvalidDemo() {
+export function Invalid() {
   return (
     <Select.Root items={sizes}>
       <Select.Trigger data-invalid>

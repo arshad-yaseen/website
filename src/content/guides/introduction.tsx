@@ -1,7 +1,8 @@
-import { A, P } from "@/components/prose";
-import type { Doc } from "../types";
+import { A } from "@/ui/components/prose/anchor";
+import { P } from "@/ui/components/prose/paragraph";
+import type { Doc } from "@/content/types/doc";
 
-export default {
+export const introduction = {
   slug: "introduction",
   title: "Introduction",
   description: "UI components, experiments, and design notes for design engineers.",

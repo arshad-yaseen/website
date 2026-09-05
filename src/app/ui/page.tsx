@@ -1,9 +1,7 @@
 import type { Metadata } from "next";
-import { Article } from "@/components/docs/article";
-import { createMetadata } from "@/lib/metadata";
-import { guides } from "@/content";
-
-const introduction = guides[0];
+import { introduction } from "@/content/guides/introduction";
+import { Article } from "@/features/docs/components/article";
+import { createMetadata } from "@/shared/lib/create-metadata";
 
 export const metadata: Metadata = createMetadata({
   title: introduction.title,

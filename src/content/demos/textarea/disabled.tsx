@@ -1,5 +1,5 @@
-import { Textarea } from "@/ui/textarea";
+import { Textarea } from "@/ui/components/textarea";
 
-export default function TextareaDisabledDemo() {
+export function Disabled() {
   return <Textarea disabled defaultValue="Can’t edit this" className="w-64" />;
 }

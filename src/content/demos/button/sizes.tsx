@@ -1,6 +1,6 @@
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/components/button";
 
-export default function ButtonSizesDemo() {
+export function Sizes() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Button variant="outline" size="sm">

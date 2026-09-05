@@ -1,5 +1,5 @@
-import { Avatar } from "@/ui/avatar";
-import { Select } from "@/ui/select";
+import { Avatar } from "@/ui/components/avatar";
+import { Select } from "@/ui/components/select";
 
 const people = [
   { value: "lara", name: "Lara Tucci", initials: "LT", src: "https://i.pravatar.cc/80?img=5" },
@@ -20,7 +20,7 @@ const items = people.map((person) => ({
   ),
 }));
 
-export default function SelectAvatarsDemo() {
+export function Avatars() {
   return (
     <Select.Root items={items} defaultValue="lara">
       <Select.Trigger>

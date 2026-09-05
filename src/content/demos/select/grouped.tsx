@@ -1,5 +1,5 @@
 import { Fragment } from "react";
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const groups = [
   {
@@ -19,7 +19,7 @@ const groups = [
   },
 ];
 
-export default function SelectGroupedDemo() {
+export function Grouped() {
   return (
     <Select.Root items={groups}>
       <Select.Trigger>

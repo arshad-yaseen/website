@@ -1,7 +1,9 @@
-import { Preview } from "@/components/docs/preview";
-import { Callout, InlineCode, P } from "@/components/prose";
-import { cn } from "@/lib/cn";
-import type { Note } from "../types";
+import { Preview } from "@/content/components/preview";
+import { Callout } from "@/ui/components/prose/callout";
+import { InlineCode } from "@/ui/components/prose/inline-code";
+import { P } from "@/ui/components/prose/paragraph";
+import { cn } from "@/ui/lib/cn";
+import type { Note } from "@/content/types/note";
 
 type SquareProps = {
   className: string;
@@ -55,7 +57,7 @@ function ImageComparison() {
   );
 }
 
-export default {
+export const shadowsOverBorders = {
   slug: "shadows-over-borders",
   title: "Shadows over borders",
   description:

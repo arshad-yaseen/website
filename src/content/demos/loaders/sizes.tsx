@@ -1,6 +1,6 @@
-import { CacheWarm } from "@/ui/dot-matrix";
+import { CacheWarm } from "@/ui/components/dot-matrix/cache-warm";
 
-export default function LoadersSizesDemo() {
+export function Sizes() {
   return (
     <div className="flex flex-wrap items-center justify-center gap-12">
       <CacheWarm size={16} />

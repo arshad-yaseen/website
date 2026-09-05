@@ -1,6 +1,6 @@
-import { Avatar } from "@/ui/avatar";
+import { Avatar } from "@/ui/components/avatar";
 
-export default function AvatarFallbackDemo() {
+export function Fallback() {
   return (
     <Avatar.Root>
       <Avatar.Image src="https://invalid.example/avatar.jpg" alt="Arshad Yaseen" />

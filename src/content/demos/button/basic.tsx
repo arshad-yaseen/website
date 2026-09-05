@@ -1,6 +1,6 @@
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/components/button";
 
-export default function ButtonDemo() {
+export function Basic() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Button>Solid</Button>

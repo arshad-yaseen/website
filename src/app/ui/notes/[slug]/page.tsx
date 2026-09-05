@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Article } from "@/components/docs/article";
-import { createMetadata } from "@/lib/metadata";
-import { getNote, notes } from "@/content";
+import { notes } from "@/content/config/notes";
+import { getNote } from "@/content/lib/get-note";
+import { Article } from "@/features/docs/components/article";
+import { createMetadata } from "@/shared/lib/create-metadata";
 
-type Props = {
+type NotePageProps = {
   params: Promise<{ slug: string }>;
 };
 
@@ -14,7 +15,7 @@ export function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: NotePageProps): Promise<Metadata> {
   const { slug } = await params;
   const note = getNote(slug);
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function NotePage({ params }: Props) {
+export default async function NotePage({ params }: NotePageProps) {
   const { slug } = await params;
   const note = getNote(slug);
 

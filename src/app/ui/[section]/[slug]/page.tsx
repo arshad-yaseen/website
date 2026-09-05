@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { Article } from "@/components/docs/article";
-import { createMetadata } from "@/lib/metadata";
-import { getDoc, sections } from "@/content";
+import { sections } from "@/content/config/sections";
+import { getDoc } from "@/content/lib/get-doc";
+import { Article } from "@/features/docs/components/article";
+import { createMetadata } from "@/shared/lib/create-metadata";
 
-type Props = {
+type DocPageProps = {
   params: Promise<{ section: string; slug: string }>;
 };
 
@@ -16,7 +17,7 @@ export function generateStaticParams() {
   );
 }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
+export async function generateMetadata({ params }: DocPageProps): Promise<Metadata> {
   const { section, slug } = await params;
   const doc = getDoc(section, slug);
 
@@ -31,7 +32,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   });
 }
 
-export default async function DocPage({ params }: Props) {
+export default async function DocPage({ params }: DocPageProps) {
   const { section, slug } = await params;
   const doc = getDoc(section, slug);
 

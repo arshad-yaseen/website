@@ -1,5 +1,5 @@
-import { Textarea } from "@/ui/textarea";
+import { Textarea } from "@/ui/components/textarea";
 
-export default function TextareaDemo() {
+export function Basic() {
   return <Textarea placeholder="Write a message…" className="w-64" />;
 }

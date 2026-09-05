@@ -1,8 +1,8 @@
-import { Avatar } from "@/ui/avatar";
+import { Avatar } from "@/ui/components/avatar";
 
 const sizes = ["sm", "md", "lg"] as const;
 
-export default function AvatarSizesDemo() {
+export function Sizes() {
   return (
     <div className="flex items-center gap-4">
       {sizes.map((size) => (

@@ -1,4 +1,4 @@
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const plans = [
   { label: "Hobby", value: "hobby", description: "For personal projects and experiments" },
@@ -6,7 +6,7 @@ const plans = [
   { label: "Enterprise", value: "enterprise", description: "For organizations with custom needs" },
 ];
 
-export default function SelectDescriptionsDemo() {
+export function Descriptions() {
   return (
     <Select.Root items={plans}>
       <Select.Trigger>

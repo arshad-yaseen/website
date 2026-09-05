@@ -1,4 +1,4 @@
-import { Avatar } from "@/ui/avatar";
+import { Avatar } from "@/ui/components/avatar";
 
 const people = [
   { name: "Lara Tucci", initials: "LT", src: "https://i.pravatar.cc/80?img=5" },
@@ -6,7 +6,7 @@ const people = [
   { name: "Noah Pierre", initials: "NP", src: "https://i.pravatar.cc/80?img=33" },
 ];
 
-export default function AvatarGroupDemo() {
+export function Group() {
   return (
     <div className="flex -space-x-2">
       {people.map((person) => (

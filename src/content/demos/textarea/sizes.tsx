@@ -1,8 +1,8 @@
-import { Textarea } from "@/ui/textarea";
+import { Textarea } from "@/ui/components/textarea";
 
 const sizes = ["sm", "md", "lg"] as const;
 
-export default function TextareaSizesDemo() {
+export function Sizes() {
   return (
     <div className="flex w-64 flex-col gap-3">
       {sizes.map((size) => (

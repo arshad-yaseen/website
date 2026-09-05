@@ -1,8 +1,14 @@
-import { CodeBlock } from "@/components/prose/code-block";
-import { A, H2, H3, InlineCode, Li, P, Strong, Table, Ul } from "@/components/prose";
-import type { Writing } from "../types";
+import { CodeBlock } from "@/ui/components/code-block";
+import { A } from "@/ui/components/prose/anchor";
+import { H2, H3 } from "@/ui/components/prose/heading";
+import { InlineCode } from "@/ui/components/prose/inline-code";
+import { Li, Ul } from "@/ui/components/prose/list";
+import { P } from "@/ui/components/prose/paragraph";
+import { Strong } from "@/ui/components/prose/strong";
+import { Table } from "@/ui/components/prose/table";
+import type { Writing } from "@/content/types/writing";
 
-export default {
+export const dataOrientedDesignInYukusParser = {
   slug: "data-oriented-design-in-yukus-parser",
   title: "Data-Oriented Design in Yuku's Parser",
   description:

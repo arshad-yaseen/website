@@ -1,4 +1,4 @@
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const themes = [
   { label: "System", value: "system" },
@@ -8,7 +8,7 @@ const themes = [
 
 const sizes = ["sm", "md", "lg"] as const;
 
-export default function SelectSizesDemo() {
+export function Sizes() {
   return (
     <div className="flex flex-wrap items-end gap-3">
       {sizes.map((size) => (

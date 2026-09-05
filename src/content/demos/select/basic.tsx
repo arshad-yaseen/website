@@ -1,4 +1,4 @@
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const fonts = [
   { label: "Inter", value: "inter" },
@@ -6,7 +6,7 @@ const fonts = [
   { label: "Libre Baskerville", value: "libre-baskerville" },
 ];
 
-export default function SelectDemo() {
+export function Basic() {
   return (
     <Select.Root items={fonts}>
       <Select.Trigger>

@@ -1,39 +1,37 @@
-import {
-  Attention,
-  AuthHandshake,
-  Backprop,
-  Beacon,
-  Bloom,
-  CacheWarm,
-  ClusterSync,
-  Compile,
-  Constellation,
-  Cron,
-  Deploy,
-  Diffusion,
-  Drift,
-  Embedding,
-  FlowerBloom,
-  GradientDescent,
-  Hash,
-  HeartPulse,
-  Helix,
-  IndexBuild,
-  Lattice,
-  Orbit,
-  PlusPulse,
-  Quantize,
-  RateLimit,
-  Ripple,
-  Snowflake,
-  SoundBars,
-  StarBurst,
-  Sync,
-  TokenStream,
-  TwinHelix,
-  VectorIndex,
-  Webhook,
-} from "@/ui/dot-matrix";
+import { Attention } from "@/ui/components/dot-matrix/attention";
+import { AuthHandshake } from "@/ui/components/dot-matrix/auth-handshake";
+import { Backprop } from "@/ui/components/dot-matrix/backprop";
+import { Beacon } from "@/ui/components/dot-matrix/beacon";
+import { Bloom } from "@/ui/components/dot-matrix/bloom";
+import { CacheWarm } from "@/ui/components/dot-matrix/cache-warm";
+import { ClusterSync } from "@/ui/components/dot-matrix/cluster-sync";
+import { Compile } from "@/ui/components/dot-matrix/compile";
+import { Constellation } from "@/ui/components/dot-matrix/constellation";
+import { Cron } from "@/ui/components/dot-matrix/cron";
+import { Deploy } from "@/ui/components/dot-matrix/deploy";
+import { Diffusion } from "@/ui/components/dot-matrix/diffusion";
+import { Drift } from "@/ui/components/dot-matrix/drift";
+import { Embedding } from "@/ui/components/dot-matrix/embedding";
+import { FlowerBloom } from "@/ui/components/dot-matrix/flower-bloom";
+import { GradientDescent } from "@/ui/components/dot-matrix/gradient-descent";
+import { Hash } from "@/ui/components/dot-matrix/hash";
+import { HeartPulse } from "@/ui/components/dot-matrix/heart-pulse";
+import { Helix } from "@/ui/components/dot-matrix/helix";
+import { IndexBuild } from "@/ui/components/dot-matrix/index-build";
+import { Lattice } from "@/ui/components/dot-matrix/lattice";
+import { Orbit } from "@/ui/components/dot-matrix/orbit";
+import { PlusPulse } from "@/ui/components/dot-matrix/plus-pulse";
+import { Quantize } from "@/ui/components/dot-matrix/quantize";
+import { RateLimit } from "@/ui/components/dot-matrix/rate-limit";
+import { Ripple } from "@/ui/components/dot-matrix/ripple";
+import { Snowflake } from "@/ui/components/dot-matrix/snowflake";
+import { SoundBars } from "@/ui/components/dot-matrix/sound-bars";
+import { StarBurst } from "@/ui/components/dot-matrix/star-burst";
+import { Sync } from "@/ui/components/dot-matrix/sync";
+import { TokenStream } from "@/ui/components/dot-matrix/token-stream";
+import { TwinHelix } from "@/ui/components/dot-matrix/twin-helix";
+import { VectorIndex } from "@/ui/components/dot-matrix/vector-index";
+import { Webhook } from "@/ui/components/dot-matrix/webhook";
 
 const LOADERS = [
   { name: "attention", Loader: Attention },
@@ -72,7 +70,7 @@ const LOADERS = [
   { name: "webhook", Loader: Webhook },
 ];
 
-export default function LoadersGalleryDemo() {
+export function Gallery() {
   return (
     <div className="grid w-full grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
       {LOADERS.map(({ name, Loader }) => (

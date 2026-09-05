@@ -1,5 +1,5 @@
-import { Input } from "@/ui/input";
+import { Input } from "@/ui/components/input";
 
-export default function InputInvalidDemo() {
+export function Invalid() {
   return <Input data-invalid defaultValue="not-an-email" className="w-64" />;
 }

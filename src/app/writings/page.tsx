@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-
-import { WritingsList } from "@/components/writings/writings-list";
-import { createMetadata } from "@/lib/metadata";
+import { WritingsList } from "@/features/writings/components/writings-list";
+import { createMetadata } from "@/shared/lib/create-metadata";
 
 export const metadata: Metadata = createMetadata({
   title: "Writings",

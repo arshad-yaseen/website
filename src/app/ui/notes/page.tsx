@@ -1,30 +1,14 @@
-import { Article } from "@/components/docs/article";
-import { A, Li, Ul } from "@/components/prose";
-import { createMetadata } from "@/lib/metadata";
-import { notes } from "@/content";
-import type { Doc } from "@/content/types";
+import type { Metadata } from "next";
+import { NotesIndex } from "@/features/docs/components/notes-index";
+import { notesIndex } from "@/features/docs/config/notes-index";
+import { createMetadata } from "@/shared/lib/create-metadata";
 
-const doc: Doc = {
-  slug: "notes",
-  title: "Notes",
-  description: "Short design and engineering notes.",
-  body: (
-    <Ul>
-      {notes.map((note) => (
-        <Li key={note.slug}>
-          <A href={`/ui/notes/${note.slug}`}>{note.title}</A>
-        </Li>
-      ))}
-    </Ul>
-  ),
-};
-
-export const metadata = createMetadata({
-  title: doc.title,
-  description: doc.description,
+export const metadata: Metadata = createMetadata({
+  title: notesIndex.title,
+  description: notesIndex.description,
   path: "/ui/notes",
 });
 
 export default function NotesPage() {
-  return <Article doc={doc} />;
+  return <NotesIndex />;
 }

@@ -1,5 +1,5 @@
-import { Input } from "@/ui/input";
+import { Input } from "@/ui/components/input";
 
-export default function InputDisabledDemo() {
+export function Disabled() {
   return <Input disabled defaultValue="Can’t edit this" className="w-64" />;
 }

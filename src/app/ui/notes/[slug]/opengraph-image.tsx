@@ -1,10 +1,14 @@
-import { OG_CONTENT_TYPE, OG_SIZE, renderOgImage } from "@/lib/og";
-import { siteConfig } from "@/lib/site";
-import { getNote, notes } from "@/content";
+import { ImageResponse } from "next/og";
+import { notes } from "@/content/config/notes";
+import { getNote } from "@/content/lib/get-note";
+import { OgImage } from "@/shared/components/og-image";
+import { og } from "@/shared/config/og";
+import { site } from "@/shared/config/site";
+import { loadOgFonts } from "@/shared/lib/load-og-fonts";
 
-export const alt = `${siteConfig.name} · Note`;
-export const size = OG_SIZE;
-export const contentType = OG_CONTENT_TYPE;
+export const alt = `${site.name} · Note`;
+export const size = og.size;
+export const contentType = og.contentType;
 
 export const dynamicParams = false;
 
@@ -12,16 +16,16 @@ export function generateStaticParams() {
   return notes.map((note) => ({ slug: note.slug }));
 }
 
-type Props = {
+type NoteImageProps = {
   params: Promise<{ slug: string }>;
 };
 
-export default async function Image({ params }: Props) {
+export default async function Image({ params }: NoteImageProps) {
   const { slug } = await params;
   const note = getNote(slug);
 
-  return renderOgImage({
-    title: note?.title ?? siteConfig.name,
-    subtitle: siteConfig.name,
+  return new ImageResponse(<OgImage title={note?.title ?? site.name} subtitle={site.name} />, {
+    ...og.size,
+    fonts: await loadOgFonts(),
   });
 }

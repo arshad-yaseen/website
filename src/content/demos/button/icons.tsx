@@ -1,7 +1,7 @@
-import { Button } from "@/ui/button";
-import { Icon } from "@/ui/icon";
+import { Button } from "@/ui/components/button";
+import { Icon } from "@/ui/components/icon";
 
-export default function ButtonIconsDemo() {
+export function Icons() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <Button color="accent">

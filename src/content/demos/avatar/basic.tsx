@@ -1,6 +1,6 @@
-import { Avatar } from "@/ui/avatar";
+import { Avatar } from "@/ui/components/avatar";
 
-export default function AvatarDemo() {
+export function Basic() {
   return (
     <div className="flex items-center gap-4">
       <Avatar.Root>

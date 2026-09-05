@@ -1,5 +1,5 @@
-import { Input } from "@/ui/input";
+import { Input } from "@/ui/components/input";
 
-export default function InputDemo() {
+export function Basic() {
   return <Input placeholder="Jane Doe…" className="w-64" />;
 }

@@ -1,5 +1,5 @@
-import { Icon } from "@/ui/icon";
-import { Select } from "@/ui/select";
+import { Icon } from "@/ui/components/icon";
+import { Select } from "@/ui/components/select";
 
 const appearances = [
   {
@@ -31,7 +31,7 @@ const appearances = [
   },
 ];
 
-export default function SelectIconsDemo() {
+export function Icons() {
   return (
     <Select.Root items={appearances} defaultValue="system">
       <Select.Trigger>

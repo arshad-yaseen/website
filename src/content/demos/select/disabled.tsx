@@ -1,4 +1,4 @@
-import { Select } from "@/ui/select";
+import { Select } from "@/ui/components/select";
 
 const plans = [
   { label: "Hobby", value: "hobby" },
@@ -6,7 +6,7 @@ const plans = [
   { label: "Enterprise", value: "enterprise" },
 ];
 
-export default function SelectDisabledDemo() {
+export function Disabled() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       {/* The whole control is disabled. */}

@@ -1,12 +1,12 @@
-import { Button } from "@/ui/button";
+import { Button } from "@/ui/components/button";
 
-export default function ButtonElevatedDemo() {
+export function Elevated() {
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <Button elevated color="neutral">
+      <Button isElevated color="neutral">
         Settings
       </Button>
-      <Button elevated color="accent">
+      <Button isElevated color="accent">
         Settings
       </Button>
     </div>
