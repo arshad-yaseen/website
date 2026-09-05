@@ -14,7 +14,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return sections.flatMap((section) =>
-    section.docs.map((doc) => ({ section: section.slug, slug: doc.slug })),
+    section.docs.map((slug) => ({ section: section.slug, slug })),
   );
 }
 

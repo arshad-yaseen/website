@@ -1,3 +1,7 @@
+import { Basic } from "@/content/demos/loaders/basic";
+import { Gallery } from "@/content/demos/loaders/gallery";
+import { Color } from "@/content/demos/loaders/color";
+import { Sizes } from "@/content/demos/loaders/sizes";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { H2 } from "@/ui/components/prose/heading";
@@ -12,7 +16,9 @@ export const loaders = {
   source: "src/ui/components/dot-matrix",
   body: (
     <>
-      <Demo name="loaders/basic" />
+      <Demo name="loaders/basic">
+        <Basic />
+      </Demo>
 
       <P>
         Every loader is one inline SVG with a single embedded keyframe and a per-dot delay map, no
@@ -21,21 +27,27 @@ export const loaders = {
 
       <H2>Gallery</H2>
       <P>Thirty-four named patterns, each exported as its own component.</P>
-      <Demo name="loaders/gallery" />
+      <Demo name="loaders/gallery">
+        <Gallery />
+      </Demo>
 
       <H2>Color</H2>
       <P>
         Pass any CSS color to <InlineCode>color</InlineCode>. It defaults to the current
         theme&apos;s foreground, black on light, white on dark.
       </P>
-      <Demo name="loaders/color" />
+      <Demo name="loaders/color">
+        <Color />
+      </Demo>
 
       <H2>Sizing</H2>
       <P>
         Set <InlineCode>size</InlineCode> to scale a loader. Drop it down for an inline or
         chat-sized loader, or push it up for emphasis. Every other example here uses the default.
       </P>
-      <Demo name="loaders/sizes" />
+      <Demo name="loaders/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>API</H2>
       <P>Every loader accepts the same props.</P>

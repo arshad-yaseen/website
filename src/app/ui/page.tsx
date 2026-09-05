@@ -10,5 +10,5 @@ export const metadata: Metadata = createMetadata({
 });
 
 export default function UIPage() {
-  return <Article doc={introduction} />;
+  return <Article doc={introduction}>{introduction.body}</Article>;
 }

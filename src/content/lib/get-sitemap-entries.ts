@@ -4,7 +4,6 @@ import { sections } from "@/content/config/sections";
 import { writings } from "@/content/config/writings";
 import { site } from "@/shared/config/site";
 
-/** Every page the site publishes, ranked by how central it is. */
 export function getSitemapEntries(): MetadataRoute.Sitemap {
   const base = site.url;
 
@@ -15,27 +14,27 @@ export function getSitemapEntries(): MetadataRoute.Sitemap {
     { url: `${base}/ui/notes`, changeFrequency: "monthly", priority: 0.4 },
   ];
 
-  const docs: MetadataRoute.Sitemap = sections.flatMap((section) =>
-    section.docs.map((doc) => ({
-      url: `${base}/ui/${section.slug}/${doc.slug}`,
+  const docRoutes: MetadataRoute.Sitemap = sections.flatMap((section) =>
+    section.docs.map((slug) => ({
+      url: `${base}/ui/${section.slug}/${slug}`,
       changeFrequency: "monthly",
       priority: 0.6,
     })),
   );
 
-  const noteEntries: MetadataRoute.Sitemap = notes.map((note) => ({
+  const noteRoutes: MetadataRoute.Sitemap = notes.map((note) => ({
     url: `${base}/ui/notes/${note.slug}`,
     lastModified: note.date,
     changeFrequency: "yearly",
     priority: 0.5,
   }));
 
-  const writingEntries: MetadataRoute.Sitemap = writings.map((writing) => ({
+  const writingRoutes: MetadataRoute.Sitemap = writings.map((writing) => ({
     url: `${base}/writings/${writing.slug}`,
     lastModified: writing.date,
     changeFrequency: "yearly",
     priority: 0.7,
   }));
 
-  return [...landings, ...docs, ...noteEntries, ...writingEntries];
+  return [...landings, ...docRoutes, ...noteRoutes, ...writingRoutes];
 }

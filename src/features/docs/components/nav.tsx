@@ -1,6 +1,7 @@
 import { sections } from "@/content/config/sections";
-import { introduction } from "@/content/guides/introduction";
+import { getSectionDocs } from "@/content/lib/get-section-docs";
 import { NavLink } from "@/features/docs/components/nav-link";
+import { introduction } from "@/content/guides/introduction";
 import { notesIndex } from "@/features/docs/config/notes-index";
 
 export function Nav() {
@@ -20,7 +21,7 @@ export function Nav() {
         <div key={section.slug} className="flex flex-col gap-2">
           <p className="text-sm font-medium">{section.title}</p>
           <ul className="flex flex-col gap-1">
-            {section.docs.map((doc) => (
+            {getSectionDocs(section.slug).map((doc) => (
               <li key={doc.slug}>
                 <NavLink href={`/ui/${section.slug}/${doc.slug}`}>{doc.title}</NavLink>
               </li>

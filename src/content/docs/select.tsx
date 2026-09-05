@@ -1,3 +1,12 @@
+import { Basic } from "@/content/demos/select/basic";
+import { Sizes } from "@/content/demos/select/sizes";
+import { Multiple } from "@/content/demos/select/multiple";
+import { Grouped } from "@/content/demos/select/grouped";
+import { Descriptions } from "@/content/demos/select/descriptions";
+import { Icons } from "@/content/demos/select/icons";
+import { Avatars } from "@/content/demos/select/avatars";
+import { Disabled } from "@/content/demos/select/disabled";
+import { Invalid } from "@/content/demos/select/invalid";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { A } from "@/ui/components/prose/anchor";
@@ -13,40 +22,58 @@ export const select = {
   source: "src/ui/components/select.tsx",
   body: (
     <>
-      <Demo name="select/basic" />
+      <Demo name="select/basic">
+        <Basic />
+      </Demo>
       <P>A trigger opens a list of options and shows the chosen value.</P>
 
       <H2>Sizes</H2>
       <P>Three sizes to fit different layouts.</P>
-      <Demo name="select/sizes" />
+      <Demo name="select/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>Multiple</H2>
       <P>Let users choose more than one option.</P>
-      <Demo name="select/multiple" />
+      <Demo name="select/multiple">
+        <Multiple />
+      </Demo>
 
       <H2>Grouped</H2>
       <P>Organize options into labeled sections.</P>
-      <Demo name="select/grouped" />
+      <Demo name="select/grouped">
+        <Grouped />
+      </Demo>
 
       <H2>Descriptions</H2>
       <P>Add supporting text below each option.</P>
-      <Demo name="select/descriptions" />
+      <Demo name="select/descriptions">
+        <Descriptions />
+      </Demo>
 
       <H2>Icons</H2>
       <P>Show an icon next to each option.</P>
-      <Demo name="select/icons" />
+      <Demo name="select/icons">
+        <Icons />
+      </Demo>
 
       <H2>Avatars</H2>
       <P>Show an avatar next to each option.</P>
-      <Demo name="select/avatars" />
+      <Demo name="select/avatars">
+        <Avatars />
+      </Demo>
 
       <H2>Disabled</H2>
       <P>Disable the whole control or individual options.</P>
-      <Demo name="select/disabled" />
+      <Demo name="select/disabled">
+        <Disabled />
+      </Demo>
 
       <H2>Invalid</H2>
       <P>Shows an error state when the value is invalid.</P>
-      <Demo name="select/invalid" />
+      <Demo name="select/invalid">
+        <Invalid />
+      </Demo>
 
       <H2>API</H2>
 

@@ -1,19 +1,23 @@
-import type { Writing } from "@/content/types/writing";
+import type { WritingEntry } from "@/content/types/writing";
+import type { PropsWithChildren } from "react";
 import { formatDate } from "@/shared/lib/format-date";
 import { cn } from "@/ui/lib/cn";
 
-type WritingArticleProps = {
-  writing: Writing;
-};
+type WritingArticleProps = PropsWithChildren<{
+  writing: WritingEntry;
+}>;
 
-export function WritingArticle({ writing }: WritingArticleProps) {
+export function WritingArticle({ writing, children }: WritingArticleProps) {
   return (
     <article className="flex flex-col gap-10">
       <header className="flex flex-col items-center gap-4 text-center">
         <h1 className="max-w-xl text-3xl font-medium tracking-tight text-balance sm:text-4xl/tight">
           {writing.title}
         </h1>
-        <time dateTime={writing.date} className="font-mono text-xs text-neutral-500 tabular-nums">
+        <time
+          dateTime={writing.date}
+          className="font-mono text-xs text-neutral-600 tabular-nums dark:text-neutral-400"
+        >
           {formatDate(writing.date)}
         </time>
       </header>
@@ -25,7 +29,7 @@ export function WritingArticle({ writing }: WritingArticleProps) {
           "dark:[&_[data-slot=code-block]]:bg-neutral-900/60",
         )}
       >
-        {writing.body}
+        {children}
       </div>
     </article>
   );

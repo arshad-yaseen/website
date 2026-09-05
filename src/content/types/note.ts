@@ -4,3 +4,5 @@ export type Note = Doc & {
   /** Publish date, ISO 8601 (YYYY-MM-DD). */
   date: string;
 };
+
+export type NoteEntry = Omit<Note, "body">;

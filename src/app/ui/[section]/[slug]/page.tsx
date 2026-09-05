@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { docBodies } from "@/content/config/doc-bodies";
 import { sections } from "@/content/config/sections";
 import { getDoc } from "@/content/lib/get-doc";
 import { Article } from "@/features/docs/components/article";
@@ -13,7 +14,7 @@ export const dynamicParams = false;
 
 export function generateStaticParams() {
   return sections.flatMap((section) =>
-    section.docs.map((doc) => ({ section: section.slug, slug: doc.slug })),
+    section.docs.map((slug) => ({ section: section.slug, slug })),
   );
 }
 
@@ -35,10 +36,11 @@ export async function generateMetadata({ params }: DocPageProps): Promise<Metada
 export default async function DocPage({ params }: DocPageProps) {
   const { section, slug } = await params;
   const doc = getDoc(section, slug);
+  const loadBody = docBodies[slug];
 
-  if (!doc) {
+  if (!doc || !loadBody) {
     notFound();
   }
 
-  return <Article doc={doc} />;
+  return <Article doc={doc}>{await loadBody()}</Article>;
 }

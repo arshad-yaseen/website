@@ -1,8 +1,7 @@
-import type { Writing } from "@/content/types/writing";
+import type { WritingEntry } from "@/content/types/writing";
 import { site } from "@/shared/config/site";
 
-/** Schema.org BlogPosting description of one writing. */
-export function articleJsonLd(writing: Writing): object {
+export function articleJsonLd(writing: WritingEntry): object {
   const url = `${site.url}/writings/${writing.slug}`;
   const author = {
     "@type": "Person",

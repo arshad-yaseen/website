@@ -1,6 +1,6 @@
-import { getSection } from "@/content/lib/get-section";
-import type { Doc } from "@/content/types/doc";
+import { getSectionDocs } from "@/content/lib/get-section-docs";
+import type { DocEntry } from "@/content/types/doc";
 
-export function getDoc(section: string, slug: string): Doc | undefined {
-  return getSection(section)?.docs.find((doc) => doc.slug === slug);
+export function getDoc(section: string, slug: string): DocEntry | undefined {
+  return getSectionDocs(section).find((doc) => doc.slug === slug);
 }

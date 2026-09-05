@@ -1,3 +1,7 @@
+import { Basic } from "@/content/demos/input/basic";
+import { Sizes } from "@/content/demos/input/sizes";
+import { Disabled } from "@/content/demos/input/disabled";
+import { Invalid } from "@/content/demos/input/invalid";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { A } from "@/ui/components/prose/anchor";
@@ -13,19 +17,27 @@ export const input = {
   source: "src/ui/components/input.tsx",
   body: (
     <>
-      <Demo name="input/basic" />
+      <Demo name="input/basic">
+        <Basic />
+      </Demo>
 
       <H2>Sizes</H2>
       <P>Three sizes to fit different layouts.</P>
-      <Demo name="input/sizes" />
+      <Demo name="input/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>Disabled</H2>
       <P>Prevent interaction with the field.</P>
-      <Demo name="input/disabled" />
+      <Demo name="input/disabled">
+        <Disabled />
+      </Demo>
 
       <H2>Invalid</H2>
       <P>Shows an error state when the value is invalid.</P>
-      <Demo name="input/invalid" />
+      <Demo name="input/invalid">
+        <Invalid />
+      </Demo>
 
       <H2>API</H2>
       <PropsTable rows={[{ name: "size", type: '"sm" | "md" | "lg"', default: '"md"' }]} />

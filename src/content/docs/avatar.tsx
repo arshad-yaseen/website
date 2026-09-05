@@ -1,3 +1,7 @@
+import { Basic } from "@/content/demos/avatar/basic";
+import { Sizes } from "@/content/demos/avatar/sizes";
+import { Fallback } from "@/content/demos/avatar/fallback";
+import { Group } from "@/content/demos/avatar/group";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { A } from "@/ui/components/prose/anchor";
@@ -13,19 +17,27 @@ export const avatar = {
   source: "src/ui/components/avatar.tsx",
   body: (
     <>
-      <Demo name="avatar/basic" />
+      <Demo name="avatar/basic">
+        <Basic />
+      </Demo>
 
       <H2>Sizes</H2>
       <P>Three sizes to fit different layouts.</P>
-      <Demo name="avatar/sizes" />
+      <Demo name="avatar/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>Fallback</H2>
       <P>Shown while the image loads or if it fails.</P>
-      <Demo name="avatar/fallback" />
+      <Demo name="avatar/fallback">
+        <Fallback />
+      </Demo>
 
       <H2>Group</H2>
       <P>Overlap avatars to show a set of people.</P>
-      <Demo name="avatar/group" />
+      <Demo name="avatar/group">
+        <Group />
+      </Demo>
 
       <H2>API</H2>
       <PropsTable rows={[{ name: "size", type: '"sm" | "md" | "lg"', default: '"md"' }]} />

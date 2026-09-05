@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { writingBodies } from "@/content/config/writing-bodies";
 import { writings } from "@/content/config/writings";
 import { getWriting } from "@/content/lib/get-writing";
 import { WritingArticle } from "@/features/writings/components/writing-article";
@@ -37,15 +38,16 @@ export async function generateMetadata({ params }: WritingPageProps): Promise<Me
 export default async function WritingPage({ params }: WritingPageProps) {
   const { slug } = await params;
   const writing = getWriting(slug);
+  const loadBody = writingBodies[slug];
 
-  if (!writing) {
+  if (!writing || !loadBody) {
     notFound();
   }
 
   return (
     <>
       <JsonLd schema={articleJsonLd(writing)} />
-      <WritingArticle writing={writing} />
+      <WritingArticle writing={writing}>{await loadBody()}</WritingArticle>
     </>
   );
 }

@@ -1,6 +1,6 @@
 import { notFound, redirect } from "next/navigation";
 import { sections } from "@/content/config/sections";
-import { getSection } from "@/content/lib/get-section";
+import { getSectionDocs } from "@/content/lib/get-section-docs";
 
 type SectionPageProps = {
   params: Promise<{ section: string }>;
@@ -14,7 +14,7 @@ export function generateStaticParams() {
 
 export default async function SectionPage({ params }: SectionPageProps) {
   const { section } = await params;
-  const [first] = getSection(section)?.docs ?? [];
+  const [first] = getSectionDocs(section);
 
   if (!first) {
     notFound();

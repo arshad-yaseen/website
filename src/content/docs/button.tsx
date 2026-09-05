@@ -1,3 +1,10 @@
+import { Basic } from "@/content/demos/button/basic";
+import { Sizes } from "@/content/demos/button/sizes";
+import { Colors } from "@/content/demos/button/colors";
+import { Icons } from "@/content/demos/button/icons";
+import { Elevated } from "@/content/demos/button/elevated";
+import { Loading } from "@/content/demos/button/loading";
+import { AsLink } from "@/content/demos/button/as-link";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { A } from "@/ui/components/prose/anchor";
@@ -13,7 +20,9 @@ export const button = {
   source: "src/ui/components/button.tsx",
   body: (
     <>
-      <Demo name="button/basic" />
+      <Demo name="button/basic">
+        <Basic />
+      </Demo>
 
       <P>
         Defaults to <InlineCode>type="button"</InlineCode> so it never submits forms by accident.
@@ -21,37 +30,49 @@ export const button = {
       </P>
 
       <H2>Sizes</H2>
-      <Demo name="button/sizes" />
+      <Demo name="button/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>Colors</H2>
-      <Demo name="button/colors" />
+      <Demo name="button/colors">
+        <Colors />
+      </Demo>
 
       <H2>Icons</H2>
       <P>
         Place an <InlineCode>Icon</InlineCode> on either side of the label. Icon-only buttons need
         an <InlineCode>aria-label</InlineCode>.
       </P>
-      <Demo name="button/icons" />
+      <Demo name="button/icons">
+        <Icons />
+      </Demo>
 
       <H2>Elevated</H2>
       <P>
         Opt in to <InlineCode>isElevated</InlineCode> for an inset highlight on solid buttons.
       </P>
-      <Demo name="button/elevated" />
+      <Demo name="button/elevated">
+        <Elevated />
+      </Demo>
 
       <H2>Loading</H2>
       <P>
         Pass <InlineCode>disabled</InlineCode> and drop a dot matrix loader in as the icon for a
         loading state.
       </P>
-      <Demo name="button/loading" />
+      <Demo name="button/loading">
+        <Loading />
+      </Demo>
 
       <H2>Link</H2>
       <P>
         Pass an element to <InlineCode>render</InlineCode> to render the button as something else,
         like a link. Native button semantics are dropped automatically.
       </P>
-      <Demo name="button/as-link" />
+      <Demo name="button/as-link">
+        <AsLink />
+      </Demo>
 
       <H2>API</H2>
       <PropsTable

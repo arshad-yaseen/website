@@ -1,25 +1,22 @@
 import { readFile } from "node:fs/promises";
 import { join } from "node:path";
-import { type DemoName, demos } from "@/content/config/demos";
+import type { PropsWithChildren } from "react";
 import { Preview } from "@/content/components/preview";
 import { CodeBlock } from "@/ui/components/code-block";
 
 const DEMOS_DIR = join(process.cwd(), "src/content/demos");
 
-type DemoProps = {
-  name: DemoName;
-};
+type DemoProps = PropsWithChildren<{
+  /** Path of the demo under `content/demos`, without the extension. */
+  name: string;
+}>;
 
-/** Renders a demo beside its own source, read from the file the registry names. */
-export async function Demo({ name }: DemoProps) {
-  const Component = demos[name];
+export async function Demo({ name, children }: DemoProps) {
   const code = await readFile(join(DEMOS_DIR, `${name}.tsx`), "utf-8");
 
   return (
     <div className="flex flex-col gap-3">
-      <Preview>
-        <Component />
-      </Preview>
+      <Preview>{children}</Preview>
       <CodeBlock code={code} />
     </div>
   );

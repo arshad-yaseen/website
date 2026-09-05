@@ -1,13 +1,14 @@
 import { getSourceUrl } from "@/content/lib/get-source-url";
-import type { Doc } from "@/content/types/doc";
+import type { DocEntry } from "@/content/types/doc";
+import type { PropsWithChildren } from "react";
 import { Button } from "@/ui/components/button";
 import { P } from "@/ui/components/prose/paragraph";
 
-type ArticleProps = {
-  doc: Doc;
-};
+type ArticleProps = PropsWithChildren<{
+  doc: DocEntry;
+}>;
 
-export function Article({ doc }: ArticleProps) {
+export function Article({ doc, children }: ArticleProps) {
   return (
     <article className="flex flex-col gap-6">
       <header className="flex items-center justify-between gap-4">
@@ -24,7 +25,7 @@ export function Article({ doc }: ArticleProps) {
         )}
       </header>
       <P>{doc.description}</P>
-      {doc.body}
+      {children}
     </article>
   );
 }

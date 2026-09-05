@@ -1,3 +1,7 @@
+import { Basic } from "@/content/demos/textarea/basic";
+import { Sizes } from "@/content/demos/textarea/sizes";
+import { Disabled } from "@/content/demos/textarea/disabled";
+import { Invalid } from "@/content/demos/textarea/invalid";
 import { Demo } from "@/content/components/demo";
 import { PropsTable } from "@/content/components/props-table";
 import { H2 } from "@/ui/components/prose/heading";
@@ -12,19 +16,27 @@ export const textarea = {
   source: "src/ui/components/textarea.tsx",
   body: (
     <>
-      <Demo name="textarea/basic" />
+      <Demo name="textarea/basic">
+        <Basic />
+      </Demo>
 
       <H2>Sizes</H2>
       <P>Three sizes to fit different layouts.</P>
-      <Demo name="textarea/sizes" />
+      <Demo name="textarea/sizes">
+        <Sizes />
+      </Demo>
 
       <H2>Disabled</H2>
       <P>Prevent interaction with the field.</P>
-      <Demo name="textarea/disabled" />
+      <Demo name="textarea/disabled">
+        <Disabled />
+      </Demo>
 
       <H2>Invalid</H2>
       <P>Shows an error state when the value is invalid.</P>
-      <Demo name="textarea/invalid" />
+      <Demo name="textarea/invalid">
+        <Invalid />
+      </Demo>
 
       <H2>API</H2>
       <PropsTable rows={[{ name: "size", type: '"sm" | "md" | "lg"', default: '"md"' }]} />

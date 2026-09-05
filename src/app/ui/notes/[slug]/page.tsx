@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
+import { noteBodies } from "@/content/config/note-bodies";
 import { notes } from "@/content/config/notes";
 import { getNote } from "@/content/lib/get-note";
 import { Article } from "@/features/docs/components/article";
@@ -35,10 +36,11 @@ export async function generateMetadata({ params }: NotePageProps): Promise<Metad
 export default async function NotePage({ params }: NotePageProps) {
   const { slug } = await params;
   const note = getNote(slug);
+  const loadBody = noteBodies[slug];
 
-  if (!note) {
+  if (!note || !loadBody) {
     notFound();
   }
 
-  return <Article doc={note} />;
+  return <Article doc={note}>{await loadBody()}</Article>;
 }
