@@ -25,14 +25,13 @@ src/
 
 A kind folder holds one kind of file, and the kind fixes the extension. The list is closed. A new kind is added to this table and to the structure check before its first folder exists.
 
-| Folder        | Holds                                       | Extension |
-| ------------- | ------------------------------------------- | --------- |
-| `components/` | React components                            | `.tsx`    |
-| `hooks/`      | React hooks, one `use*` per file            | `.ts`     |
-| `lib/`        | Functions with no JSX                       | `.ts`     |
-| `types/`      | Types only, no runtime code                 | `.ts`     |
-| `config/`     | Hand-authored constants                     | `.ts`     |
-| `registry/`   | Generated lists that mirror the file system | `.ts`     |
+| Folder        | Holds                            | Extension |
+| ------------- | -------------------------------- | --------- |
+| `components/` | React components                 | `.tsx`    |
+| `hooks/`      | React hooks, one `use*` per file | `.ts`     |
+| `lib/`        | Functions with no JSX            | `.ts`     |
+| `types/`      | Types only, no runtime code      | `.ts`     |
+| `config/`     | Hand-authored constants          | `.ts`     |
 
 - **The extension is the kind.** A hook that returns JSX is a component. A function that returns JSX is a component. Nothing in `lib/` renders, nothing in `components/` is a plain function.
 - **`.ts` and `.tsx` never share a folder.** This follows from the rule above, and the structure check enforces it.
