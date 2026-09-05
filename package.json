@@ -1,33 +1,28 @@
 {
   "name": "fyi",
-  "version": "0.1.0",
   "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "turbo run dev",
+    "build": "turbo run build",
+    "start": "turbo run start",
+    "typecheck": "turbo run typecheck",
+    "generate": "turbo run generate",
     "lint": "oxlint",
-    "format": "oxfmt",
-    "typecheck": "tsc --noEmit",
-    "generate": "bun scripts/generate-loaders.ts && bun scripts/generate-registries.ts && oxfmt src/ui/components/dot-matrix src/content/config"
-  },
-  "dependencies": {
-    "@base-ui/react": "^1.8.0",
-    "class-variance-authority": "^0.7.1",
-    "cn": "^0.2.5",
-    "next": "16.3.4",
-    "next-themes": "^0.4.6",
-    "react": "19.2.8",
-    "react-dom": "19.2.8"
+    "format": "oxfmt"
   },
   "devDependencies": {
-    "@tailwindcss/postcss": "^4.3.3",
-    "@types/node": "^26.4.1",
-    "@types/react": "^19.2.18",
-    "@types/react-dom": "^19.2.7",
     "oxfmt": "^0.66.0",
     "oxlint": "^1.81.0",
-    "tailwindcss": "^4.3.3",
-    "typescript": "^7.0.2"
+    "turbo": "^2.10.12"
+  },
+  "devEngines": {
+    "packageManager": {
+      "name": "bun",
+      "version": "1.4.2"
+    }
   }
 }

@@ -6,17 +6,41 @@ Code is organized by layer, then by kind. A layer says what code is for, a kind 
 
 ## Architecture
 
+The repository is a Bun workspace run by Turborepo. Applications live in `apps/`, and what they share lives in `packages/`.
+
 ```
-src/
+apps/
+  web/                The site. A Next.js application, published nowhere, deployed as itself.
+packages/
+  ui/                 `@fyi/ui`. Design system primitives, tokens, fonts, and theming.
+  shared/             `@fyi/shared`. Framework-free functions with no domain knowledge.
+  typescript-config/  `@fyi/typescript-config`. The tsconfig files every package extends.
+```
+
+- **Packages depend down.** `web` depends on `ui` and `shared`, `ui` depends on `shared`, `shared` depends on nothing. A package never imports an application, and never reaches into another package with a relative path.
+- **A package owns its dependencies.** Its `package.json` lists exactly what its code imports, and nothing else. The root lists only the tools that run the repository.
+- **Packages are consumed as source.** `exports` maps each kind folder to its `.ts` or `.tsx` files, and the application's bundler compiles them. No package has a build step or a `dist/`.
+- **The design system owns its stylesheet.** `@fyi/ui/styles.css` imports Tailwind, declares every token, and points `@source` at its own components. An application's stylesheet imports it and adds only what that application's chrome needs. Layout variables, body classes, and anchor offsets are chrome, and stay in the application.
+
+Inside a package, code is organized by layer, then by kind. A layer says what code is for, a kind says what code is, and every file is exactly one thing in exactly one place.
+
+```
+apps/web/src/
   app/        Routes. Only the files Next.js names, each delegating to a feature.
   features/   One folder per product area. Owns its components, hooks, functions, and types.
   content/    Authored material, with the types, config, and registries that describe and list it.
-  shared/     Cross-cutting code with no domain knowledge.
-  ui/         Design system primitives. Publishable on its own.
+  shared/     Cross-cutting code for this application with no domain knowledge.
+  styles/     The application's stylesheet.
+
+packages/ui/src/
+  components/ hooks/ lib/ types/ config/
   styles/     Global CSS, tokens, fonts.
+
+packages/shared/src/
+  lib/
 ```
 
-- **Dependencies flow down.** A layer imports only from the layers below it, never from above and never from a sibling feature. What two features share moves down a layer. A cycle is a design error.
+- **Dependencies flow down.** A layer imports only from the layers below it, never from above and never from a sibling feature. What two features share moves down a layer, and what two applications share moves into a package. A cycle is a design error.
 - **A feature owns everything about itself.** Its components, hooks, functions, and types live inside its folder and nowhere else. Deleting the folder and its routes removes the feature, and the compiler lists every dangling import, because no barrel stands between a file and its users.
 - **Routes are wiring.** A route file reads params, calls one feature, and renders. No logic, no markup beyond layout, no data shaping.
 - **Nothing sits at a layer root.** Every file lives inside a kind folder, or inside an authored tree under `content/`. `app/` and `styles/` are the exceptions, because the framework names their files.
@@ -51,7 +75,8 @@ A kind folder holds one kind of file, and the kind fixes the extension. The list
 
 ### Imports
 
-- **Every project import uses `@/` and the full path.** `@/ui/components/button`, never `./button`, never `../lib/cn`. One string names each file everywhere it is used, so a grep for the path finds every importer and a move is one find and replace.
+- **Inside an application, every import uses `@/` and the full path.** `@/features/docs/components/nav`, never `./nav`, never `../lib/cn`.
+- **A package is imported by its name and export path, from outside and from within.** `@fyi/ui/components/button` is the one string that names that file everywhere, in the application and inside `@fyi/ui` itself, so a grep for the path finds every importer and a move is one find and replace.
 - **Named exports only.** Default exports only where Next.js requires them.
 - **No re-exports from project files.** `export { x } from "@/..."` is a barrel by another name. Re-exporting from a package is how a dependency gets wrapped, and it lives in the kind folder that matches what is wrapped.
 - **`import type` for types.** Import order belongs to the formatter.
@@ -59,7 +84,7 @@ A kind folder holds one kind of file, and the kind fixes the extension. The list
 - **One file, one responsibility.** Past three hundred lines, find the second one and split.
 - **Duplicate before you abstract.** Two similar things are not a pattern. Extract on the third, when the shape is known.
 
-The structure check fails on everything above that a script can see: files at a layer root, unknown kinds, wrong extensions, index files, relative imports, project re-exports, and names that are not kebab-case.
+The structure check fails on everything above that a script can see: files at a layer root, unknown kinds, wrong extensions, index files, relative imports, cross-package relative paths, project re-exports, and names that are not kebab-case.
 
 ## Naming
 
@@ -104,7 +129,7 @@ The structure check fails on everything above that a script can see: files at a 
 - **Derive from values.** `keyof typeof`, `ComponentProps<typeof Button>`, `satisfies` for registries and config.
 - **Exhaustive switches.** The `default` branch is `value satisfies never`.
 - **No `!` and no `as` to silence the compiler.** A cast carries a comment saying what was proven.
-- **Types live with their domain.** A content type in `content/types/`, a feature’s route params in that feature’s `types/`, a primitive like `IsoDate` in `shared/types/`. Never a bare `Props` or `Data`.
+- **Types live with their domain.** A content type in `content/types/`, a feature’s route params in that feature’s `types/`, a primitive like `IsoDate` in `@fyi/shared`. Never a bare `Props` or `Data`.
 
 ## Functions
 

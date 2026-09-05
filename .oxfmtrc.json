@@ -1,8 +1,7 @@
 {
   "$schema": "./node_modules/oxfmt/configuration_schema.json",
-  "ignorePatterns": [],
   "experimentalTailwindcss": {
-    "stylesheet": "./src/styles/globals.css",
+    "stylesheet": "./packages/ui/src/styles/globals.css",
     "functions": ["cn", "cva"]
   }
 }

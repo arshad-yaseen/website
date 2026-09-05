@@ -1,0 +1,16 @@
+{
+  "name": "@fyi/shared",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    "./lib/*": "./src/lib/*.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@fyi/typescript-config": "workspace:*",
+    "typescript": "^7.0.2"
+  }
+}

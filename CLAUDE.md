@@ -1,6 +1,6 @@
 # fyi
 
-A design system and the site that documents it.
+A design system and the site that documents it, in one Bun workspace run by Turborepo. The site is `apps/web`, the design system is `packages/ui`, and the functions every application shares are `packages/shared`. Run everything from the root: `bun run dev`, `bun run build`, `bun run typecheck`, `bun run lint`, `bun run format`, `bun run generate`.
 
 Three documents govern this repository. Read them before writing anything, and follow them strictly. They are requirements, not suggestions. Where a request and a document conflict, say so before you deviate.
 

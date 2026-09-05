@@ -1,0 +1,5 @@
+{
+  "extends": "@fyi/typescript-config/react-library.json",
+  "include": ["src", "scripts"],
+  "exclude": ["node_modules"]
+}
