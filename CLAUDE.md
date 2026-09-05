@@ -1,4 +1,4 @@
-# UI
+# fyi
 
 A design system and the site that documents it.
 
