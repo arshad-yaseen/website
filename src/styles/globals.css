@@ -1,7 +1,17 @@
 @import "tailwindcss";
 
 @custom-variant dark (&:is(.dark *));
-@custom-variant hover-open (&:is(:hover:not([data-disabled]), [data-popup-open]));
+@custom-variant hover-open {
+  @media (hover: hover) {
+    &:hover:not([data-disabled]) {
+      @slot;
+    }
+  }
+
+  &[data-popup-open] {
+    @slot;
+  }
+}
 
 @theme inline {
   --default-transition-timing-function: ease;
