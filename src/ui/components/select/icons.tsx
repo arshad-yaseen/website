@@ -1,7 +1,7 @@
 import type { ComponentProps } from "react";
 import { cn } from "@/ui/lib/cn";
 
-// A handful of glyphs, drawn inline so the design system's select needs no icon dependency.
+// Drawn inline so the select needs no icon dependency.
 const STROKE_ICON = {
   viewBox: "0 0 16 16",
   fill: "none",

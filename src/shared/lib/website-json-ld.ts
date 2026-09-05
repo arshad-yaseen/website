@@ -1,6 +1,5 @@
 import { site } from "@/shared/config/site";
 
-/** Schema.org WebSite description of the site as a whole. */
 export function websiteJsonLd(): object {
   return {
     "@context": "https://schema.org",

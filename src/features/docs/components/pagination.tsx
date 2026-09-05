@@ -3,7 +3,7 @@
 import type { Route } from "next";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import type { PaginationLink } from "@/features/docs/types/pagination-link";
+import type { PaginationLink } from "@/features/docs/lib/get-pagination-links";
 import { Icon } from "@/ui/components/icon";
 import { cn } from "@/ui/lib/cn";
 

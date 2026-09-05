@@ -1,9 +1,8 @@
-export type OgImageProps = {
+type OgImageProps = {
   title: string;
   subtitle?: string;
 };
 
-// Satori supports inline styles only, so the OG image cannot use Tailwind or theme tokens.
 const TITLE_SIZE_BY_LENGTH = [
   { upTo: 22, size: 100 },
   { upTo: 38, size: 82 },

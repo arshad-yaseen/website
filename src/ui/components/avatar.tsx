@@ -49,7 +49,6 @@ function Image({ className, ...props }: AvatarImageProps) {
 
 export type AvatarFallbackProps = AvatarPrimitive.Fallback.Props;
 
-/** Sized in container units so initials track whatever size the root sets. */
 function Fallback({ className, ...props }: AvatarFallbackProps) {
   return (
     <AvatarPrimitive.Fallback

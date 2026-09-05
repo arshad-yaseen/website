@@ -10,7 +10,7 @@ type OgFont = {
   weight: 400 | 700;
 };
 
-/** Reads the mono faces the OG image renders with, which Satori needs as buffers. */
+/** Satori needs the faces as buffers, not as a stylesheet. */
 export async function loadOgFonts(): Promise<OgFont[]> {
   const [regular, bold] = await Promise.all([
     readFile(join(FONTS_DIR, "berkeley-mono-regular.otf")),
