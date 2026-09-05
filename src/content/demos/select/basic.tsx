@@ -9,7 +9,7 @@ const fonts = [
 export function Basic() {
   return (
     <Select.Root items={fonts}>
-      <Select.Trigger>
+      <Select.Trigger aria-label="Font">
         <Select.Value placeholder="Select a font" />
         <Select.Icon />
       </Select.Trigger>

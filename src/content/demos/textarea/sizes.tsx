@@ -6,7 +6,13 @@ export function Sizes() {
   return (
     <div className="flex w-64 flex-col gap-3">
       {sizes.map((size) => (
-        <Textarea key={size} size={size} rows={2} placeholder={`Size ${size}`} />
+        <Textarea
+          key={size}
+          aria-label={`Size ${size}`}
+          size={size}
+          rows={2}
+          placeholder={`Size ${size}`}
+        />
       ))}
     </div>
   );

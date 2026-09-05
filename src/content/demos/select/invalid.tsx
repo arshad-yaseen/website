@@ -9,7 +9,7 @@ const sizes = [
 export function Invalid() {
   return (
     <Select.Root items={sizes}>
-      <Select.Trigger data-invalid>
+      <Select.Trigger aria-label="Size" data-invalid>
         <Select.Value placeholder="Select a size" />
         <Select.Icon />
       </Select.Trigger>

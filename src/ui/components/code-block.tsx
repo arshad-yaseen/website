@@ -14,14 +14,11 @@ const SYNTAX = cn(
   "[&_.code-keyword]:text-neutral-700 dark:[&_.code-keyword]:text-neutral-300",
   "[&_.code-string]:text-neutral-700 dark:[&_.code-string]:text-neutral-300",
   "[&_.code-number]:text-neutral-700 dark:[&_.code-number]:text-neutral-300",
-  "[&_.code-comment]:text-neutral-500 dark:[&_.code-comment]:text-neutral-400",
-  "[&_.code-sign]:text-neutral-500 dark:[&_.code-sign]:text-neutral-400",
+  "[&_.code-comment]:text-neutral-600 dark:[&_.code-comment]:text-neutral-400",
+  "[&_.code-sign]:text-neutral-600 dark:[&_.code-sign]:text-neutral-400",
 );
 
-/**
- * Highlights code in its own scroll container, and drops pointer events while the
- * page scrolls so a trackpad gesture never gets trapped inside it.
- */
+/** Drops pointer events while the page scrolls, so a trackpad gesture is never trapped inside. */
 export function CodeBlock({ code }: CodeBlockProps) {
   const ref = useRef<HTMLDivElement>(null);
 

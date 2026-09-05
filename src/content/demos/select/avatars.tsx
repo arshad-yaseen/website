@@ -2,9 +2,9 @@ import { Avatar } from "@/ui/components/avatar";
 import { Select } from "@/ui/components/select";
 
 const people = [
-  { value: "lara", name: "Lara Tucci", initials: "LT", src: "https://i.pravatar.cc/80?img=5" },
-  { value: "devon", name: "Devon Lane", initials: "DL", src: "https://i.pravatar.cc/80?img=12" },
-  { value: "noah", name: "Noah Pierre", initials: "NP", src: "https://i.pravatar.cc/80?img=33" },
+  { value: "lara", name: "Lara Tucci", initials: "LT", src: "/avatars/lara.svg" },
+  { value: "devon", name: "Devon Lane", initials: "DL", src: "/avatars/devon.svg" },
+  { value: "noah", name: "Noah Pierre", initials: "NP", src: "/avatars/noah.svg" },
 ];
 
 const items = people.map((person) => ({
@@ -12,7 +12,7 @@ const items = people.map((person) => ({
   label: (
     <>
       <Avatar.Root data-slot="icon">
-        <Avatar.Image src={person.src} alt={person.name} />
+        <Avatar.Image src={person.src} alt="" />
         <Avatar.Fallback>{person.initials}</Avatar.Fallback>
       </Avatar.Root>
       {person.name}
@@ -23,7 +23,7 @@ const items = people.map((person) => ({
 export function Avatars() {
   return (
     <Select.Root items={items} defaultValue="lara">
-      <Select.Trigger>
+      <Select.Trigger aria-label="Assignee">
         <Select.Value />
         <Select.Icon />
       </Select.Trigger>

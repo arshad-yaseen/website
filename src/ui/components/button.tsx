@@ -41,21 +41,21 @@ const buttonVariants = cva(
         accent: [
           "[--plain-bg:transparent] [--plain-fg:var(--color-accent-600)] [--plain-icon:var(--color-accent-500)] dark:[--plain-fg:var(--color-accent-400)] hover-open:[--plain-bg:var(--color-accent-500)]/10",
 
-          "[--solid-bg:var(--color-accent-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)] hover-open:[--solid-bg:var(--color-accent-600)]/90 dark:hover-open:[--solid-bg:var(--color-accent-500)]/90",
+          "[--solid-bg:var(--color-accent-600)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-accent-100)] hover-open:[--solid-bg:var(--color-accent-700)]",
 
           "[--outline-bg:transparent] [--outline-ring:var(--color-accent-500)]/40 data-disabled:[--outline-bg:var(--color-accent-500)]/10 hover-open:[--outline-bg:var(--color-accent-500)]/10",
         ],
         success: [
           "[--plain-bg:transparent] [--plain-fg:var(--color-success-600)] [--plain-icon:var(--color-success-500)] dark:[--plain-fg:var(--color-success-400)] hover-open:[--plain-bg:var(--color-success-500)]/10",
 
-          "[--solid-bg:var(--color-success-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-success-100)] hover-open:[--solid-bg:var(--color-success-600)]/90 dark:hover-open:[--solid-bg:var(--color-success-500)]/90",
+          "[--solid-bg:var(--color-success-700)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-success-100)] hover-open:[--solid-bg:var(--color-success-800)]",
 
           "[--outline-bg:transparent] [--outline-ring:var(--color-success-500)]/40 data-disabled:[--outline-bg:var(--color-success-500)]/10 hover-open:[--outline-bg:var(--color-success-500)]/10",
         ],
         danger: [
           "[--plain-bg:transparent] [--plain-fg:var(--color-danger-600)] [--plain-icon:var(--color-danger-500)] dark:[--plain-fg:var(--color-danger-400)] hover-open:[--plain-bg:var(--color-danger-500)]/10",
 
-          "[--solid-bg:var(--color-danger-500)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-danger-100)] hover-open:[--solid-bg:var(--color-danger-600)]/90 dark:hover-open:[--solid-bg:var(--color-danger-500)]/90",
+          "[--solid-bg:var(--color-danger-600)] [--solid-fg:var(--color-white)] [--solid-icon:var(--color-danger-100)] hover-open:[--solid-bg:var(--color-danger-700)]",
 
           "[--outline-bg:transparent] [--outline-ring:var(--color-danger-500)]/40 data-disabled:[--outline-bg:var(--color-danger-500)]/10 hover-open:[--outline-bg:var(--color-danger-500)]/10",
         ],

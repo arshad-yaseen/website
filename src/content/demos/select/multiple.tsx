@@ -23,7 +23,7 @@ function renderValue(value: string[]) {
 export function Multiple() {
   return (
     <Select.Root items={languages} multiple defaultValue={["ts", "rust"]}>
-      <Select.Trigger>
+      <Select.Trigger aria-label="Languages">
         <Select.Value>{renderValue}</Select.Value>
         <Select.Icon />
       </Select.Trigger>

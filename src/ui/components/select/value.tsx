@@ -9,7 +9,7 @@ export function Value({ className, ...props }: SelectValueProps) {
       data-slot="select-value"
       className={cn(
         "min-w-0 truncate text-start",
-        "data-placeholder:text-neutral-500 dark:data-placeholder:text-neutral-400",
+        "data-placeholder:text-neutral-600 dark:data-placeholder:text-neutral-400",
         "*:data-[slot=icon]:me-2 *:data-[slot=icon]:inline-block *:data-[slot=icon]:size-4 *:data-[slot=icon]:align-middle",
         "*:data-[slot=icon]:text-neutral-500 dark:*:data-[slot=icon]:text-neutral-400",
         className,

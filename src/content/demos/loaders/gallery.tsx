@@ -74,11 +74,14 @@ export function Gallery() {
   return (
     <div className="grid w-full grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-3 md:grid-cols-4">
       {LOADERS.map(({ name, Loader }) => (
-        <div key={name} className="flex flex-col items-center gap-4">
+        <div
+          key={name}
+          className="flex flex-col items-center gap-4 [contain-intrinsic-size:auto_5rem] [content-visibility:auto]"
+        >
           <div className="flex h-8 items-center justify-center">
             <Loader aria-label={name} />
           </div>
-          <span className="font-mono text-xs text-neutral-500 dark:text-neutral-400">{name}</span>
+          <span className="font-mono text-xs text-neutral-600 dark:text-neutral-400">{name}</span>
         </div>
       ))}
     </div>

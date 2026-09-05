@@ -1,5 +1,5 @@
 import { Textarea } from "@/ui/components/textarea";
 
 export function Invalid() {
-  return <Textarea data-invalid defaultValue="Too short" className="w-64" />;
+  return <Textarea aria-label="Bio" data-invalid defaultValue="Too short" className="w-64" />;
 }

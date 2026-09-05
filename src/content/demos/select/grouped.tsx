@@ -22,7 +22,7 @@ const groups = [
 export function Grouped() {
   return (
     <Select.Root items={groups}>
-      <Select.Trigger>
+      <Select.Trigger aria-label="Produce">
         <Select.Value placeholder="Select produce" />
         <Select.Icon />
       </Select.Trigger>

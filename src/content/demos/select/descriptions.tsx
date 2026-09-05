@@ -9,7 +9,7 @@ const plans = [
 export function Descriptions() {
   return (
     <Select.Root items={plans}>
-      <Select.Trigger>
+      <Select.Trigger aria-label="Plan">
         <Select.Value placeholder="Select a plan" />
         <Select.Icon />
       </Select.Trigger>

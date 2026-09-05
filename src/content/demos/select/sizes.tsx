@@ -13,7 +13,7 @@ export function Sizes() {
     <div className="flex flex-wrap items-end gap-3">
       {sizes.map((size) => (
         <Select.Root key={size} items={themes} defaultValue="system">
-          <Select.Trigger size={size}>
+          <Select.Trigger aria-label={`Font ${size}`} size={size}>
             <Select.Value />
             <Select.Icon />
           </Select.Trigger>

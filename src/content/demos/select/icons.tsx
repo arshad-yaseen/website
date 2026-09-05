@@ -34,7 +34,7 @@ const appearances = [
 export function Icons() {
   return (
     <Select.Root items={appearances} defaultValue="system">
-      <Select.Trigger>
+      <Select.Trigger aria-label="Theme">
         <Select.Value />
         <Select.Icon />
       </Select.Trigger>
