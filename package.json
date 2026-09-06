@@ -10,9 +10,9 @@
     "build": "turbo run build",
     "start": "turbo run start",
     "typecheck": "turbo run typecheck",
-    "generate": "turbo run generate",
     "lint": "oxlint",
-    "format": "oxfmt"
+    "format": "oxfmt",
+    "generate": "turbo run generate"
   },
   "devDependencies": {
     "oxfmt": "^0.66.0",
