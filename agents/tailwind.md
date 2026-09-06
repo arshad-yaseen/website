@@ -4,7 +4,7 @@ How Tailwind is written here, in the idiom of the version installed.
 
 Tailwind v4 moved configuration into CSS and changed enough defaults that v3 habits now
 produce working but wrong code. This document is the v4 way, verified against the version
-in `packages/ui/package.json`. `agents/design.md` decides which values to reach for. This decides how
+in the design system's package. `agents/design.md` decides which values to reach for. This decides how
 they are expressed.
 
 Written against **tailwindcss 4.3.3**. When that version moves, re-check the sections
